@@ -1,35 +1,21 @@
 import React from 'react';
-import { Drawer, Button } from 'antd';
-import { connect } from 'react-redux';
 import './backbone.css';
-import { showDrawer } from '../../actions/sideBarAction';
+import Header from './Header/header';
+import Sidenav from './Sidenav/sidenav';
 
-
-import Container from './content/container';
-
-class Dashboard extends React.Component{
-
-    Open(){
-        this.props.showDrawer()
-    }
+export default class Dashboard extends React.Component{
 
     render(){
         return (
-            <div>
-                <button onClick={()=>{this.Open()}}>click me</button>
-                {this.props.drawerOpenState}
-                <Container/>
+            <div>               
+                <Header/>
+                <Sidenav/>
             </div>
+
+            
+ 
         );
     }
-  
 }
 
 
-const mapStateToProps = state => ({
-    drawerOpenState : state.openDrawer.drawerOpenState
-});
-
-export default connect(mapStateToProps,{
-    showDrawer
-})(Dashboard);

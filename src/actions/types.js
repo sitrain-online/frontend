@@ -1,3 +1,2 @@
-export const OPEN_DRAWER = 'OPEN_DRAWER';
-export const CLOSE_DRAWER = 'CLOSE_DRAWE';
+export const TOOGLE_NAVIGATION = 'TOOGLE_NAVIGATION';
 

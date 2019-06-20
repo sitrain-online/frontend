@@ -1,17 +1,17 @@
-import { OPEN_DRAWER, CLOSE_DRAWE } from '../actions/types';
+import { TOOGLE_NAVIGATION } from '../actions/types';
 
 
 const initialState = {
-    
+    navigationCollapsed : false
 }
 
 export default (state = initialState, action )=>{
     switch(action.type){
-        case OPEN_DRAWER:
+        case TOOGLE_NAVIGATION:
             return {
                 ...state,
-                drawerOpenState : 'hi'
-            } 
+                navigationCollapsed : !state.navigationCollapsed
+            }  
         default:
             return state;
     }

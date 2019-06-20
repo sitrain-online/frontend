@@ -1,0 +1,14 @@
+.header-container{
+    width:100vw;
+    height:50px;
+    background: rgb(155, 175, 190);
+    
+}
+.header-container > * {
+    top:50%;
+    bottom: 50%;
+    transform: translateY(-50%);
+}
+.toggle-button{
+    left:-40px !important;
+}

@@ -1,9 +1,9 @@
-import { OPEN_DRAWER, CLOSE_DRAWE } from './types';
+import { TOOGLE_NAVIGATION } from './types';
 
 
 
-export const showDrawer = ()=> dispatch =>{
+export const toogleNav = ()=> dispatch =>{
     dispatch({
-       type : OPEN_DRAWER
+       type : TOOGLE_NAVIGATION
     })
 }

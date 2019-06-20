@@ -1,16 +1,10 @@
 import React from "react";
-import { Input, Tooltip, Icon, Button } from 'antd';
+import { Input, Icon, Button } from 'antd';
 import './login.css';
 
 
 
 export default class Login extends React.Component{
-    constructor(props){
-        super(props);
-        this.state={
-
-        }
-    }
 
     render(){
         return(

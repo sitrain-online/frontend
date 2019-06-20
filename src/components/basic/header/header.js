@@ -2,10 +2,10 @@ import React from 'react';
 import './header.css'; 
 import main from './main.jpg';
 
-function Header(props) {
+function HomepageHeader(props) {
     return (
         <div>
-            <div className="header-container">
+            <div className="header-container-2">
                 <img src={main} alt="company logo" className="logo" />
                 <ul className="navigation">
                     <li className="p">Home</li>
@@ -19,4 +19,4 @@ function Header(props) {
     );
 }
 
-export default Header;
+export default HomepageHeader;

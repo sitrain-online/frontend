@@ -1,5 +1,16 @@
-.navigation-wrapper{
-    width:256px;
+.navigation-wrapper-1{
+    position: fixed;
+    width:248px;
     height:100vh;
     margin-top: 50px;
+    overflow: scroll;
+    background: #001529;
+}
+.navigation-wrapper-2{
+    position: fixed;
+    width:106px;
+    height:100vh;
+    margin-top: 50px;
+    overflow: scroll;
+    background: #001529;
 }

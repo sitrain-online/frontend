@@ -1,19 +1,22 @@
 import React from 'react';
 import './backbone.css';
-import Header from './Header/header';
+import UserHeader from './Header/header';
 import Sidenav from './Sidenav/sidenav';
+import Usercontainer from './container/container';
+
+import NewTrainerForm from "../admin/newTrainer/newtrainer";
+import AllTrainer from '../admin/allTrainer/alltrainer';
 
 export default class Dashboard extends React.Component{
-
     render(){
         return (
-            <div>               
-                <Header/>
+            <div>         
+                <UserHeader />      
                 <Sidenav/>
-            </div>
-
-            
- 
+                <Usercontainer>
+                    <AllTrainer />
+                </Usercontainer>
+            </div> 
         );
     }
 }

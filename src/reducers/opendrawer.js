@@ -2,7 +2,7 @@ import { TOOGLE_NAVIGATION } from '../actions/types';
 
 
 const initialState = {
-    navigationCollapsed : false
+    navigationCollapsed : true
 }
 
 export default (state = initialState, action )=>{

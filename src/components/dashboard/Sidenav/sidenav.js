@@ -8,7 +8,7 @@ const { SubMenu }  = Menu;
 class Sidenav extends React.Component {
     render() {
         return (
-            <div className="navigation-wrapper">
+            <div className={this.props.drawer.navigationCollapsed ? "navigation-wrapper-2" : "navigation-wrapper-1"}>
                 <Menu
                     defaultSelectedKeys={['1']}
                     defaultOpenKeys={[]}
@@ -54,8 +54,24 @@ class Sidenav extends React.Component {
                         <Menu.Item key="9">Option 9</Menu.Item>
                         <Menu.Item key="10">Option 10</Menu.Item>
                         <SubMenu key="sub3" title="Submenu">
-                        <Menu.Item key="11">Option 11</Menu.Item>
-                        <Menu.Item key="12">Option 12</Menu.Item>
+                            <Menu.Item key="11">Option 11</Menu.Item>
+                            <Menu.Item key="12">Option 12</Menu.Item>
+                        </SubMenu>
+                    </SubMenu>
+                    <SubMenu
+                        key="sub4"
+                        title={
+                        <span>
+                            <Icon type="appstore" />
+                            <span>Navigation Two</span>
+                        </span>
+                        }
+                    >
+                        <Menu.Item key="13">Option 9</Menu.Item>
+                        <Menu.Item key="14">Option 10</Menu.Item>
+                        <SubMenu key="sub5" title="Submenu">
+                            <Menu.Item key="15">Option 11</Menu.Item>
+                            <Menu.Item key="16">Option 12</Menu.Item>
                         </SubMenu>
                     </SubMenu>
                 </Menu>                

@@ -3,13 +3,13 @@ import './homepage.css';
 import './homepage.jpeg';
 
 import Login from '../login/login';
-import Header from '../header/header'; 
+import HomepageHeader from '../header/header'; 
 
 function Homepage(props) {
   return (
     <div>
         <div className="parallax">
-          <Header/>
+          <HomepageHeader/>
           <Login />
         </div>
     </div>

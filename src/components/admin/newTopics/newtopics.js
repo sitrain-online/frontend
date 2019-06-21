@@ -25,7 +25,7 @@ class NewTopics extends Component {
         const { getFieldDecorator } = this.props.form;
         return (
             <div className="register-subject-form" >
-                {this.props.admin.trainerId}
+                {this.props.admin.SubjectId}
                 <div className="register-trainer-form-body">
                     <Form  onSubmit={this.handleSubmit}>
                         <Form.Item label="Topic Name" hasFeedback className="input-admin-trainer">

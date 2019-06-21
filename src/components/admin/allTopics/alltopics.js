@@ -3,22 +3,22 @@ import { Table, Input, Button, Icon, Typography, Divider, Modal } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { connect } from 'react-redux';
 import { 
-    ChangeTrainerSearchText,
-    ChangeTrainerTableData,
-    ChangeTrainerModalState
+    ChangeSubjectSearchText,
+    ChangeSubjectTableData,
+    ChangeSubjectModalState
 } from '../../../actions/adminAction';
-import './alltrainer.css'
-import NewTrainerForm from '../newTrainer/newtrainer';
+import './alltopics.css'
+import NewSubjectForm from '../newTopics/newtopics';
 
 
-class AllTrainer extends Component {
+class AllTopics extends Component {
 
   openModal = (id,mode)=>{
-    this.props.ChangeTrainerModalState(true,id,mode);
+    this.props.ChangeSubjectModalState(true,id,mode);
   }
-
+  
   closeModal = ()=>{
-    this.props.ChangeTrainerModalState(false,null);
+    this.props.ChangeSubjectModalState(false,null);
   }
 
     getColumnSearchProps = dataIndex => ({
@@ -64,7 +64,7 @@ class AllTrainer extends Component {
         render: text => (
           <Highlighter
             highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-            searchWords={[this.props.admin.TrainersearchText]}
+            searchWords={[this.props.admin.SubjectsearchText]}
             autoEscape
             textToHighlight={text.toString()}
           />
@@ -73,12 +73,12 @@ class AllTrainer extends Component {
     
       handleSearch = (selectedKeys, confirm) => {
         confirm();
-        this.props.ChangeTrainerSearchText(selectedKeys[0])
+        this.props.ChangeSubjectSearchText(selectedKeys[0])
       };
     
       handleReset = clearFilters => {
         clearFilters();
-        this.props.ChangeTrainerSearchText('')
+        this.props.ChangeSubjectSearchText('')
       };
 
     render() {
@@ -88,21 +88,8 @@ class AllTrainer extends Component {
           title: 'Name',
           dataIndex: 'name',
           key: 'name',
-          width: '30%',
+          width: '70%',
           ...this.getColumnSearchProps('name'),
-        },
-        {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
-          width: '20%',
-          ...this.getColumnSearchProps('age'),
-        },
-        {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
-          ...this.getColumnSearchProps('address'),
         },
         {
           title: 'Action',
@@ -110,7 +97,7 @@ class AllTrainer extends Component {
           dataIndex: 'key',
           render: (key) => (
             <span>
-              <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Edit Details')}/>
+              <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Edit Topic')}/>
                 <Divider type="vertical" />
               <Button type="danger" shape="circle" icon="delete" />
             </span>
@@ -119,33 +106,32 @@ class AllTrainer extends Component {
       ];
         return (
             <div className="admin-table-container">
-              <Button type="primary" icon="user-add" style={{marginBottom:'10px'}} onClick={()=>this.openModal(null,'Register')}>
+              <Button type="primary" icon="file-text" style={{marginBottom:'10px'}} onClick={()=>this.openModal(null,'New Topic')}>
                 Add New
               </Button> 
               <div className="register-trainer-form-header">
-                <Title level={4} style={{color:'#fff',textAlign:'center'}}>List of Trainer</Title>
+                <Title level={4} style={{color:'#fff',textAlign:'center'}}>List of Topics</Title>
               </div>
               <Table 
                 bordered={true} 
                 columns={columns} 
-                dataSource={this.props.admin.trainerTableData} 
+                dataSource={this.props.admin.subjectTableData} 
                 size="medium" 
                 pagination={{ pageSize: 5 }}
-                loading={this.props.admin.trainerTableLoading
+                loading={this.props.admin.SubjectTableLoading
                 }
               />;
               <Modal
-                visible={this.props.admin.TrainermodalOpened}
-                title={this.props.admin.Trainermode}
+                visible={this.props.admin.SubjectmodalOpened}
+                title={this.props.admin.Subjectmode}
                 onOk={this.handleOk}
                 onCancel={this.closeModal}
                 style={{top :'20px',padding:'0px',backgroundColor:'rgb(155,175,190)'}}
-                width="80%"
                 footer={[
                   
                 ]}
               >
-                <NewTrainerForm />
+                <NewSubjectForm />
               </Modal>
             </div>
         )
@@ -157,7 +143,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps,{
-    ChangeTrainerSearchText,
-    ChangeTrainerTableData,
-    ChangeTrainerModalState
-})(AllTrainer);
+    ChangeSubjectSearchText,
+    ChangeSubjectTableData,
+    ChangeSubjectModalState
+})(AllTopics);

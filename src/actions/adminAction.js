@@ -1,27 +1,22 @@
-export const ChangeModalState = (d1,d2)=> dispatch =>{
+export const ChangeTrainerModalState = (d1,d2,d3)=> dispatch =>{
     dispatch({
-       type : 'CHANGE_MODAL_STATE',
+       type : 'CHANGE_TRAINER_MODAL_STATE',
        payload1 : d1,
-       payload2 : d2
+       payload2 : d2,
+       payload3 : d3
     })
 }
-export const ChangeConfirmDirty = (d)=> dispatch =>{
+export const ChangeTrainerConfirmDirty = (d)=> dispatch =>{
     dispatch({
        type : 'CHANGE_TRAINER_FORM_CONFIRMdIRTY',
        payload : d
     })
 }
 
-export const ChangeFormMode = (d)=> dispatch =>{
-    dispatch({
-       type : 'CHANGE_TRAINER_FORM_MODE',
-       payload : d
-    })
-}
 
-export const ChangeSearchText = (d)=> dispatch =>{
+export const ChangeTrainerSearchText = (d)=> dispatch =>{
     dispatch({
-       type : 'CHANGE_SEARCH_TEXT',
+       type : 'CHANGE_TRAINER_SEARCH_TEXT',
        payload : d
     })
 }
@@ -33,3 +28,32 @@ export const ChangeTrainerTableData = (d)=> dispatch =>{
     })
 }
 
+export const ChangeSubjectModalState = (d1,d2,d3)=> dispatch =>{
+    dispatch({
+       type : 'CHANGE_SUBJECT_MODAL_STATE',
+       payload1 : d1,
+       payload2 : d2,
+       payload3 : d3
+    })
+}
+export const ChangeSubjectConfirmDirty = (d)=> dispatch =>{
+    dispatch({
+       type : 'CHANGE_SUBJECT_FORM_CONFIRMdIRTY',
+       payload : d
+    })
+}
+
+
+export const ChangeSubjectSearchText = (d)=> dispatch =>{
+    dispatch({
+       type : 'CHANGE_SUBJECT_SEARCH_TEXT',
+       payload : d
+    })
+}
+
+export const ChangeSubjectTableData = (d)=> dispatch =>{
+    dispatch({
+       type : 'CHANGE_SUBJECT_TABLE_LOADING_STATUS',
+       payload : d
+    })
+}

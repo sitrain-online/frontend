@@ -9,8 +9,7 @@ import {
 } from 'antd';
 import { connect } from 'react-redux';
 import { 
-    ChangeConfirmDirty,
-    ChangeFormMode 
+    ChangeTrainerConfirmDirty,
 } from '../../../actions/adminAction';
 
 class NewTrainer extends Component {
@@ -26,7 +25,7 @@ class NewTrainer extends Component {
 
     validateToNextPassword = (rule, value, callback) => {
         const form = this.props.form;
-        if (value && this.props.admin.confirmDirty) {
+        if (value && this.props.admin.TrainerconfirmDirty) {
             form.validateFields(['confirm'], { force: true });
         }
         callback();
@@ -108,7 +107,7 @@ class NewTrainer extends Component {
                         </Row>
                         <Form.Item>
                             <Button type="primary" htmlType="submit" block>
-                                {this.props.admin.mode}
+                                {this.props.admin.Trainermode}
                             </Button>
                         </Form.Item>
                     </Form>
@@ -127,7 +126,6 @@ const mapStateToProps = state => ({
 const NewTrainerForm = Form.create({ name: 'register' })(NewTrainer);
 
 export default connect(mapStateToProps,{
-    ChangeConfirmDirty,
-    ChangeFormMode
+    ChangeTrainerConfirmDirty,
 })(NewTrainerForm);
 

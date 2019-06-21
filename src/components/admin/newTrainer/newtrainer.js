@@ -4,7 +4,8 @@ import {
     Form,
     Input,
     Button,
-    Typography 
+    Typography,
+    Row, Col
 } from 'antd';
 import { connect } from 'react-redux';
 import { 
@@ -45,56 +46,66 @@ class NewTrainer extends Component {
         const { getFieldDecorator } = this.props.form;
         return (
             <div className="register-trainer-form" >
-                <div className="register-trainer-form-header">
-                    <Title level={4} style={{color:'#fff',textAlign:'center'}}>{this.props.admin.mode}</Title>
-                </div>
+                {this.props.admin.trainerId}
                 <div className="register-trainer-form-body">
                     <Form  onSubmit={this.handleSubmit}>
-                        <Form.Item label="Name" hasFeedback>
-                            {getFieldDecorator('nickname', {
-                                rules: [{ required: true, message: 'Please input your name!', whitespace: true }],
-                            })(<Input />)}
-                        </Form.Item>
-                        <Form.Item label="E-mail" hasFeedback>
-                            {getFieldDecorator('email', {
-                                rules: [
-                                    {
-                                        type: 'email',
-                                        message: 'The input is not valid E-mail!',
-                                    },
-                                    {
-                                        required: true,
-                                        message: 'Please input your E-mail!',
-                                    },
-                                ],
-                            })(<Input />)}
-                        </Form.Item>
-                        <Form.Item label="Password" hasFeedback>
-                            {getFieldDecorator('password', {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: 'Please input your password!',
-                                    },
-                                    {
-                                        validator: this.validateToNextPassword,
-                                    },
-                                ],
-                            })(<Input.Password />)}
-                        </Form.Item>
-                        <Form.Item label="Confirm Password" hasFeedback>
-                            {getFieldDecorator('confirm', {
-                                rules: [
-                                {
-                                    required: true,
-                                    message: 'Please confirm your password!',
-                                },
-                                {
-                                    validator: this.compareToFirstPassword,
-                                },
-                                ],
-                            })(<Input.Password onBlur={this.handleConfirmBlur} />)}
-                        </Form.Item>
+                        <Row type="flex">
+                            <Col span={12}>
+                                <Form.Item label="Name" hasFeedback className="input-admin-trainer">
+                                    {getFieldDecorator('nickname', {
+                                        rules: [{ required: true, message: 'Please input your name!', whitespace: true }],
+                                    })(<Input />)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                                <Form.Item label="E-mail" hasFeedback className="input-admin-trainer">
+                                    {getFieldDecorator('email', {
+                                        rules: [
+                                            {
+                                                type: 'email',
+                                                message: 'The input is not valid E-mail!',
+                                            },
+                                            {
+                                                required: true,
+                                                message: 'Please input your E-mail!',
+                                            },
+                                        ],
+                                    })(<Input />)}
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                        <Row type="flex">
+                            <Col span={12}>
+                                <Form.Item label="Password" hasFeedback className="input-admin-trainer">
+                                    {getFieldDecorator('password', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Please input your password!',
+                                            },
+                                            {
+                                                validator: this.validateToNextPassword,
+                                            },
+                                        ],
+                                    })(<Input.Password />)}
+                                </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                                <Form.Item label="Confirm Password" hasFeedback className="input-admin-trainer">
+                                    {getFieldDecorator('confirm', {
+                                        rules: [
+                                        {
+                                            required: true,
+                                            message: 'Please confirm your password!',
+                                        },
+                                        {
+                                            validator: this.compareToFirstPassword,
+                                        },
+                                        ],
+                                    })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+                                </Form.Item>
+                            </Col>
+                        </Row>
                         <Form.Item>
                             <Button type="primary" htmlType="submit" block>
                                 {this.props.admin.mode}

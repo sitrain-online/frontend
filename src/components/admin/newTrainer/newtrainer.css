@@ -1,6 +1,5 @@
 .register-trainer-form{
-    width:40%;
-    margin-left: 30%;
+    width:100%;
     border-radius: 5px;
 }
 .register-trainer-form-header{
@@ -11,7 +10,9 @@
     padding-top : 10px;
 }
 .register-trainer-form-body{
-    width: 100%;
-    padding:30px 50px 50px 50px ;
-    background-color: rgb(155,175,190);    
+    width: 100%; 
+}
+.input-admin-trainer{
+    width:90%;
+    margin-left: 5%;
 }

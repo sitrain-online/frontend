@@ -127,6 +127,7 @@ class AllTopics extends Component {
                 onOk={this.handleOk}
                 onCancel={this.closeModal}
                 style={{top :'20px',padding:'0px',backgroundColor:'rgb(155,175,190)'}}
+                destroyOnClose={true}
                 footer={[
                   
                 ]}

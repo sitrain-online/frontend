@@ -6,6 +6,8 @@ import Sidenav from './Sidenav/sidenav';
 import Usercontainer from './container/container';
 import AllTrainer from '../admin/allTrainer/alltrainer';
 import AllTopics from '../admin/allTopics/alltopics.js';
+import AllQuestions from '../trainer/allquestions/allquestion';
+import AllTests from '../trainer/alltests/alltest';
 
 import { changeActiveRoute } from '../../actions/useraction';
 
@@ -23,11 +25,17 @@ class Dashboard extends React.Component{
 
     render(){
         var torender = null;
-        if(this.props.match.params.options==='listtrainer'){
+        if(this.props.match.params.options==='listtrainers'){
             torender = <AllTrainer/>
         }
         if(this.props.match.params.options==='listsubjects'){
             torender = <AllTopics/>
+        }
+        if(this.props.match.params.options==='listquestions'){
+            torender = <AllQuestions/>
+        }
+        if(this.props.match.params.options==='listtests'){
+            torender = <AllTests/>
         }
         
         return (

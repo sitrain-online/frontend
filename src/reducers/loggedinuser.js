@@ -9,13 +9,24 @@ const initialState = {
         {
             display : 'All Trainers',
             icon : 'user',
-            link : '/user/listtrainer'
+            link : '/user/listtrainers'
         },
         {
             display : 'All Subjects',
             icon : 'file-text',
             link : '/user/listsubjects' 
+        },
+        {
+            display : 'All Questions',
+            icon : 'question-circle',
+            link : '/user/listquestions'
+        },
+        {
+            display : 'All tests',
+            icon : 'form',
+            link : '/user/listtests'
         }
+
     ]   
 }
 
@@ -25,6 +36,16 @@ export default (state = initialState, action )=>{
             return {
                 ...state,
                 activeRoute : action.payload
+            }
+        case 'LOGIN':
+            return {
+                ...state,
+                isLoggedIn : true
+            }
+        case 'LOGOUT':
+            return {
+                ...state,
+                isLoggedIn : false
             }
         default:
             return state;

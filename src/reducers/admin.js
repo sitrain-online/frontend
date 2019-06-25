@@ -122,7 +122,7 @@ export default (state = initialState, action )=>{
                 trainerId : action.payload2,
                 Trainermode : action.payload3
             }
-        case 'CHANGE_TRAINER_FORM_CONFIRMdIRTY':
+        case 'CHANGE_TRAINER_FORM_CONFIRMDIRTY':
             return {
                 ...state,
                 TrainerconfirmDirty : action.payload
@@ -144,7 +144,7 @@ export default (state = initialState, action )=>{
                 SubjectId : action.payload2,
                 Subjectmode : action.payload3
             }
-        case 'CHANGE_SUBJECT_FORM_CONFIRMdIRTY':
+        case 'CHANGE_SUBJECT_FORM_CONFIRMDIRTY':
             return {
                 ...state,
                 SubjectconfirmDirty : action.payload

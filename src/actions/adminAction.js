@@ -8,7 +8,7 @@ export const ChangeTrainerModalState = (d1,d2,d3)=> dispatch =>{
 }
 export const ChangeTrainerConfirmDirty = (d)=> dispatch =>{
     dispatch({
-       type : 'CHANGE_TRAINER_FORM_CONFIRMdIRTY',
+       type : 'CHANGE_TRAINER_FORM_CONFIRMDIRTY',
        payload : d
     })
 }
@@ -38,7 +38,7 @@ export const ChangeSubjectModalState = (d1,d2,d3)=> dispatch =>{
 }
 export const ChangeSubjectConfirmDirty = (d)=> dispatch =>{
     dispatch({
-       type : 'CHANGE_SUBJECT_FORM_CONFIRMdIRTY',
+       type : 'CHANGE_SUBJECT_FORM_CONFIRMDIRTY',
        payload : d
     })
 }

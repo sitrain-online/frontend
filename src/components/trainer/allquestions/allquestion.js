@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, Typography, Divider, Modal } from 'antd';
+import { Table, Input, Button, Icon, Typography, Divider, Modal, Select, Row, Col  } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { connect } from 'react-redux';
 import { 
-    ChangeTrainerSearchText,
-    ChangeTrainerTableData,
-    ChangeTrainerModalState
-} from '../../../actions/adminAction';
-import './alltrainer.css'
-import NewTrainerForm from '../newTrainer/newtrainer';
+  ChangeQuestionModalState,
+  ChangeQuestionTableData,
+  ChangeQuestionSearchText,
+  ChangeSelectedSubjects
+} from '../../../actions/trainerAction';
+import './allquestion.css'
+import NewQuestionForm from '../newquestion/newquestion';
 
 
-class AllTrainer extends Component {
+
+class AllQuestions extends Component {
 
   openModal = (id,mode)=>{
-    this.props.ChangeTrainerModalState(true,id,mode);
+    this.props.ChangeQuestionModalState(true,id,mode);
   }
 
   closeModal = ()=>{
-    this.props.ChangeTrainerModalState(false,null);
+    this.props.ChangeQuestionModalState(false,null,null);
+  }
+
+  handleSubjectChange =(s)=>{
+    this.props.ChangeSelectedSubjects(s);
   }
 
     getColumnSearchProps = dataIndex => ({
@@ -64,7 +70,7 @@ class AllTrainer extends Component {
         render: text => (
           <Highlighter
             highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-            searchWords={[this.props.admin.TrainersearchText]}
+            searchWords={[this.props.trainer.QuestionsearchText]}
             autoEscape
             textToHighlight={text.toString()}
           />
@@ -73,16 +79,17 @@ class AllTrainer extends Component {
     
       handleSearch = (selectedKeys, confirm) => {
         confirm();
-        this.props.ChangeTrainerSearchText(selectedKeys[0])
+        this.props.ChangeQuestionSearchText(selectedKeys[0])
       };
     
       handleReset = clearFilters => {
         clearFilters();
-        this.props.ChangeTrainerSearchText('')
+        this.props.ChangeQuestionSearchText('')
       };
 
     render() {
       const { Title } = Typography;
+      const subjectfilteredoption = this.props.trainer.subjects.filter(o => !this.props.trainer.selectedSubjects.includes(o));
       const columns = [
         {
           title: 'Name',
@@ -110,7 +117,7 @@ class AllTrainer extends Component {
           dataIndex: 'key',
           render: (key) => (
             <span>
-              <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Edit Details')}/>
+              <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Edit Question')}/>
                 <Divider type="vertical" />
               <Button type="danger" shape="circle" icon="delete" />
             </span>
@@ -119,34 +126,56 @@ class AllTrainer extends Component {
       ];
         return (
             <div className="admin-table-container">
-              <Button type="primary" icon="user-add" style={{marginBottom:'10px'}} onClick={()=>this.openModal(null,'Register')}>
-                Add New
-              </Button> 
+              <div>
+                <Row>
+                  <Col span={12}>
+                    <Button type="primary" icon="question-circle" style={{marginBottom:'10px'}} onClick={()=>this.openModal(null,'Add New Question')}>
+                      Add New Question
+                    </Button>
+                  </Col>
+                  <Col span={12}>
+                    <Select
+                      mode="multiple"
+                      placeholder="Select one or more subjects"
+                      value={this.props.trainer.selectedSubjects}
+                      onChange={this.handleSubjectChange}
+                      style={{ width: '100%' }}
+                    >
+                      {subjectfilteredoption.map(item => (
+                        <Select.Option key={item} value={item}>
+                          {item}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Col>
+                </Row>
+              </div>
               <div className="register-trainer-form-header">
-                <Title level={4} style={{color:'#fff',textAlign:'center'}}>List of Trainer</Title>
+                <Title level={4} style={{color:'#fff',textAlign:'center'}}>List of Questions</Title>
               </div>
               <Table 
                 bordered={true} 
                 columns={columns} 
-                dataSource={this.props.admin.trainerTableData} 
+                dataSource={this.props.trainer.QuestionTableData} 
                 size="medium" 
                 pagination={{ pageSize: 5 }}
-                loading={this.props.admin.trainerTableLoading
+                loading={this.props.trainer.QuestionTableLoading
                 }
               />;
               <Modal
-                visible={this.props.admin.TrainermodalOpened}
-                title={this.props.admin.Trainermode}
+                visible={this.props.trainer.NewQuestionmodalOpened}
+                title={this.props.trainer.Questionmode}
                 onOk={this.handleOk}
                 onCancel={this.closeModal}
+                afterClose={this.closeModal}
                 style={{top :'20px',padding:'0px',backgroundColor:'rgb(155,175,190)'}}
-                width="80%"
+                width="90%"
                 destroyOnClose={true}
                 footer={[
                   
                 ]}
               >
-                <NewTrainerForm />
+                <NewQuestionForm />
               </Modal>
             </div>
         )
@@ -154,11 +183,12 @@ class AllTrainer extends Component {
 }
 
 const mapStateToProps = state => ({
-    admin : state.admin
+    trainer : state.trainer
 });
 
 export default connect(mapStateToProps,{
-    ChangeTrainerSearchText,
-    ChangeTrainerTableData,
-    ChangeTrainerModalState
-})(AllTrainer);
+  ChangeQuestionModalState,
+  ChangeQuestionTableData,
+  ChangeQuestionSearchText,
+  ChangeSelectedSubjects
+})(AllQuestions);

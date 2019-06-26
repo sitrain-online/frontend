@@ -8,12 +8,20 @@ import AllTrainer from '../admin/allTrainer/alltrainer';
 import AllTopics from '../admin/allTopics/alltopics.js';
 import AllQuestions from '../trainer/allquestions/allquestion';
 import AllTests from '../trainer/alltests/alltest';
+import { wakeUp } from '../../actions/loginAction';
 
 import { changeActiveRoute } from '../../actions/useraction';
 
 class Dashboard extends React.Component{
 
+    constructor(props){
+        super(props);
+        console.log('login');
+        this.props.wakeUp();
+    }
+
     componentWillMount(){
+        console.log(this.props.user.userOptions);
         var subUrl = this.props.match.params.options;
         var obj = this.props.user.userOptions.find((o,i)=>{
             if(o.link ===`/user/${subUrl}`){
@@ -22,6 +30,7 @@ class Dashboard extends React.Component{
         });
         this.props.changeActiveRoute(String(this.props.user.userOptions.indexOf(obj)))
     }
+
 
     render(){
         var torender = null;
@@ -58,5 +67,6 @@ const mapStateToProps = state => ({
 
 
 export default connect(mapStateToProps,{
-    changeActiveRoute
+    changeActiveRoute,
+    wakeUp
 })(Dashboard);

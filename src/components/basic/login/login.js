@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input, Icon, Button } from 'antd';
 import './login.css';
 import { connect } from 'react-redux';
-import { login, logout } from '../../../actions/loginAction';
+import { login, logout, wakeUp } from '../../../actions/loginAction';
 
 
 class Login extends React.Component{
@@ -12,7 +12,7 @@ class Login extends React.Component{
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                this.props.user.login(null,null);
+                this.props.login(values.email,values.password);
             }
         });
     };
@@ -76,5 +76,6 @@ const mapStateToProps = state => ({
 
 export default connect(null,{
     login, 
-    logout
+    logout,
+    wakeUp
 })(LoginForm);

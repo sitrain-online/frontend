@@ -1,33 +1,12 @@
+import {AdminPermissions ,TrainerPermission} from '../services/permissions';
+
 const initialState = {
     isLoggedIn : false,
-    userType : 'admin',
-    userDetails : {
-
-    },
+    token:null,
+    userDetails : null,
     activeRoute:'0',
-    userOptions:[
-        {
-            display : 'All Trainers',
-            icon : 'user',
-            link : '/user/listtrainers'
-        },
-        {
-            display : 'All Subjects',
-            icon : 'file-text',
-            link : '/user/listsubjects' 
-        },
-        {
-            display : 'All Questions',
-            icon : 'question-circle',
-            link : '/user/listquestions'
-        },
-        {
-            display : 'All tests',
-            icon : 'form',
-            link : '/user/listtests'
-        }
-
-    ]   
+    userOptions:null,
+    loginError : null   
 }
 
 export default (state = initialState, action )=>{
@@ -38,14 +17,35 @@ export default (state = initialState, action )=>{
                 activeRoute : action.payload
             }
         case 'LOGIN':
-            return {
-                ...state,
-                isLoggedIn : true
+            if(action.payload2.type==='ADMIN'){
+                return {
+                    ...state,
+                    isLoggedIn : true,
+                    token:action.payload1,
+                    userDetails : action.payload2,
+                    userOptions : AdminPermissions
+
+                }
             }
+            else{
+                return {
+                    ...state,
+                    isLoggedIn : true,
+                    token:action.payload1,
+                    userDetails : action.payload2,
+                    userOptions : TrainerPermission
+
+                }
+
+            }
+            
         case 'LOGOUT':
             return {
                 ...state,
-                isLoggedIn : false
+                isLoggedIn : false,
+                token : null,
+                userDetails : null,
+                loginError : action.payload1
             }
         default:
             return state;

@@ -11,7 +11,7 @@ import { Redirect } from 'react-router-dom';
 function Homepage(props) {
   if(auth.retriveToken() && auth.retriveToken()!=='undefined'){
     console.log('Logged In');
-    return <Redirect to='/user' />
+    return <Redirect to='/user/home' />
   }
   else{
     console.log('Not Logged In');

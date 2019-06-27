@@ -1,5 +1,10 @@
 export const ADMIN_PERMISSIONS=[
     {
+        display : 'Welcome',
+        icon : 'home',
+        link : '/user/home'
+    },
+    {
         display : 'All Trainers',
         icon : 'user',
         link : '/user/listtrainers'
@@ -12,6 +17,11 @@ export const ADMIN_PERMISSIONS=[
 ]   
 
 export const TRAINER_PERMISSIONS=[
+    {
+        display : 'Welcome',
+        icon : 'home',
+        link : '/user/home'
+    },
     {
         display : 'All Questions',
         icon : 'question-circle',

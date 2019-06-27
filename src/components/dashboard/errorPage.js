@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Welcome() {
+export default function ErrorPage() {
     return (
         <div>
-            welcome
+            404
         </div>
     )
 }

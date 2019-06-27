@@ -13,8 +13,9 @@ import { login, logout } from '../../actions/loginAction';
 import { changeActiveRoute } from '../../actions/useraction';
 import Alert from '../common/alert';
 import { Link } from 'react-router-dom';
-import { Layout, Menu,Button, Icon, Avatar, Badge } from 'antd';
+import { Layout, Menu,Button, Icon, Avatar, Badge,Tooltip } from 'antd';
 import main from './main.jpg'
+import apis from '../../services/Apis';
 const { Header, Sider, Content } = Layout;
 
 class Dashboard extends React.Component{
@@ -32,7 +33,12 @@ class Dashboard extends React.Component{
         });
     };
 
-    componentWillMount(){
+    logout =()=>{
+        auth.deleteToken();
+        window.location=`${apis.BASE_LOCAL_URL}`;
+    }
+
+    componentDidMount(){
         console.log(this.state.LocalIsLoggedIn);
         var t = auth.retriveToken();
         if(this.state.LocalIsLoggedIn){
@@ -53,7 +59,7 @@ class Dashboard extends React.Component{
                 });
                 var tt=this.props.user.userOptions.indexOf(obj);
                 if(tt===-1){
-                    window.location=`user${this.props.user.userOptions[0].link}`;
+                    window.location=`${apis.BASE_LOCAL_URL}${this.props.user.userOptions[0].link}`;
                 }
                 else{
                     this.props.changeActiveRoute(String(tt));
@@ -110,7 +116,6 @@ class Dashboard extends React.Component{
                     <div className="logo11" />
                     <Menu 
                         defaultSelectedKeys={[this.props.user.activeRoute]}
-                        defaultOpenKeys={[]}
                         mode="inline"
                         theme="dark"
                         >
@@ -131,27 +136,34 @@ class Dashboard extends React.Component{
                     <Header theme="dark" style={{ position:'fixed',width:'100vw',paddingLeft: '10px',zIndex:'1000' }}>
                     
                         <Icon
-                        className="trigger"
-                        type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                        onClick={this.toggle}
-                        style={{color:'#fff',fontSize:'20px'}}
-                        />
+                            className="trigger"
+                            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                            onClick={this.toggle}
+                            style={{color:'#fff',fontSize:'20px'}}
+                            />
                         <ul className="user-options-list">
                             <li>
-                                <Badge count={1} className="user-image-container">
+                                <Badge count={1} size="large" className="user-image-container">
                                     <Avatar size="default" shape="circle" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{ backgroundColor: '#fff'}}/>
                                 </Badge>
                             </li>
                             <li>
-                                <Button type="primary" size="default" shape="circle" className="logout-button">
-                                    <Icon type="logout" />
-                                </Button>
+                                <Tooltip placement="bottom" title="Log Out">
+                                    <Button
+                                        type="primary"
+                                        icon="logout"
+                                        shape="circle"
+                                        onClick={this.logout}
+                                        size="large"
+                                        style={{marginTop:'15px'}}
+                                    />
+                                </Tooltip>
                             </li>
                             <li>
                                 <img src={main} alt="company logo" className="d-logo" />
                             </li>
                         </ul>
-                        
+                            
                     </Header>
                     <Content
                         style={{
@@ -166,8 +178,7 @@ class Dashboard extends React.Component{
                         <div style={{ width:'100%', }}>
                             {torender}
                         </div>
-                        
-                </Content>
+                    </Content>
                 </Layout>
             </Layout> 
         );

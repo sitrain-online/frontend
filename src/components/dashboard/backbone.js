@@ -10,42 +10,46 @@ import AllQuestions from '../trainer/allquestions/allquestion';
 import AllTests from '../trainer/alltests/alltest';
 import { wakeUp } from '../../actions/loginAction';
 
-import { changeActiveRoute } from '../../actions/useraction';
+import { changeActiveRoute, changeActiveUrl } from '../../actions/useraction';
 
 class Dashboard extends React.Component{
 
     constructor(props){
         super(props);
-        console.log('login');
-        this.props.wakeUp();
+        console.log('login');   
+        this.props.changeActiveUrl(this.props.match.params.options);     
     }
 
     componentWillMount(){
-        console.log(this.props.user.userOptions);
-        var subUrl = this.props.match.params.options;
-        var obj = this.props.user.userOptions.find((o,i)=>{
-            if(o.link ===`/user/${subUrl}`){
-                return o
-            }
-        });
-        this.props.changeActiveRoute(String(this.props.user.userOptions.indexOf(obj)))
+        this.props.wakeUp();
     }
 
 
+
+    forceReturn = ()=>{
+        if(!this.props.user.isLoggedIn){
+            window.location.href='/';
+        }
+    }
+
+
+
     render(){
-        var torender = null;
+        let torender = null;
         if(this.props.match.params.options==='listtrainers'){
-            torender = <AllTrainer/>
+            torender = <AllTrainer/>;
         }
         if(this.props.match.params.options==='listsubjects'){
-            torender = <AllTopics/>
+            torender = <AllTopics/>;
         }
         if(this.props.match.params.options==='listquestions'){
-            torender = <AllQuestions/>
+            torender = <AllQuestions/>;
         }
         if(this.props.match.params.options==='listtests'){
             torender = <AllTests/>
         }
+       
+        
         
         return (
             <div>         
@@ -68,5 +72,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps,{
     changeActiveRoute,
-    wakeUp
+    wakeUp,
+    changeActiveUrl
 })(Dashboard);

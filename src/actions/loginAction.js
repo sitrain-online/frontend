@@ -39,13 +39,15 @@ export const wakeUp = ()=> dispatch =>{
     var t = auth.retriveToken() || null;
     if(t && t!=='undefined'){
         auth.wakeUp(t).then((res)=>{
+            console.log(`Wakeup success ${res}`)
             dispatch({
                 type : 'LOGIN',
                 payload1:t,
                 payload2:res.data.user
             })
         }).catch((err)=>{
-            if(err.res.status===401){
+            console.log(`Wakeup error ${err}`)
+            if(err){
                 dispatch({
                     type : 'LOGOUT',
                     payload1 : 'Token Expired'
@@ -58,15 +60,5 @@ export const wakeUp = ()=> dispatch =>{
             type : 'LOGOUT',
             payload1 : 'No Token'
         })
-    }
-}
-
-export const GetTokenWake = ()=> dispatch =>{
-    var t = auth.retriveToken() || null;
-    if(t && t!=='undefined'){
-        
-    }
-    else{
-
     }
 }

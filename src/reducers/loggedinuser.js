@@ -5,12 +5,18 @@ const initialState = {
     token:null,
     userDetails : null,
     activeRoute:'0',
+    activeurl : '/',
     userOptions:null,
     loginError : null   
 }
 
 export default (state = initialState, action )=>{
     switch(action.type){
+        case 'CHANGE_ACTIVE_URL':
+            return {
+                ...state,
+                activeurl : action.payload
+            }
         case 'CHANGE_ACTIVE_ROUTE':
             return {
                 ...state,

@@ -13,7 +13,6 @@ class Homepage extends React.Component {
   }
 
   componentDidUpdate(){
-    console.log(this.props.user.userDetails)
     if(this.props.user.isLoggedIn){
       if(this.props.user.userDetails.type==='ADMIN'){
         window.location.href='/user/listtrainers';

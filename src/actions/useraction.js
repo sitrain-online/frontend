@@ -4,3 +4,10 @@ export const changeActiveRoute = (d)=> dispatch =>{
        payload : d
     })
 }
+
+export const changeActiveUrl = (d)=> dispatch =>{
+    dispatch({
+       type : 'CHANGE_ACTIVE_URL',
+       payload : d
+    })
+}

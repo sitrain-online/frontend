@@ -2,15 +2,10 @@ import React from "react";
 import { Form, Input, Icon, Button } from 'antd';
 import './login.css';
 import { connect } from 'react-redux';
-<<<<<<< HEAD
-import { login, logout, wakeUp } from '../../../actions/loginAction';
-
-=======
 import { login, logout } from '../../../actions/loginAction';
 import auth from '../../../services/AuthServices';
 import Alert from '../../common/alert';
 import { Redirect } from 'react-router-dom';
->>>>>>> d380126120fc464c4f008663a5165d9c306be815
 
 class Login extends React.Component{
     constructor(props){
@@ -25,9 +20,6 @@ class Login extends React.Component{
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-<<<<<<< HEAD
-                this.props.login(values.email,values.password);
-=======
                 auth.LoginAuth(values.email,values.password).then((response)=>{
                     console.log(response);
                     if(response.data.success){
@@ -44,7 +36,6 @@ class Login extends React.Component{
                     console.log(error);
                     return Alert('error','Error!',error.response.message);
                 })              
->>>>>>> d380126120fc464c4f008663a5165d9c306be815
             }
         });
     };
@@ -113,6 +104,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps,{
     login, 
-    logout,
-    wakeUp
+    logout
 })(LoginForm);

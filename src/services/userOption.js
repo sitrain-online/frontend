@@ -24,13 +24,12 @@ export const TRAINER_PERMISSIONS=[
     },
     {
         display : 'All Questions',
-        icon : 'question-circle',
+        icon : 'form',
         link : '/user/listquestions'
     },
     {
         display : 'All tests',
-        icon : 'form',
+        icon : 'copy',
         link : '/user/listtests'
     }
-
 ]   

@@ -13,7 +13,7 @@ import { login, logout } from '../../actions/loginAction';
 import { changeActiveRoute } from '../../actions/useraction';
 import Alert from '../common/alert';
 import { Link } from 'react-router-dom';
-import { Layout, Menu,Button, Icon, Avatar, Badge,Tooltip } from 'antd';
+import { Layout, Menu,Button, Icon, Avatar, Badge, Tooltip } from 'antd';
 import main from './main.jpg'
 import apis from '../../services/Apis';
 const { Header, Sider, Content } = Layout;
@@ -33,12 +33,12 @@ class Dashboard extends React.Component{
         });
     };
 
-    logout =()=>{
+    logOut =()=>{
         auth.deleteToken();
-        window.location=`${apis.BASE_LOCAL_URL}`;
+        window.location.href='/';
     }
 
-    componentDidMount(){
+    componentWillMount(){
         console.log(this.state.LocalIsLoggedIn);
         var t = auth.retriveToken();
         if(this.state.LocalIsLoggedIn){
@@ -59,7 +59,7 @@ class Dashboard extends React.Component{
                 });
                 var tt=this.props.user.userOptions.indexOf(obj);
                 if(tt===-1){
-                    window.location=`${apis.BASE_LOCAL_URL}${this.props.user.userOptions[0].link}`;
+                    window.location.href=`${this.props.user.userOptions[0].link}`;
                 }
                 else{
                     this.props.changeActiveRoute(String(tt));
@@ -67,7 +67,7 @@ class Dashboard extends React.Component{
             }).catch((error)=>{
                 if(error.response.status===401){
                     auth.deleteToken();
-                    window.location='/';
+                    window.location.href='/';
                 }
                 else{
                     Alert('warning','Warning!','Server Error.')
@@ -151,14 +151,9 @@ class Dashboard extends React.Component{
                             </li>
                             <li>
                                 <Tooltip placement="bottom" title="Log Out">
-                                    <Button
-                                        type="primary"
-                                        icon="logout"
-                                        shape="circle"
-                                        onClick={this.logout}
-                                        size="large"
-                                        style={{marginTop:'15px'}}
-                                    />
+                                    <Button type="primary" size="large" shape="circle" onClick={this.logOut} className="logout-button">
+                                        <Icon type="logout" />
+                                    </Button>
                                 </Tooltip>
                             </li>
                             <li>

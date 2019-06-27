@@ -196,7 +196,7 @@ export default (state = initialState, action )=>{
         case 'CHANGE_QUESTION_MODAL_STATE':
             return {
                 ...state,
-                TestDetailsmodalOpened : action.payload1,
+                NewQuestionmodalOpened : action.payload1,
                 QuestionId : action.payload2,
                 Questionmode : action.payload3,
                 QuestionFormData : action.payload4

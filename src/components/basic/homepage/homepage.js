@@ -4,26 +4,17 @@ import './homepage.jpeg';
 import { connect } from 'react-redux';
 import Login from '../login/login';
 import HomepageHeader from '../header/header'; 
-import {wakeUp} from '../../../actions/loginAction';
+import auth from '../../../services/AuthServices';
+import { Redirect } from 'react-router-dom';
 
-class Homepage extends React.Component {
 
-  componentWillMount(){
-    this.props.wakeUp();
+function Homepage(props) {
+  if(auth.retriveToken() && auth.retriveToken()!=='undefined'){
+    console.log('Logged In');
+    return <Redirect to='/user/home' />
   }
-
-  componentDidUpdate(){
-    if(this.props.user.isLoggedIn){
-      if(this.props.user.userDetails.type==='ADMIN'){
-        window.location.href='/user/listtrainers';
-      }
-      else{
-        window.location.href='/user/listquestions';
-      }
-    }
-  }
-
-  render(){
+  else{
+    console.log('Not Logged In');
     return (
       <div>
           <div className="parallax">
@@ -33,7 +24,6 @@ class Homepage extends React.Component {
       </div>
     );
   }
-
 }
 
 const mapStateToProps = state => ({

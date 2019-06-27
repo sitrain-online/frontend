@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import auth from '../services/AuthServices';
 
 export const login = (username,password)=> dispatch =>{
@@ -22,6 +23,12 @@ export const login = (username,password)=> dispatch =>{
             type : 'LOGOUT',
             payload1 : 'Server Error'
         })
+=======
+export const login = (details)=> dispatch =>{
+    dispatch({
+       type : 'LOGIN',
+       payload : details
+>>>>>>> d380126120fc464c4f008663a5165d9c306be815
     })
     
 }

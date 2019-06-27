@@ -14,6 +14,7 @@ function App() {
         <nav>
           <Route exact path="/" component={Homepage} />
           <Route exact path="/home" component={Homepage} />
+          <Route exact path="/user" component={Dashboard}/>
           <Route path="/user/:options" component={Dashboard}/>
         </nav>
       </BrowserRouter>

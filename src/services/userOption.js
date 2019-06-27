@@ -1,0 +1,26 @@
+export const ADMIN_PERMISSIONS=[
+    {
+        display : 'All Trainers',
+        icon : 'user',
+        link : '/user/listtrainers'
+    },
+    {
+        display : 'All Subjects',
+        icon : 'file-text',
+        link : '/user/listsubjects' 
+    }
+]   
+
+export const TRAINER_PERMISSIONS=[
+    {
+        display : 'All Questions',
+        icon : 'question-circle',
+        link : '/user/listquestions'
+    },
+    {
+        display : 'All tests',
+        icon : 'form',
+        link : '/user/listtests'
+    }
+
+]   

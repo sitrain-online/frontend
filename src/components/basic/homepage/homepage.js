@@ -4,16 +4,26 @@ import './homepage.jpeg';
 
 import Login from '../login/login';
 import HomepageHeader from '../header/header'; 
+import auth from '../../../services/AuthServices';
+import { Redirect } from 'react-router-dom';
+
 
 function Homepage(props) {
-  return (
-    <div>
-        <div className="parallax">
-          <HomepageHeader/>
-          <Login />
-        </div>
-    </div>
-  );
+  if(auth.retriveToken() && auth.retriveToken()!=='undefined'){
+    console.log('Logged In');
+    return <Redirect to='/user' />
+  }
+  else{
+    console.log('Not Logged In');
+    return (
+      <div>
+          <div className="parallax">
+            <HomepageHeader/>
+            <Login />
+          </div>
+      </div>
+    );
+  }
 }
 
 export default Homepage;

@@ -16,6 +16,7 @@ import NewQuestionForm from '../newquestion/newquestion';
 class AllQuestions extends Component {
 
   openModal = (id,mode)=>{
+    console.log('I am called')
     this.props.ChangeQuestionModalState(true,id,mode);
   }
 

@@ -2,12 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './sidenav.css';
 import { Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 
 class Sidenav extends React.Component {
     
-    navigateTo = (link) => {
-        window.location.href=link;
-    }
 
     render() {
         return (
@@ -25,9 +23,10 @@ class Sidenav extends React.Component {
                     {
                         this.props.user.userOptions.map((d,i)=>{
                             return(
-                                <Menu.Item key={i} onClick={()=>{this.navigateTo(d.link)}}>
+                                <Menu.Item key={i}>
                                     <Icon type={d.icon} />
                                     <span>{d.display}</span>
+                                    <Link to={d.link}></Link>
                                 </Menu.Item>
                             )
                         })

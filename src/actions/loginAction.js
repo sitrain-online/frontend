@@ -1,8 +1,7 @@
-export const login = (username,password)=> dispatch =>{
+export const login = (details)=> dispatch =>{
     dispatch({
        type : 'LOGIN',
-       payload1 : username,
-       payload2 : password
+       payload : details
     })
 }
 

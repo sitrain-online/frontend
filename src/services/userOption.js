@@ -11,7 +11,7 @@ export const ADMIN_PERMISSIONS=[
     },
     {
         display : 'All Subjects',
-        icon : 'file-text',
+        icon : 'book',
         link : '/user/listsubjects' 
     }
 ]   

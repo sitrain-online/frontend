@@ -1,7 +1,6 @@
 const initialState = {
     NewQuestionmodalOpened : false,
     AllQuestionconfirmDirty: false,
-    Questionmode : 'New Question',
     QuestionsearchText : '',
     QuestionTableLoading : false, 
     QuestionTableData : [],
@@ -38,8 +37,7 @@ export default (state = initialState, action )=>{
             return {
                 ...state,
                 NewQuestionmodalOpened : action.payload1,
-                Questionmode : action.payload2,
-                QuestionFormData : action.payload3
+                QuestionFormData : action.payload2
             }
         case 'CHANGE_QUESTION_FORM_CONFIRMDIRTY':
             return {
@@ -56,6 +54,22 @@ export default (state = initialState, action )=>{
                 ...state,
                 QuestionTableLoading : action.payload1,
                 QuestionTableData : action.payload2
+            }
+        case 'ADD_FIFTH_OPTION':
+            return {
+                ...state,
+                QuestionFormData:{
+                    ...state.QuestionFormData,
+                    options:[
+                        ...state.QuestionFormData.options,
+                        {
+                            image :null,
+                            body : null,
+                            isAnswer :false
+                        }
+                    ]
+                },
+                fifthoptioAddButtonVisible:false
             }
         case 'CHANGE_SELECTED_SUBJECT':
             return {

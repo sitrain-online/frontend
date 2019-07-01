@@ -2,12 +2,11 @@ import apis from '../services/Apis';
 import Alert from '../components/common/alert';
 import { SecurePost } from '../services/axiosCall';
 
-export const ChangeQuestionModalState = (d1,d2)=> dispatch =>{
+export const ChangeQuestionModalState = (d1)=> dispatch =>{
         dispatch({
             type : 'CHANGE_QUESTION_MODAL_STATE',
             payload1 : d1,
-            payload2 : d2,
-            payload3 : {
+            payload2 : {
                 subject : null,
                 questionbody : null,
                 questionimage:null,

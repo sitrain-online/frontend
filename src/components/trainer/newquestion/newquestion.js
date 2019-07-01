@@ -57,23 +57,7 @@ class NewQuestion extends Component {
     }
 
     addfifthOption = (e)=>{
-        this.setState=(prevState, props)=>{
-            return {
-                questionDetails :{
-                    ...prevState.questionDetails,
-                    options:[
-                        ...prevState.questionDetails.options,
-                        {
-                            image :null,
-                            body : null,
-                            isAnswer :false
-                             
-                        }
-                    ]
-                },
-                fifthoptioAddButtonVisible :false
-            }
-        }
+        this.props.AddFifthOptionInQuestion()
     }
 
     Customalert = ()=>{
@@ -181,14 +165,25 @@ class NewQuestion extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
+                var f=1;
+                var ans=0;
                 console.log('Received values of form: ', values);
                 this.props.trainer.QuestionFormData.options.forEach((element,i) => {
                     if((element.image==='undefined' || element.image===undefined || element.image===null || element.image==='null')&&(element.body==='' ||element.body===null || element.body==='null' || element.body==='undefined' || element.body===undefined )){
-                        Alert('warning','Warning!','Please fill all the options');
-                        return;
+                        f=0;
                     }
-                });
-
+                    if(element.isAnswer){
+                        ans=ans+1
+                    }
+                })
+                if(f){
+                    if(!ans){
+                        Alert('warning','Warning!','There must be atleast one right answer');
+                    }
+                }
+                else{
+                    Alert('warning','Warning!','Please fill all the options');
+                }
             }
         });
     };
@@ -279,7 +274,7 @@ class NewQuestion extends Component {
                                 <Col offset={20}  span={4}>
                                     <Form.Item>
                                         <Button type="primary" htmlType="submit" block>
-                                            {this.props.trainer.Questionmode}
+                                            Create Question
                                         </Button>
                                     </Form.Item>
                                 </Col>

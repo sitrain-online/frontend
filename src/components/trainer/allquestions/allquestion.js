@@ -27,11 +27,11 @@ class AllQuestions extends Component {
   }
 
   openNewModal = (mode)=>{
-    this.props.ChangeQuestionModalState(true,mode);
+    this.props.ChangeQuestionModalState(true);
   }
 
   closeNewModal = ()=>{
-    this.props.ChangeQuestionModalState(false,null);
+    this.props.ChangeQuestionModalState(false);
   }
 
   handleSubjectChange =(s)=>{

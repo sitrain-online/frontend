@@ -7,9 +7,6 @@ import {
     Select,
     Row,
     Col,
-    Switch ,
-    Icon,
-    Upload,
     Checkbox,
     Modal
 } from 'antd';
@@ -19,13 +16,64 @@ import {
     ChangeQuestionFormData,
     AddFifthOptionInQuestion
 } from '../../../actions/trainerAction';
+import { SecurePost, SecureGet } from '../../../services/AuthServices';
+import apis from '../../../services/Apis';
+import Alert from '../../../components/common/alert';
 
 
 
 class NewQuestion extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            questionDetails:{
+                subject : null,
+                questionbody : null,
+                questionimage:null,
+                options :[
+                    {
+                        image :null,
+                        body : null,
+                        isAnswer :false
+                    },
+                    {
+                        image :null,
+                        body : null,
+                        isAnswer :false
+                    },
+                    {
+                        image :null,
+                        body : null,
+                        isAnswer :false
+                    },
+                    {
+                        image :null,
+                        body : null,
+                        isAnswer :false
+                    }
+                ]      
+            }
+        }
+    }
 
     addfifthOption = (e)=>{
-        this.props.AddFifthOptionInQuestion();
+        this.setState=(prevState, props)=>{
+            return {
+                questionDetails :{
+                    ...prevState.questionDetails,
+                    options:[
+                        ...prevState.questionDetails.options,
+                        {
+                            image :null,
+                            body : null,
+                            isAnswer :false
+                             
+                        }
+                    ]
+                },
+                fifthoptioAddButtonVisible :false
+            }
+        }
     }
 
     Customalert = ()=>{
@@ -63,11 +111,22 @@ class NewQuestion extends Component {
             ...this.props.trainer.QuestionFormData,
             options : newOptions
         })
+        if((newOptions[i].image==='undefined' || newOptions[i].image===undefined || newOptions[i].image===null || newOptions[i].image==='null') && 
+            (newOptions[i].body==='undefined' || newOptions[i].body===undefined || newOptions[i].body==='null' || newOptions[i].body==='' || newOptions[i].body===null)){
+                newOptions[i]={
+                    ...this.props.trainer.QuestionFormData.options[i],
+                    isAnswer : false
+                }
+                this.props.ChangeQuestionFormData({
+                ...this.props.trainer.QuestionFormData,
+                options : newOptions
+            })
+        }     
     }
 
     AnswerOptionSwitch = (e,i)=>{
-        if((this.props.trainer.QuestionFormData.options[i].body!='' && this.props.trainer.QuestionFormData.options[i].body!=null)
-            || this.props.trainer.QuestionFormData.options[i].image!=null
+        if((this.props.trainer.QuestionFormData.options[i].body!=='' && this.props.trainer.QuestionFormData.options[i].body!==null)
+            || (this.props.trainer.QuestionFormData.options[i].image!==null && this.props.trainer.QuestionFormData.options[i].image!=='undefined' && this.props.trainer.QuestionFormData.options[i].image!==undefined)
         ){
             var newOptions = [...this.props.trainer.QuestionFormData.options]
             newOptions[i]={
@@ -104,6 +163,17 @@ class NewQuestion extends Component {
             ...this.props.trainer.QuestionFormData,
             options : newOptions
         })
+        if((newOptions[i].image==='undefined' || newOptions[i].image===undefined || newOptions[i].image===null || newOptions[i].image==='null') && 
+            (newOptions[i].body==='undefined' || newOptions[i].body===undefined || newOptions[i].body==='null' || newOptions[i].body==='' || newOptions[i].body===null)){
+                newOptions[i]={
+                    ...this.props.trainer.QuestionFormData.options[i],
+                    isAnswer : false
+                }
+                this.props.ChangeQuestionFormData({
+                ...this.props.trainer.QuestionFormData,
+                options : newOptions
+            })
+        }
     }
 
 
@@ -112,6 +182,13 @@ class NewQuestion extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                this.props.trainer.QuestionFormData.options.forEach((element,i) => {
+                    if((element.image==='undefined' || element.image===undefined || element.image===null || element.image==='null')&&(element.body==='' ||element.body===null || element.body==='null' || element.body==='undefined' || element.body===undefined )){
+                        Alert('warning','Warning!','Please fill all the options');
+                        return;
+                    }
+                });
+
             }
         });
     };
@@ -123,7 +200,6 @@ class NewQuestion extends Component {
         
         return (
             <div className="register-subject-form" >
-                {this.props.trainer.QuestionId}
                 <div className="register-trainer-form-body">
                     <Form  onSubmit={this.handleSubmit}>
                         <div>
@@ -131,21 +207,17 @@ class NewQuestion extends Component {
                                 <Col span={8}>
                                     <Form.Item label="Subject" hasFeedback>
                                         {getFieldDecorator('subject', {
-                                            initialValue :this.props.trainer.QuestionFormData.subject,
                                             rules: [{ required: true, message: 'Please select any subject!' }],
                                         })(
                                             <Select
                                                 showSearch
                                                 style={{ width:'100%'}}
                                                 placeholder="Select a subject"
-                                                optionFilterProp="children"
                                                 onChange={this.SubjectonChange}
-                                                filterOption={(input, option) =>
-                                                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                                }
+                                                optionFilterProp="s"
                                             >
                                                 {
-                                                    this.props.trainer.subjects.map((d,i)=><Option key={i} value={d}>{d}</Option>)
+                                                    this.props.admin.subjectTableData.map((d,i)=><Option key={d._id} s={d.topic} value={d._id}>{d.topic}</Option>)
                                                 }
                                             </Select>
                                         )}
@@ -172,7 +244,6 @@ class NewQuestion extends Component {
                             <div style={{paddingTop:'20px'}}>
                                 {
                                     this.props.trainer.QuestionFormData.options.map((option,i)=>{
-                                        var flag=i%2
                                         return(
                                             <Row key={i} className="">
                                                 <Col offset={1} span={13}>
@@ -223,7 +294,8 @@ class NewQuestion extends Component {
 }
 
 const mapStateToProps = state => ({
-    trainer : state.trainer
+    trainer : state.trainer,
+    admin : state.admin
 });
 
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, Typography, Divider, Modal, Select, Row, Col  } from 'antd';
+import { Table, Input, Button, Icon, Typography,Popconfirm,Divider, Modal, Select, Row, Col  } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { connect } from 'react-redux';
 import { 
@@ -8,24 +8,54 @@ import {
   ChangeQuestionSearchText,
   ChangeSelectedSubjects
 } from '../../../actions/trainerAction';
+import { 
+  ChangeSubjectTableData
+} from '../../../actions/adminAction';
 import './allquestion.css'
+import Alert from '../../../components/common/alert';
+import {SecurePost} from '../../../services/axiosCall';
+import apis from '../../../services/Apis';
 import NewQuestionForm from '../newquestion/newquestion';
 
 
 
 class AllQuestions extends Component {
 
-  openModal = (id,mode)=>{
-    console.log('I am called')
-    this.props.ChangeQuestionModalState(true,id,mode);
+  componentDidMount(){
+    this.props.ChangeSubjectTableData();
+    this.props.ChangeQuestionTableData(this.props.trainer.selectedSubjects);
   }
 
-  closeModal = ()=>{
-    this.props.ChangeQuestionModalState(false,null,null);
+  openNewModal = (mode)=>{
+    this.props.ChangeQuestionModalState(true,mode);
+  }
+
+  closeNewModal = ()=>{
+    this.props.ChangeQuestionModalState(false,null);
   }
 
   handleSubjectChange =(s)=>{
     this.props.ChangeSelectedSubjects(s);
+    this.props.ChangeQuestionTableData(s);
+  }
+
+  deleteQuestion = (id)=>{
+    SecurePost({
+      url : `${apis.DELETE_QUESTION}`,
+      data : {
+          _id : id
+      }
+    }).then((response)=>{
+      if(response.data.success){
+        Alert('success','Success',response.data.message);
+        this.props.ChangeQuestionTableData(this.props.trainer.selectedSubjects);
+      }
+      else{
+        return Alert('warning','Warning!',response.data.message);
+      }
+    }).catch((error)=>{
+      return Alert('error','Error!','Server Error');
+    })
   }
 
     getColumnSearchProps = dataIndex => ({
@@ -90,37 +120,47 @@ class AllQuestions extends Component {
 
     render() {
       const { Title } = Typography;
-      const subjectfilteredoption = this.props.trainer.subjects.filter(o => !this.props.trainer.selectedSubjects.includes(o));
       const columns = [
         {
-          title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
-          width: '30%',
-          ...this.getColumnSearchProps('name'),
+          title: 'Subject',
+          dataIndex: 'subject',
+          key: 'subject',
+          width: '15%',
+          ...this.getColumnSearchProps('subject'),
         },
         {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
-          width: '20%',
-          ...this.getColumnSearchProps('age'),
+          title: 'Question',
+          dataIndex: 'body',
+          key: 'body',
+          width: '45%',
+          ...this.getColumnSearchProps('body'),
         },
         {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
-          ...this.getColumnSearchProps('address'),
+          title: 'Difficulty Index',
+          dataIndex: 'difficulty',
+          key: 'difficulty',
+          width: '15%',
+          ...this.getColumnSearchProps('difficulty'),
+          sorter: (a, b) => a.difficulty - b.difficulty,
+          defaultSortOrder: 'descend'
         },
         {
           title: 'Action',
-          key: 'key',
-          dataIndex: 'key',
+          key: '_id',
+          dataIndex: '_id',
           render: (key) => (
             <span>
-              <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Edit Question')}/>
-                <Divider type="vertical" />
-              <Button type="danger" shape="circle" icon="delete" />
+              <Button type="primary" shape="circle" icon="info-circle" />
+              <Divider type="vertical" />
+              <Popconfirm
+                  title="Are you sure？"
+                  cancelText="No"
+                  okText="Yes"
+                  onConfirm={()=>{this.deleteQuestion(key)}}
+                  icon={<Icon type="delete" style={{ color: 'red' }} />}
+                >
+                  <Button type="danger" shape="circle" icon="delete" />
+                </Popconfirm>,
             </span>
           ),
         },
@@ -130,7 +170,7 @@ class AllQuestions extends Component {
               <div>
                 <Row>
                   <Col span={12}>
-                    <Button type="primary" icon="question-circle" style={{marginBottom:'10px'}} onClick={()=>this.openModal(null,'Add New Question')}>
+                    <Button type="primary" icon="question-circle" style={{marginBottom:'10px'}} onClick={()=>this.openNewModal('Add New Question')}>
                       Add New Question
                     </Button>
                   </Col>
@@ -138,13 +178,15 @@ class AllQuestions extends Component {
                     <Select
                       mode="multiple"
                       placeholder="Select one or more subjects"
-                      value={this.props.trainer.selectedSubjects}
+                      defaultValue={this.props.trainer.selectedSubjects}
                       onChange={this.handleSubjectChange}
                       style={{ width: '100%' }}
+                      allowClear={true}
+                      optionFilterProp="s"
                     >
-                      {subjectfilteredoption.map(item => (
-                        <Select.Option key={item} value={item}>
-                          {item}
+                      {this.props.admin.subjectTableData.map(item => (
+                        <Select.Option key={item._id} value={item._id} s={item.topic}>
+                          {item.topic}
                         </Select.Option>
                       ))}
                     </Select>
@@ -160,21 +202,18 @@ class AllQuestions extends Component {
                 dataSource={this.props.trainer.QuestionTableData} 
                 size="medium" 
                 pagination={{ pageSize: 5 }}
-                loading={this.props.trainer.QuestionTableLoading
-                }
+                loading={this.props.trainer.QuestionTableLoading}
+                rowKey="_id" 
               />;
               <Modal
                 visible={this.props.trainer.NewQuestionmodalOpened}
                 title={this.props.trainer.Questionmode}
-                onOk={this.handleOk}
-                onCancel={this.closeModal}
-                afterClose={this.closeModal}
+                onCancel={this.closeNewModal}
+                afterClose={this.closeNewModal}
                 style={{top :'20px',padding:'0px',backgroundColor:'rgb(155,175,190)'}}
                 width="90%"
                 destroyOnClose={true}
-                footer={[
-                  
-                ]}
+                footer={[]}
               >
                 <NewQuestionForm />
               </Modal>
@@ -184,12 +223,14 @@ class AllQuestions extends Component {
 }
 
 const mapStateToProps = state => ({
-    trainer : state.trainer
+    trainer : state.trainer,
+    admin : state.admin
 });
 
 export default connect(mapStateToProps,{
   ChangeQuestionModalState,
   ChangeQuestionTableData,
   ChangeQuestionSearchText,
-  ChangeSelectedSubjects
+  ChangeSelectedSubjects,
+  ChangeSubjectTableData
 })(AllQuestions);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, Typography, Divider, Modal } from 'antd';
+import { Table, Input, Button, Icon, Typography, Divider, Modal, Popconfirm } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { connect } from 'react-redux';
 import { 
@@ -8,17 +8,50 @@ import {
     ChangeTrainerModalState
 } from '../../../actions/adminAction';
 import './alltrainer.css'
+import Alert from '../../../components/common/alert';
+import {SecurePost} from '../../../services/axiosCall';
+import apis from '../../../services/Apis';
 import NewTrainerForm from '../newTrainer/newtrainer';
 
 
 class AllTrainer extends Component {
+
+  constructor(props){
+    super(props);
+    this.state={
+      TrainertableLoading : false
+    }
+  }
 
   openModal = (id,mode)=>{
     this.props.ChangeTrainerModalState(true,id,mode);
   }
 
   closeModal = ()=>{
-    this.props.ChangeTrainerModalState(false,null);
+    this.props.ChangeTrainerModalState(false,null,'Register');
+  }
+
+  componentDidMount(){
+    this.props.ChangeTrainerTableData();
+  }
+
+  deleteTrainer = (id)=>{
+    SecurePost({
+      url : `${apis.DELETE_TRAINER}`,
+      data : {
+          _id : id
+      }
+    }).then((response)=>{
+      if(response.data.success){
+        Alert('success','Success',response.data.message);
+        this.props.ChangeTrainerTableData();
+      }
+      else{
+        return Alert('warning','Warning!',response.data.message);
+      }
+    }).catch((error)=>{
+      return Alert('error','Error!','Server Error');
+    })
   }
 
     getColumnSearchProps = dataIndex => ({
@@ -88,31 +121,40 @@ class AllTrainer extends Component {
           title: 'Name',
           dataIndex: 'name',
           key: 'name',
-          width: '30%',
+          width: '25%',
           ...this.getColumnSearchProps('name'),
         },
         {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
-          width: '20%',
-          ...this.getColumnSearchProps('age'),
+          title: 'Email Id',
+          dataIndex: 'emailid',
+          key: 'emailid',
+          width: '25%',
+          ...this.getColumnSearchProps('emailid'),
         },
         {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
-          ...this.getColumnSearchProps('address'),
+          title: 'Contact Number',
+          dataIndex: 'contact',
+          key: 'contact',
+          ...this.getColumnSearchProps('contact'),
         },
         {
           title: 'Action',
-          key: 'key',
-          dataIndex: 'key',
+          key: '_id',
+          dataIndex: '_id',
           render: (key) => (
             <span>
               <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Edit Details')}/>
                 <Divider type="vertical" />
-              <Button type="danger" shape="circle" icon="delete" />
+                <Popconfirm
+                  title="Are you sure？"
+                  cancelText="No"
+                  okText="Yes"
+                  onConfirm={()=>{this.deleteTrainer(key)}}
+                  icon={<Icon type="delete" style={{ color: 'red' }} />}
+                >
+                  <Button type="danger" shape="circle" icon="delete" />
+                </Popconfirm>,
+              
             </span>
           ),
         },
@@ -131,8 +173,8 @@ class AllTrainer extends Component {
                 dataSource={this.props.admin.trainerTableData} 
                 size="medium" 
                 pagination={{ pageSize: 5 }}
-                loading={this.props.admin.trainerTableLoading
-                }
+                loading={this.props.admin.trainerTableLoadingStatus}
+                rowKey="_id" 
               />;
               <Modal
                 visible={this.props.admin.TrainermodalOpened}
@@ -140,7 +182,7 @@ class AllTrainer extends Component {
                 onOk={this.handleOk}
                 onCancel={this.closeModal}
                 style={{top :'20px',padding:'0px',backgroundColor:'rgb(155,175,190)'}}
-                width="80%"
+                width="40%"
                 destroyOnClose={true}
                 footer={[
                   

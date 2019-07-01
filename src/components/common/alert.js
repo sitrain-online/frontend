@@ -1,4 +1,4 @@
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 
 export default function Alert(s='warning',h,b) {
     if(s==='success'){

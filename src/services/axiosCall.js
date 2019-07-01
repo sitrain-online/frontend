@@ -9,7 +9,7 @@ export const SecureGet = (p)=>{
         ...p,
         params: {
             ...p.params,
-            Token : auth.retriveToken 
+            Token : auth.retriveToken()
         }
     })
 }
@@ -30,7 +30,7 @@ export const SecurePost =(p)=>{
         ...p,
         params: {
             ...p.params,
-            Token : auth.retriveToken 
+            Token : auth.retriveToken()
         }
     })
 }
@@ -42,5 +42,6 @@ export const Post =(p)=>{
         ...p,
     })
 }
+
 
 

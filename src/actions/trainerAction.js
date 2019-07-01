@@ -1,11 +1,13 @@
-export const ChangeQuestionModalState = (d1,d2,d3)=> dispatch =>{
-    if(d2===null){
+import apis from '../services/Apis';
+import Alert from '../components/common/alert';
+import { SecurePost } from '../services/axiosCall';
+
+export const ChangeQuestionModalState = (d1,d2)=> dispatch =>{
         dispatch({
             type : 'CHANGE_QUESTION_MODAL_STATE',
             payload1 : d1,
             payload2 : d2,
-            payload3 : d3,
-            payload4 : {
+            payload3 : {
                 subject : null,
                 questionbody : null,
                 questionimage:null,
@@ -34,43 +36,8 @@ export const ChangeQuestionModalState = (d1,d2,d3)=> dispatch =>{
             }
          })
     }
-    else{
+    
 
-        dispatch({
-            type : 'CHANGE_QUESTION_MODAL_STATE',
-            payload1 : d1,
-            payload2 : d2,
-            payload3 : d3,
-            payload4 : {
-                subject : null,
-                questionbody : null,
-                questionimage:null,
-                options :[
-                    {
-                        image :null,
-                        body : null,
-                        isAnswer :false
-                    },
-                    {
-                        image :null,
-                        body : null,
-                        isAnswer :false
-                    },
-                    {
-                        image :null,
-                        body : null,
-                        isAnswer :false
-                    },
-                    {
-                        image :null,
-                        body : null,
-                        isAnswer :false
-                    }
-                ]
-            }
-         })
-    }
-}
 export const ChangeQuestionConfirmDirty = (d)=> dispatch =>{
     dispatch({
        type : 'CHANGE_QUESTION_FORM_CONFIRMDIRTY',
@@ -89,8 +56,40 @@ export const ChangeQuestionSearchText = (d)=> dispatch =>{
 export const ChangeQuestionTableData = (d)=> dispatch =>{
     dispatch({
        type : 'CHANGE_QUESTION_TABLE_LOADING_STATUS',
-       payload : d
+       payload1 : true,
+       payload2:[]
+    });
+    SecurePost({
+        url : `${apis.GET_ALL_QUESTIONS}`,
+        data:{
+            subject : d
+        }
+    }).then((response)=>{
+        console.log(response);
+        if(response.data.success){
+            dispatch({
+                type : 'CHANGE_QUESTION_TABLE_LOADING_STATUS',
+                payload1 : false,
+                payload2 : response.data.data
+            })
+        }
+        else{
+            Alert('error','Error!',response.data.message);
+            dispatch({
+                type : 'CHANGE_QUESTION_TABLE_LOADING_STATUS',
+                payload1 : false,
+                payload2 : []
+            })
+        }
+    }).catch((error)=>{
+        Alert('error','Error!','Server Error');
+        dispatch({
+            type : 'CHANGE_QUESTION_TABLE_LOADING_STATUS',
+            payload1 : false,
+            payload2 : []
+        })
     })
+
 }
 
 export const ChangeSelectedSubjects = (d)=> dispatch =>{

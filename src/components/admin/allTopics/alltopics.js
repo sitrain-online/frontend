@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, Typography, Divider, Modal } from 'antd';
+import { Table, Input, Button, Icon, Typography,  Modal } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { connect } from 'react-redux';
 import { 
@@ -18,7 +18,11 @@ class AllTopics extends Component {
   }
   
   closeModal = ()=>{
-    this.props.ChangeSubjectModalState(false,null);
+    this.props.ChangeSubjectModalState(false,null,'New Topic');
+  }
+
+  componentDidMount(){
+    this.props.ChangeSubjectTableData();
   }
 
     getColumnSearchProps = dataIndex => ({
@@ -86,20 +90,18 @@ class AllTopics extends Component {
       const columns = [
         {
           title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
+          dataIndex: 'topic',
+          key: 'topic',
           width: '70%',
-          ...this.getColumnSearchProps('name'),
+          ...this.getColumnSearchProps('topic'),
         },
         {
           title: 'Action',
-          key: 'key',
-          dataIndex: 'key',
+          key: '_id',
+          dataIndex: '_id',
           render: (key) => (
             <span>
               <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Edit Topic')}/>
-                <Divider type="vertical" />
-              <Button type="danger" shape="circle" icon="delete" />
             </span>
           ),
         },
@@ -118,8 +120,8 @@ class AllTopics extends Component {
                 dataSource={this.props.admin.subjectTableData} 
                 size="medium" 
                 pagination={{ pageSize: 5 }}
-                loading={this.props.admin.SubjectTableLoading
-                }
+                loading={this.props.admin.SubjectTableLoading}
+                rowKey="_id"
               />;
               <Modal
                 visible={this.props.admin.SubjectmodalOpened}

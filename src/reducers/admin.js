@@ -4,113 +4,18 @@ const initialState = {
     Trainermode : 'Register',
     trainerId : null,
     TrainersearchText : '',
-    trainerTableLoading : false, 
-    trainerTableData : [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-        },
-        {
-            key: '2',
-            name: 'Joe Black',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-        },
-        {
-            key: '3',
-            name: 'Jim Green',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-        },
-        {
-            key: '4',
-            name: 'Jim Red',
-            age: 32,
-            address: 'London No. 2 Lake Park',
-        },
-        {
-            key: '5',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-        },
-        {
-            key: '6',
-            name: 'Joe Black',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-        },
-        {
-            key: '7',
-            name: 'Jim Green',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-        },
-        {
-            key: '8',
-            name: 'Jim Red',
-            age: 32,
-            address: 'London No. 2 Lake Park',
-        },
-    ],
-    subjectTableData : [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-        },
-        {
-            key: '2',
-            name: 'Joe Black',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-        },
-        {
-            key: '3',
-            name: 'Jim Green',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-        },
-        {
-            key: '4',
-            name: 'Jim Red',
-            age: 32,
-            address: 'London No. 2 Lake Park',
-        },
-        {
-            key: '5',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York No. 1 Lake Park',
-        },
-        {
-            key: '6',
-            name: 'Joe Black',
-            age: 42,
-            address: 'London No. 1 Lake Park',
-        },
-        {
-            key: '7',
-            name: 'Jim Green',
-            age: 32,
-            address: 'Sidney No. 1 Lake Park',
-        },
-        {
-            key: '8',
-            name: 'Jim Red',
-            age: 32,
-            address: 'London No. 2 Lake Park',
-        },
-    ] ,
+    trainerTableLoadingStatus:false,
+    trainerEditFormLoadingStatus:false,
+    trainerTableData:[],
+    trainerdetails:{},
+    subjectTableData : [] ,
     SubjectmodalOpened : false,
     SubjectconfirmDirty: false,
-    Subjectmode : 'Add',
+    Subjectmode : 'New Topic',
     SubjectId : null,
     SubjectsearchText : '',
-    SubjectTableLoading : false,     
+    SubjectTableLoading : false, 
+    subjectDetails :{}    
 }
 
 export default (state = initialState, action )=>{
@@ -120,7 +25,9 @@ export default (state = initialState, action )=>{
                 ...state,
                 TrainermodalOpened : action.payload1,
                 trainerId : action.payload2,
-                Trainermode : action.payload3
+                Trainermode : action.payload3,
+                trainerdetails : action.payload4
+
             }
         case 'CHANGE_TRAINER_FORM_CONFIRMDIRTY':
             return {
@@ -135,14 +42,17 @@ export default (state = initialState, action )=>{
         case 'CHANGE_TRAINER_TABLE_LOADING_STATUS':
                 return {
                     ...state,
-                    trainerTableLoading : action.payload
+                    trainerTableLoadingStatus : action.payload1,
+                    trainerTableData : action.payload2,
+
                 }
         case 'CHANGE_SUBJECT_MODAL_STATE':
             return {
                 ...state,
                 SubjectmodalOpened : action.payload1,
                 SubjectId : action.payload2,
-                Subjectmode : action.payload3
+                Subjectmode : action.payload3,
+                subjectDetails : action.payload4
             }
         case 'CHANGE_SUBJECT_FORM_CONFIRMDIRTY':
             return {
@@ -157,7 +67,8 @@ export default (state = initialState, action )=>{
         case 'CHANGE_SUBJECT_TABLE_LOADING_STATUS':
                 return {
                     ...state,
-                    SubjectTableLoading : action.payload
+                    SubjectTableLoading : action.payload1,
+                    subjectTableData :action.payload2
                 }
         default:
             return state;

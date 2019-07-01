@@ -1,7 +1,6 @@
 import React from 'react';
 import './backbone.css';
 import { connect } from 'react-redux';
-import Usercontainer from './container/container';
 import AllTrainer from '../admin/allTrainer/alltrainer';
 import AllTopics from '../admin/allTopics/alltopics.js';
 import AllQuestions from '../trainer/allquestions/allquestion';
@@ -14,8 +13,7 @@ import { changeActiveRoute } from '../../actions/useraction';
 import Alert from '../common/alert';
 import { Link } from 'react-router-dom';
 import { Layout, Menu,Button, Icon, Avatar, Badge, Tooltip } from 'antd';
-import main from './main.jpg'
-import apis from '../../services/Apis';
+import main from './main.jpg';
 const { Header, Sider, Content } = Layout;
 
 class Dashboard extends React.Component{
@@ -65,13 +63,10 @@ class Dashboard extends React.Component{
                     this.props.changeActiveRoute(String(tt));
                 }
             }).catch((error)=>{
-                if(error.response.status===401){
-                    auth.deleteToken();
-                    window.location.href='/';
-                }
-                else{
-                    Alert('warning','Warning!','Server Error.')
-                }
+                Alert('warning','Warning!','Server Error.');
+                auth.deleteToken();
+                window.location.href='/';
+                
             })
         }
         else{

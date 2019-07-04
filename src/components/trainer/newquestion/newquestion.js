@@ -8,17 +8,23 @@ import {
     Row,
     Col,
     Checkbox,
-    Modal
+    Modal,
+    Upload,
+    Icon,
+    InputNumber 
 } from 'antd';
 import { connect } from 'react-redux';
 import { 
     ChangeQuestionConfirmDirty,
     ChangeQuestionFormData,
-    AddFifthOptionInQuestion
+    AddFifthOptionInQuestion,
+    ChangeQuestionTableData,
+    ChangeQuestionModalState
 } from '../../../actions/trainerAction';
-import { SecurePost, SecureGet } from '../../../services/AuthServices';
+import { SecurePost, Get } from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
 import Alert from '../../../components/common/alert';
+import auth from '../../../services/AuthServices';
 
 
 
@@ -51,9 +57,14 @@ class NewQuestion extends Component {
                         body : null,
                         isAnswer :false
                     }
-                ]      
-            }
+                ],
+                explanation:null,
+                marks:1   
+            },
+            adding:false,
+            submitDisabled:false
         }
+        
     }
 
     addfifthOption = (e)=>{
@@ -76,12 +87,24 @@ class NewQuestion extends Component {
             subject : value
         })
     }
+    Markchange =(e)=>{
+        this.props.ChangeQuestionFormData({
+            ...this.props.trainer.QuestionFormData,
+            marks : e.target.value
+        })   
+    }
 
 
     QuestionChange = (e)=>{
         this.props.ChangeQuestionFormData({
             ...this.props.trainer.QuestionFormData,
             questionbody : e.target.value
+        })
+    }
+    ExplanationChange = (e)=>{
+        this.props.ChangeQuestionFormData({
+            ...this.props.trainer.QuestionFormData,
+            explanation : e.target.value
         })
     }
 
@@ -130,19 +153,21 @@ class NewQuestion extends Component {
         
     }
 
-    QuestionImageonChange = (event)=>{
-        this.props.ChangeQuestionFormData({
-            ...this.props.trainer.QuestionFormData,
-            questionimage : event.target.files[0]
-        })
-    }
-
-    OptionImageonChange = (e,i)=>{
+    OptionImageonChange = (f,i)=>{
         var newOptions = [...this.props.trainer.QuestionFormData.options]
-        newOptions[i]={
-            ...this.props.trainer.QuestionFormData.options[i],
-            image : e.target.files[0]
+        if(!f){
+            delete newOptions[i].image
+            newOptions[i].image=null
         }
+        else{
+            newOptions[i]={
+                ...this.props.trainer.QuestionFormData.options[i],
+                image :`${apis.BASE}/${f.link}`
+            }
+        }
+        this.setState({
+            submitDisabled:false
+        })
         this.props.ChangeQuestionFormData({
             ...this.props.trainer.QuestionFormData,
             options : newOptions
@@ -167,8 +192,14 @@ class NewQuestion extends Component {
             if (!err) {
                 var f=1;
                 var ans=0;
+                var opts=[]
                 console.log('Received values of form: ', values);
                 this.props.trainer.QuestionFormData.options.forEach((element,i) => {
+                    opts.push({
+                        optbody:element.body,
+                        optimg:element.image,
+                        isAnswer:element.isAnswer
+                    });
                     if((element.image==='undefined' || element.image===undefined || element.image===null || element.image==='null')&&(element.body==='' ||element.body===null || element.body==='null' || element.body==='undefined' || element.body===undefined )){
                         f=0;
                     }
@@ -180,6 +211,45 @@ class NewQuestion extends Component {
                     if(!ans){
                         Alert('warning','Warning!','There must be atleast one right answer');
                     }
+                    else{
+                        this.setState({
+                            adding:true
+                        });
+                        SecurePost({
+                            url:apis.CREATE_QUESTIONS,
+                            data:{
+                                body:this.props.trainer.QuestionFormData.questionbody,
+                                options:opts,
+                                quesimg:this.props.trainer.QuestionFormData.questionimage,
+                                subject:this.props.trainer.QuestionFormData.subject,
+                                explanation:this.props.trainer.QuestionFormData.explanation,
+                                marks:this.props.trainer.QuestionFormData.marks,
+                            }
+                        }).then((response)=>{
+                            console.log(response);
+                            this.setState({
+                                adding:false
+                            });
+                            if(response.data.success){
+                                this.props.ChangeQuestionModalState(false);
+                                Alert('success','Success',response.data.message);
+                                this.props.ChangeQuestionTableData(this.props.trainer.selectedSubjects);
+                            }
+                            else{
+                                this.props.ChangeQuestionModalState(false);
+                                return Alert('warning','Warning!',response.data.message);
+                            }
+
+                        }).catch((error)=>{
+                            console.log(error);
+                            this.setState({
+                                adding:false
+                            });
+                            this.props.ChangeQuestionModalState(false);
+                            return Alert('error','Error!','Server Error');
+                        })
+                        
+                    }
                 }
                 else{
                     Alert('warning','Warning!','Please fill all the options');
@@ -188,10 +258,31 @@ class NewQuestion extends Component {
         });
     };
 
+    changeqImage = (f)=>{
+        this.props.ChangeQuestionFormData({
+            ...this.props.trainer.QuestionFormData,
+            questionimage:(f.link ?`${apis.BASE}/${f.link}`:null)
+        })
+        this.setState({
+            submitDisabled:false
+        })
+    }
+
+    upl=()=>{
+        this.setState({
+            submitDisabled:true
+        })
+    }
+
     render() {
         const { getFieldDecorator } = this.props.form;
         const { Option } = Select;
         const { TextArea } = Input;
+        var QuestionImageprops={
+            name: 'file',
+            action: `${apis.BASE}${apis.FILE_UPLOAD}?Token=${auth.retriveToken()}`,
+            listType: 'picture',
+        }
         
         return (
             <div className="register-subject-form" >
@@ -232,7 +323,33 @@ class NewQuestion extends Component {
                                 </Col>
                                 <Col span={6} style={{padding : '0px 20px'}}>
                                     <Form.Item label="Question Image">
-                                        <input type="file" className="fileUpload-input" accept="image/*" onChange={this.QuestionImageonChange} />
+                                        <Upload {...QuestionImageprops} beforeUpload={this.upl} onRemove={this.changeqImage} onSuccess={this.changeqImage}>
+                                            <Button>
+                                                <Icon type="upload" /> Upload
+                                            </Button>
+                                        </Upload>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={18}>
+                                    <Form.Item label="Explanation" hasFeedback>
+                                        {getFieldDecorator('explanation', {
+                                            initialValue :this.props.trainer.QuestionFormData.explanation,
+                                            rules: [{ required: true, message: 'Please type Explanation for the answers!' }],
+                                        })(
+                                            <TextArea onChange={this.ExplanationChange} rows={3} />
+                                        )}
+                                    </Form.Item>
+                                </Col>
+                                <Col offset={2} span={4}>
+                                    <Form.Item label="Waitage" hasFeedback>
+                                        {getFieldDecorator('waitage', {
+                                            initialValue :this.props.trainer.QuestionFormData.marks,
+                                            rules: [{ required: true, message: 'Please enter the marks' }],
+                                        })(
+                                            <InputNumber min={1} max={2}  onChange={this.Markchange}/>
+                                        )}
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -252,7 +369,11 @@ class NewQuestion extends Component {
                                                 </Col>
                                                 <Col offset={2} span={6} style={{textAlign:'center'}}>
                                                     <Form.Item label={`Option${i+1} Image`}>
-                                                        <input type="file" className="fileUpload-input" accept="image/*" onChange={(e)=>this.OptionImageonChange(e,i)} />
+                                                    <Upload {...QuestionImageprops} beforeUpload={this.upl} onRemove={(f)=>this.OptionImageonChange(null,i)} onSuccess={(f)=>this.OptionImageonChange(f,i)}>
+                                                        <Button>
+                                                            <Icon type="upload" /> Upload
+                                                        </Button>
+                                                    </Upload>
                                                     </Form.Item>
                                                 </Col>
                                                 <Col span={2} style={{padding : '55px 10px'}}>
@@ -273,7 +394,7 @@ class NewQuestion extends Component {
                             <Row>
                                 <Col offset={20}  span={4}>
                                     <Form.Item>
-                                        <Button type="primary" htmlType="submit" block>
+                                        <Button type="primary" htmlType="submit" disabled={this.state.submitDisabled} loading={this.state.adding} block>
                                             Create Question
                                         </Button>
                                     </Form.Item>
@@ -300,6 +421,8 @@ const NewQuestionForm = Form.create({ name: 'newQuestion' })(NewQuestion);
 export default connect(mapStateToProps,{
     ChangeQuestionConfirmDirty,
     ChangeQuestionFormData,
-    AddFifthOptionInQuestion
+    AddFifthOptionInQuestion,
+    ChangeQuestionModalState,
+    ChangeQuestionTableData
 })(NewQuestionForm);
 

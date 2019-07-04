@@ -31,9 +31,13 @@ export const ChangeQuestionModalState = (d1)=> dispatch =>{
                         body : null,
                         isAnswer :false
                     }
-                ]      
-            }
-         })
+                ] ,
+                explanation:null,
+                marks:1     
+            },
+            adding:false,
+            submitDisabled:false
+        })
     }
     
 

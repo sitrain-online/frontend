@@ -16,10 +16,34 @@ import Alert from '../../../components/common/alert';
 import {SecurePost} from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
 import NewQuestionForm from '../newquestion/newquestion';
+import QuestionDetails from '../questionDetails/questiondetails';
 
 
 
 class AllQuestions extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      questiondetailsId : null,
+      questiondetailsModelVisible:false
+    }
+  }
+  OpendetailsModal = (id)=>{
+    this.setState((previousState,previousProps)=>{
+      return{
+        questiondetailsId:id,
+        questiondetailsModelVisible:true
+      }
+    })
+  }
+  ClosedetailsModal = ()=>{
+    this.setState((previousState,previousProps)=>{
+      return{
+        questiondetailsId:null,
+        questiondetailsModelVisible:false
+      }
+    })
+  }
 
   componentDidMount(){
     this.props.ChangeSubjectTableData();
@@ -123,23 +147,30 @@ class AllQuestions extends Component {
       const columns = [
         {
           title: 'Subject',
-          dataIndex: 'subject',
-          key: 'subject',
+          dataIndex: 'subject.topic',
+          key: 'subject.topic',
           width: '15%',
-          ...this.getColumnSearchProps('subject'),
+          ...this.getColumnSearchProps('subject.topic'),
         },
         {
           title: 'Question',
           dataIndex: 'body',
           key: 'body',
-          width: '45%',
+          width: '50%',
           ...this.getColumnSearchProps('body'),
+        },
+        {
+          title: 'Created By',
+          dataIndex: 'createdBy.name',
+          key: 'createdBy.name',
+          width: '15%',
+          ...this.getColumnSearchProps('createdBy.name'),
         },
         {
           title: 'Difficulty Index',
           dataIndex: 'difficulty',
           key: 'difficulty',
-          width: '15%',
+          width: '5%',
           ...this.getColumnSearchProps('difficulty'),
           sorter: (a, b) => a.difficulty - b.difficulty,
           defaultSortOrder: 'descend'
@@ -148,9 +179,10 @@ class AllQuestions extends Component {
           title: 'Action',
           key: '_id',
           dataIndex: '_id',
+          width: '15%',
           render: (key) => (
             <span>
-              <Button type="primary" shape="circle" icon="info-circle" />
+              <Button type="primary" shape="circle" onClick={()=>this.OpendetailsModal(key)} icon="info-circle" />
               <Divider type="vertical" />
               <Popconfirm
                   title="Are you sure？"
@@ -207,9 +239,8 @@ class AllQuestions extends Component {
               />;
               <Modal
                 visible={this.props.trainer.NewQuestionmodalOpened}
-                title={this.props.trainer.Questionmode}
+                title="New Question"
                 onCancel={this.closeNewModal}
-                afterClose={this.closeNewModal}
                 style={{top :'20px',padding:'0px',backgroundColor:'rgb(155,175,190)'}}
                 width="90%"
                 destroyOnClose={true}
@@ -217,6 +248,19 @@ class AllQuestions extends Component {
               >
                 <NewQuestionForm />
               </Modal>
+
+              <Modal
+                visible={this.state.questiondetailsModelVisible}
+                title="Question Details"
+                onCancel={this.ClosedetailsModal}
+                style={{top :'20px',padding:'0px',backgroundColor:'rgb(155,175,190)'}}
+                width="70%"
+                destroyOnClose={true}
+                footer={[]}
+              >
+                <QuestionDetails id={this.state.questiondetailsId} / >
+              </Modal>
+
             </div>
         )
     }

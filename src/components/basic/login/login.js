@@ -34,7 +34,7 @@ class Login extends React.Component{
                     }
                 }).catch((error)=>{
                     console.log(error);
-                    return Alert('error','Error!',error.response.message);
+                    return Alert('error','Error!','Server Error');
                 })              
             }
         });

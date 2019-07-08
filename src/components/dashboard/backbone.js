@@ -5,6 +5,7 @@ import AllTrainer from '../admin/allTrainer/alltrainer';
 import AllTopics from '../admin/allTopics/alltopics.js';
 import AllQuestions from '../trainer/allquestions/allquestion';
 import AllTests from '../trainer/alltests/alltest';
+import NewTest from '../trainer/newtest/newtest';
 import auth from '../../services/AuthServices';
 import Welcome from './welcome';
 import ErrorPage from './errorPage';
@@ -93,6 +94,9 @@ class Dashboard extends React.Component{
         }
         else if(this.props.match.params.options==='home'){
             torender=<Welcome />
+        }
+        else if(this.props.match.params.options==='newtest'){
+            torender=<NewTest />
         }
         else{
             torender=<ErrorPage />

@@ -223,7 +223,7 @@ class NewQuestion extends Component {
                                 quesimg:this.props.trainer.QuestionFormData.questionimage,
                                 subject:this.props.trainer.QuestionFormData.subject,
                                 explanation:this.props.trainer.QuestionFormData.explanation,
-                                marks:this.props.trainer.QuestionFormData.marks,
+                                weightage:this.props.trainer.QuestionFormData.marks,
                             }
                         }).then((response)=>{
                             console.log(response);
@@ -343,7 +343,7 @@ class NewQuestion extends Component {
                                     </Form.Item>
                                 </Col>
                                 <Col offset={2} span={4}>
-                                    <Form.Item label="Waitage" hasFeedback>
+                                    <Form.Item label="Weightage" hasFeedback>
                                         {getFieldDecorator('waitage', {
                                             initialValue :this.props.trainer.QuestionFormData.marks,
                                             rules: [{ required: true, message: 'Please enter the marks' }],

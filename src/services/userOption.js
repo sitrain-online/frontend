@@ -28,8 +28,13 @@ export const TRAINER_PERMISSIONS=[
         link : '/user/listquestions'
     },
     {
-        display : 'All tests',
+        display : 'All Tests',
         icon : 'copy',
         link : '/user/listtests'
+    },
+    {
+        display : 'New Test',
+        icon : 'edit',
+        link : '/user/newtest'
     }
 ]   

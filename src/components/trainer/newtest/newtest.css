@@ -1,0 +1,17 @@
+.newtest-steps-holder{
+    width:80%;
+    margin-left:10%;
+}
+.new-test-form-holder{
+    padding-top:30px;
+}
+.basic-test-form-outer{
+    width:36%;
+    margin-left:33%;
+    padding:50px;
+    background:linear-gradient(to right,rgb(80,190,189),rgb(0,153,153),rgb(0,153,203));
+    border-radius: 5px; 
+}
+.list1-question-new-test{
+    padding:0px;
+}

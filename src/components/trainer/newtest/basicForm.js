@@ -84,8 +84,7 @@ class BasicTestFormO extends Component {
                         </Form.Item> 
                         <Form.Item label="Organisation Name"  hasFeedback>
                             {getFieldDecorator('organisation', {
-                                initialValue : this.props.test.newtestFormData.OrganisationName,
-                                rules: [{ required: true, message: 'Please give the organisation name' }],
+                                initialValue : this.props.test.newtestFormData.OrganisationName
                             })(
                                 <Input placeholder="Organisation Name" />
                             )}

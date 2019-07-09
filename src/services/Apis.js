@@ -14,7 +14,8 @@ const apis={
     DELETE_QUESTION:'/api/v1/questions/delete',
     FETCH_SINGLE_QUESTION:'/api/v1/questions/details',
     CREATE_QUESTIONS :'/api/v1/questions/create',
-    FILE_UPLOAD:'/api/v1/upload'
+    FILE_UPLOAD:'/api/v1/upload',
+    CREATE_TEST : '/api/v1/test/create'
 }
 
 

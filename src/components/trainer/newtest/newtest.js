@@ -6,6 +6,7 @@ import { changeStep } from '../../../actions/testAction';
 import './newtest.css'
 import BasicTestForm from './basicForm';
 import SelectQuestion from './selectQuestion';
+import FinalQuestionView from './questionview';
 import { 
     ChangeSubjectTableData
   } from '../../../actions/adminAction';
@@ -22,7 +23,7 @@ class  NewTest extends React.Component {
             torender=<SelectQuestion />;
         }
         else if(this.props.test.currentStep===2){
-            torender="hello world";
+            torender=<FinalQuestionView />;
         }
         else{
             torender=<BasicTestForm />;
@@ -32,7 +33,7 @@ class  NewTest extends React.Component {
                 <div style={{padding:'0px auto 5px auto',width:'100%',textAlign:'center'}}>
                     <Title level={3}>Create new Test</Title>
                 </div>
-                <Steps className="newtest-steps-holder" current={this.props.test.currentStep} onChange={(current)=>this.props.changeStep(current)}>
+                <Steps className="newtest-steps-holder" current={this.props.test.currentStep}>
                     {steps.map(item => (
                         <Step key={item.title} title={item.title} />
                     ))}

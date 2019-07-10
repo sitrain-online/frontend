@@ -7,6 +7,8 @@ const initialState = {
     selectedSubjects:[],
     QuestionFormData:{},
     fifthoptioAddButtonVisible:true,
+    TestTableLoading:false,
+    TestTableData:[],
     DataActiveTestDetails : {
         testDetailsId : null,
         testDetails :[],
@@ -98,7 +100,8 @@ export default (state = initialState, action )=>{
         case 'CHANGE_TEST_TABLE_LOADING_STATUS':
             return {
                 ...state,
-                TestTableLoading : action.payload
+                TestTableLoading : action.payload1,
+                TestTableData :action.payload2
             }
         default:
             return state;

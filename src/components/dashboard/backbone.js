@@ -5,6 +5,7 @@ import AllTrainer from '../admin/allTrainer/alltrainer';
 import AllTopics from '../admin/allTopics/alltopics.js';
 import AllQuestions from '../trainer/allquestions/allquestion';
 import AllTests from '../trainer/alltests/alltest';
+import ConductTest from '../trainer/conducttest/conducttest';
 import NewTest from '../trainer/newtest/newtest';
 import auth from '../../services/AuthServices';
 import Welcome from './welcome';
@@ -13,6 +14,7 @@ import { login, logout } from '../../actions/loginAction';
 import { changeActiveRoute } from '../../actions/useraction';
 import Alert from '../common/alert';
 import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 import { Layout, Menu,Button, Icon, Avatar, Badge, Tooltip } from 'antd';
 import main from './main.jpg';
 const { Header, Sider, Content } = Layout;
@@ -51,6 +53,7 @@ class Dashboard extends React.Component{
                     LocalIsLoggedIn : true
                 })
                 var subUrl = this.props.match.params.options;
+                console.log(subUrl);
                 var obj = this.props.user.userOptions.find((o,i)=>{
                     if(o.link ===`/user/${subUrl}`){
                         return o
@@ -98,11 +101,14 @@ class Dashboard extends React.Component{
         else if(this.props.match.params.options==='newtest'){
             torender=<NewTest />
         }
+        else if(this.props.match.params.options==='conducttest'){
+            let params = queryString.parse(this.props.location.search)
+            console.log(params)
+            torender=<ConductTest {...params}/>
+        }
         else{
             torender=<ErrorPage />
         }
-
-        
         return (
             <Layout>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed}
@@ -167,7 +173,7 @@ class Dashboard extends React.Component{
                         padding: 24,
                         marginTop:'80px',
                         background: 'rgb(205,217,225)',
-                        minHeight: 280,
+                        minHeight: '100vh',
                         marginLeft:'95px'
                         }}
                     >

@@ -15,7 +15,13 @@ const apis={
     FETCH_SINGLE_QUESTION:'/api/v1/questions/details',
     CREATE_QUESTIONS :'/api/v1/questions/create',
     FILE_UPLOAD:'/api/v1/upload',
-    CREATE_TEST : '/api/v1/test/create'
+    CREATE_TEST : '/api/v1/test/create',
+    GET_ALL_TESTS:'/api/v1/test/details/all',
+    GET_SINGLE_TEST:'/api/v1/test/details',
+    REGISTER_TRAINEE_FOR_TEST:'/api/v1/trainee/enter',
+    RESEND_TRAINER_REGISTRATION_LINK: '/api/v1/trainee/resend/testlink',
+    GET_SINGLE_TEST_DETAILS_BASIC:'/api/v1/test/basic/details',
+    STOP_REGISTRATION :'/api/v1/trainer/registration/stop'
 }
 
 

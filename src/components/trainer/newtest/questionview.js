@@ -1,11 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row,Col,Button } from 'antd';
-import { changeStep,changeBasicNewTestDetails } from '../../../actions/testAction';
+import { Row,Col,Button, } from 'antd';
 import {SecurePost} from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
 import Alert from '../../common/alert';
+import { Redirect } from 'react-router-dom';
 class FinalQuestionView extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            testid:null
+        }
+    }
 
     createtest =()=>{
         SecurePost({
@@ -21,7 +27,12 @@ class FinalQuestionView extends React.Component {
         }).then((response)=>{
             console.log(response.data);
             if(response.data.success){
-                
+                Alert('success','Test paper Created Successfully!','Please wait, you will automatically be redirected to conduct test page.');
+                setTimeout(()=>{
+                    this.setState({
+                        testid : response.data.testid
+                    })
+                },3000);
             }
             else{
                 Alert('error','Error!',response.data.message);
@@ -33,16 +44,21 @@ class FinalQuestionView extends React.Component {
     }
 
     render(){
-        return (
-            <div>
-                {this.props.test.newtestFormData.testQuestions.map((d,i)=>{
-                    return <Q key={i+1} _id={d} no={i+1}/>
-                })}
-                <Button type="primary" onClick={this.createtest}>
-                    Create Test
-                </Button>
-            </div>
-        )
+        if(this.state.testid){
+            return <Redirect to={`/user/conducttest?testid=${this.state.testid}`} />
+        }
+        else{
+            return (
+                <div>
+                    {this.props.test.newtestFormData.testQuestions.map((d,i)=>{
+                        return <Q key={i+1} _id={d} no={i+1}/>
+                    })}
+                    <Button type="primary" onClick={this.createtest}>
+                        Create Test
+                    </Button>
+                </div>
+            )
+        }
     }
 }
 

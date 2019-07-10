@@ -36,5 +36,10 @@ export const TRAINER_PERMISSIONS=[
         display : 'New Test',
         icon : 'edit',
         link : '/user/newtest'
+    },
+    {
+        display : 'Conduct Test',
+        icon : 'edit',
+        link : '/user/conducttest'
     }
 ]   

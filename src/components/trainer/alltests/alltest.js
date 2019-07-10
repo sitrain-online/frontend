@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Icon, Typography, Modal  } from 'antd';
+import { Table, Input, Button, Icon, Typography, Modal,Tag   } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { connect } from 'react-redux';
 import { 
@@ -22,6 +22,9 @@ class AllTests extends Component {
     
     closeModal = ()=>{
         this.props.ChangeTestDetailsModalState(false,null);
+    }
+    componentDidMount(){
+      this.props.ChangeTestTableData();
     }
 
     getColumnSearchProps = dataIndex => ({
@@ -89,30 +92,39 @@ class AllTests extends Component {
       const columns = [
         {
           title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
-          width: '30%',
-          ...this.getColumnSearchProps('name'),
-        },
-        {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
+          dataIndex: 'title',
+          key: 'title',
           width: '20%',
-          ...this.getColumnSearchProps('age'),
-          sorter: (a, b) => a.age - b.age,
-          defaultSortOrder: 'descend'
+          ...this.getColumnSearchProps('title'),
         },
         {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
-          ...this.getColumnSearchProps('address'),
+          title: 'Type',
+          dataIndex: 'type',
+          key: 'type',
+          width: '20%',
+          ...this.getColumnSearchProps('type'),
+        },
+        {
+          title: 'Subjects',
+          dataIndex: 'subjects',
+          key: 'subjects._id',
+          render: tags => (
+            <span>
+              {tags.map((tag,i) => {
+                let color ='geekblue';
+                return (
+                  <Tag color={color} key={tag._id}>
+                    {tag.topic.toUpperCase()}
+                  </Tag>
+                );
+              })}
+            </span>
+          )
         },
         {
           title: 'Action',
-          key: 'key',
-          dataIndex: 'key',
+          key: '_id',
+          dataIndex: '_id',
           render: (key) => (
             <span>
               <Button type="primary" shape="circle" icon="info-circle" onClick={()=>this.openModal(key)}/>
@@ -131,8 +143,8 @@ class AllTests extends Component {
                 dataSource={this.props.trainer.TestTableData} 
                 size="medium" 
                 pagination={{ pageSize: 5 }}
-                loading={this.props.trainer.TestTableLoading
-                }
+                loading={this.props.trainer.TestTableLoading}
+                rowKey="_id" 
               />;
               <Modal
                 visible={this.props.trainer.TestDetailsmodalOpened}

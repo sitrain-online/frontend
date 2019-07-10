@@ -6,6 +6,7 @@ import store  from './store';
 
 import Homepage from './components/basic/homepage/homepage';
 import Dashboard from './components/dashboard/backbone';
+import TraineeRegister from './components/trainee/register/traineeregister';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/home" component={Homepage} />
           <Route exact path="/user" component={Dashboard}/>
           <Route path="/user/:options" component={Dashboard}/>
+          <Route exact path="/trainee/register" component={TraineeRegister}/>
         </nav>
       </BrowserRouter>
     </Provider> 

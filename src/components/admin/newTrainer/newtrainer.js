@@ -59,6 +59,7 @@ class NewTrainer extends Component {
                             this.props.ChangeTrainerTableData();
                         }
                         else{
+                            console.log(response.data);
                             this.props.ChangeTrainerModalState(false,null,'Register');
                             return Alert('warning','Warning!',response.data.message);
                         }
@@ -111,7 +112,15 @@ class NewTrainer extends Component {
                         <Form.Item label="Phone Number" className="input-admin-trainer">
                             {getFieldDecorator('contact', {
                                 initialValue : this.props.admin.trainerdetails.contact,
-                                rules: [{ required: true, message: 'Please input your phone number!' }],
+                                rules: [
+                                    { 
+                                        required: true, 
+                                        message: 'Please input your phone number!' 
+                                    },
+                                    {
+                                        len:10,
+                                        message:'Contact number must be 10 digit long'
+                                    }],
                             })(<Input addonBefore={prefixSelector} min={10} max={10} />)}
                         </Form.Item>
 

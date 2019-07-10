@@ -2,8 +2,7 @@ import React from 'react';
 import './welcome.css';
 import { Row, Col } from 'antd';
 
-import { Steps,Button,message} from 'antd';
-import { RFC_2822 } from 'moment';
+import { Steps,Button} from 'antd';
 
 const { Step } = Steps;
 const steps = [
@@ -45,7 +44,7 @@ const steps = [
       return (
         <div>
             <Row>
-                <Col span = "4">
+                <Col span = {4}>
                     <div className="steps-current-instruction">
                         <Steps current={current} direction="vertical">
                             {steps.map(item => (
@@ -54,7 +53,7 @@ const steps = [
                         </Steps>
                     </div>    
                 </Col>
-                <Col span = "20">
+                <Col span = {20}>
                     <div className="steps-content">{steps[current].content}</div>
                 </Col>
             </Row>

@@ -1,6 +1,6 @@
 import apis from '../services/Apis';
 import Alert from '../components/common/alert';
-import { SecurePost } from '../services/axiosCall';
+import { SecurePost,SecureGet } from '../services/axiosCall';
 
 export const ChangeQuestionModalState = (d1)=> dispatch =>{
         dispatch({
@@ -134,10 +134,39 @@ export const ChangeTestSearchText = (d)=> dispatch =>{
     })
 }
 
-export const ChangeTestTableData = (d)=> dispatch =>{
+export const ChangeTestTableData = ()=> dispatch =>{
     dispatch({
-       type : 'CHANGE_TEST_TABLE_LOADING_STATUS',
-       payload : d
+        type : 'CHANGE_TEST_TABLE_LOADING_STATUSS',
+        payload1 : true,
+        payload2:[]
+    });
+    SecurePost({
+        url : `${apis.GET_ALL_TESTS}`,
+    }).then((response)=>{
+        console.log(response.data);
+        if(response.data.success){
+            dispatch({
+                type : 'CHANGE_TEST_TABLE_LOADING_STATUS',
+                payload1 : false,
+                payload2 : response.data.data
+            })
+        }
+        else{
+            Alert('error','Error!',response.data.message);
+            dispatch({
+                type : 'CHANGE_TEST_TABLE_LOADING_STATUS',
+                payload1 : false,
+                payload2 : []
+            })
+    }
+    }).catch((error)=>{
+        console.log(error);
+        Alert('error','Error!','Server Error');
+        dispatch({
+            type : 'CHANGE_TEST_TABLE_LOADING_STATUS',
+            payload1 : false,
+            payload2 : []
+        })
     })
 }
 

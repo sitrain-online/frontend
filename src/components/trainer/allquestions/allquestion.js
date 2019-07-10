@@ -150,7 +150,6 @@ class AllQuestions extends Component {
           dataIndex: 'subject.topic',
           key: 'subject.topic',
           width: '15%',
-          ...this.getColumnSearchProps('subject.topic'),
         },
         {
           title: 'Question',
@@ -163,8 +162,7 @@ class AllQuestions extends Component {
           title: 'Created By',
           dataIndex: 'createdBy.name',
           key: 'createdBy.name',
-          width: '15%',
-          ...this.getColumnSearchProps('createdBy.name'),
+          width: '15%'
         },
         {
           title: 'Difficulty Index',

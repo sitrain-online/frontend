@@ -57,9 +57,9 @@ class NewQuestion extends Component {
                         body : null,
                         isAnswer :false
                     }
-                ],
+                ] ,
                 explanation:null,
-                marks:1   
+                marks:1     
             },
             adding:false,
             submitDisabled:false

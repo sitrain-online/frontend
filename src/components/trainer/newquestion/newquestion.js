@@ -16,8 +16,6 @@ import {
 import { connect } from 'react-redux';
 import { 
     ChangeQuestionConfirmDirty,
-    ChangeQuestionFormData,
-    AddFifthOptionInQuestion,
     ChangeQuestionTableData,
     ChangeQuestionModalState
 } from '../../../actions/trainerAction';
@@ -33,8 +31,6 @@ class NewQuestion extends Component {
         super(props);
         this.state={
             questionDetails:{
-                subject : null,
-                questionbody : null,
                 questionimage:null,
                 options :[
                     {
@@ -57,18 +53,32 @@ class NewQuestion extends Component {
                         body : null,
                         isAnswer :false
                     }
-                ] ,
-                explanation:null,
-                marks:1     
+                ] ,  
             },
             adding:false,
-            submitDisabled:false
+            submitDisabled:false,
+            fifthoptioAddButtonVisible:true
         }
         
     }
 
     addfifthOption = (e)=>{
-        this.props.AddFifthOptionInQuestion()
+        this.setState((previousState,previousProps)=>{
+            return({
+                fifthoptioAddButtonVisible:false,
+                questionDetails:{
+                    ...previousState.questionDetails,
+                    options:[
+                        ...previousState.questionDetails.options,
+                        {
+                            image :null,
+                            body : null,
+                            isAnswer :false
+                        }
+                    ]
+                }
+            })
+        })
     }
 
     Customalert = ()=>{
@@ -80,69 +90,56 @@ class NewQuestion extends Component {
         });
     }
     
-    SubjectonChange = (value) => {
-        console.log(`selected ${value}`);
-        this.props.ChangeQuestionFormData({
-            ...this.props.trainer.QuestionFormData,
-            subject : value
-        })
-    }
-    Markchange =(e)=>{
-        this.props.ChangeQuestionFormData({
-            ...this.props.trainer.QuestionFormData,
-            marks : e.target.value
-        })   
-    }
 
 
-    QuestionChange = (e)=>{
-        this.props.ChangeQuestionFormData({
-            ...this.props.trainer.QuestionFormData,
-            questionbody : e.target.value
-        })
-    }
-    ExplanationChange = (e)=>{
-        this.props.ChangeQuestionFormData({
-            ...this.props.trainer.QuestionFormData,
-            explanation : e.target.value
-        })
-    }
 
     OptionTextChange =(e,i)=>{
-        var newOptions = [...this.props.trainer.QuestionFormData.options]
+        var newOptions = [...this.state.questionDetails.options]
         newOptions[i]={
-            ...this.props.trainer.QuestionFormData.options[i],
+            ...this.state.questionDetails.options[i],
             body : e.target.value
         }
-        this.props.ChangeQuestionFormData({
-            ...this.props.trainer.QuestionFormData,
-            options : newOptions
-        })
         if((newOptions[i].image==='undefined' || newOptions[i].image===undefined || newOptions[i].image===null || newOptions[i].image==='null') && 
             (newOptions[i].body==='undefined' || newOptions[i].body===undefined || newOptions[i].body==='null' || newOptions[i].body==='' || newOptions[i].body===null)){
                 newOptions[i]={
-                    ...this.props.trainer.QuestionFormData.options[i],
+                    ...this.state.questionDetails.options[i],
                     isAnswer : false
                 }
-                this.props.ChangeQuestionFormData({
-                ...this.props.trainer.QuestionFormData,
-                options : newOptions
+                this.setState((ps,pp)=>{
+                    return({
+                        questionDetails:{
+                            ...ps.questionDetails,
+                            options:newOptions
+                        }
+                    })
+                })
+        }
+        this.setState((ps,pp)=>{
+            return({
+                questionDetails:{
+                    ...ps.questionDetails,
+                    options:newOptions
+                }
             })
-        }     
+        })     
     }
 
     AnswerOptionSwitch = (e,i)=>{
-        if((this.props.trainer.QuestionFormData.options[i].body!=='' && this.props.trainer.QuestionFormData.options[i].body!==null)
-            || (this.props.trainer.QuestionFormData.options[i].image!==null && this.props.trainer.QuestionFormData.options[i].image!=='undefined' && this.props.trainer.QuestionFormData.options[i].image!==undefined)
+        if((this.state.questionDetails.options[i].body!=='' && this.state.questionDetails.options[i].body!==null)
+            || (this.state.questionDetails.options[i].image!==null && this.state.questionDetails.options[i].image!=='undefined' && this.state.questionDetails.options[i].image!==undefined)
         ){
-            var newOptions = [...this.props.trainer.QuestionFormData.options]
+            var newOptions = [...this.state.questionDetails.options]
             newOptions[i]={
-                ...this.props.trainer.QuestionFormData.options[i],
+                ...this.state.questionDetails.options[i],
                 isAnswer : e.target.checked
             }
-            this.props.ChangeQuestionFormData({
-                ...this.props.trainer.QuestionFormData,
-                options : newOptions
+            this.setState((ps,pp)=>{
+                return({
+                    questionDetails:{
+                        ...ps.questionDetails,
+                        options:newOptions
+                    }
+                })
             })
             
         }
@@ -154,47 +151,48 @@ class NewQuestion extends Component {
     }
 
     OptionImageonChange = (f,i)=>{
-        var newOptions = [...this.props.trainer.QuestionFormData.options]
+        var newOptions = [...this.state.questionDetails.options]
         if(!f){
             delete newOptions[i].image
             newOptions[i].image=null
         }
         else{
             newOptions[i]={
-                ...this.props.trainer.QuestionFormData.options[i],
+                ...this.state.questionDetails.options[i],
                 image :`${apis.BASE}/${f.link}`
             }
         }
         this.setState({
             submitDisabled:false
         })
-        this.props.ChangeQuestionFormData({
-            ...this.props.trainer.QuestionFormData,
-            options : newOptions
-        })
         if((newOptions[i].image==='undefined' || newOptions[i].image===undefined || newOptions[i].image===null || newOptions[i].image==='null') && 
             (newOptions[i].body==='undefined' || newOptions[i].body===undefined || newOptions[i].body==='null' || newOptions[i].body==='' || newOptions[i].body===null)){
                 newOptions[i]={
-                    ...this.props.trainer.QuestionFormData.options[i],
+                    ...this.state.questionDetails.options[i],
                     isAnswer : false
                 }
-                this.props.ChangeQuestionFormData({
-                ...this.props.trainer.QuestionFormData,
-                options : newOptions
-            })
         }
+        this.setState((ps,pp)=>{
+            return({
+                questionDetails:{
+                    ...ps.questionDetails,
+                    options:newOptions
+                }
+            })
+        })
     }
 
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
+            console.log(values);
             if (!err) {
                 var f=1;
                 var ans=0;
                 var opts=[]
                 console.log('Received values of form: ', values);
-                this.props.trainer.QuestionFormData.options.forEach((element,i) => {
+                this.state.questionDetails.options.forEach((element,i) => {
                     opts.push({
                         optbody:element.body,
                         optimg:element.image,
@@ -218,12 +216,12 @@ class NewQuestion extends Component {
                         SecurePost({
                             url:apis.CREATE_QUESTIONS,
                             data:{
-                                body:this.props.trainer.QuestionFormData.questionbody,
+                                body:values.questionbody,
                                 options:opts,
-                                quesimg:this.props.trainer.QuestionFormData.questionimage,
-                                subject:this.props.trainer.QuestionFormData.subject,
-                                explanation:this.props.trainer.QuestionFormData.explanation,
-                                weightage:this.props.trainer.QuestionFormData.marks,
+                                quesimg:this.state.questionimage,
+                                subject:values.subject,
+                                explanation:values.explanation,
+                                weightage:values.waitage,
                             }
                         }).then((response)=>{
                             console.log(response);
@@ -237,13 +235,40 @@ class NewQuestion extends Component {
                             }
                             else{
                                 this.props.ChangeQuestionModalState(false);
+                                this.props.form.resetFields();
                                 return Alert('warning','Warning!',response.data.message);
                             }
 
                         }).catch((error)=>{
                             console.log(error);
+                            this.props.form.resetFields();
                             this.setState({
-                                adding:false
+                                adding:false,
+                                questionDetails:{
+                                    questionimage:null,
+                                    options :[
+                                        {
+                                            image :null,
+                                            body : null,
+                                            isAnswer :false
+                                        },
+                                        {
+                                            image :null,
+                                            body : null,
+                                            isAnswer :false
+                                        },
+                                        {
+                                            image :null,
+                                            body : null,
+                                            isAnswer :false
+                                        },
+                                        {
+                                            image :null,
+                                            body : null,
+                                            isAnswer :false
+                                        }
+                                    ] ,  
+                                }
                             });
                             this.props.ChangeQuestionModalState(false);
                             return Alert('error','Error!','Server Error');
@@ -259,12 +284,14 @@ class NewQuestion extends Component {
     };
 
     changeqImage = (f)=>{
-        this.props.ChangeQuestionFormData({
-            ...this.props.trainer.QuestionFormData,
-            questionimage:(f.link ?`${apis.BASE}/${f.link}`:null)
-        })
-        this.setState({
-            submitDisabled:false
+        this.setState((ps,pp)=>{
+            return({
+                questionDetails:{
+                    ...ps.questionDetails,
+                    questionimage:(f.link ?`${apis.BASE}/${f.link}`:null)
+                },
+                submitDisabled:false
+            })
         })
     }
 
@@ -275,6 +302,7 @@ class NewQuestion extends Component {
     }
 
     render() {
+        console.log(this.state)
         const { getFieldDecorator } = this.props.form;
         const { Option } = Select;
         const { TextArea } = Input;
@@ -299,7 +327,6 @@ class NewQuestion extends Component {
                                                 showSearch
                                                 style={{ width:'100%'}}
                                                 placeholder="Select a subject"
-                                                onChange={this.SubjectonChange}
                                                 optionFilterProp="s"
                                             >
                                                 {
@@ -314,10 +341,9 @@ class NewQuestion extends Component {
                                 <Col span={18}>
                                     <Form.Item label="Question" hasFeedback>
                                         {getFieldDecorator('questionbody', {
-                                            initialValue :this.props.trainer.QuestionFormData.questionbody,
                                             rules: [{ required: true, message: 'Please type question!' }],
                                         })(
-                                            <TextArea onChange={this.QuestionChange} rows={5} />
+                                            <TextArea rows={5} />
                                         )}
                                     </Form.Item>
                                 </Col>
@@ -335,7 +361,6 @@ class NewQuestion extends Component {
                                 <Col span={18}>
                                     <Form.Item label="Explanation" hasFeedback>
                                         {getFieldDecorator('explanation', {
-                                            initialValue :this.props.trainer.QuestionFormData.explanation,
                                             rules: [{ required: true, message: 'Please type Explanation for the answers!' }],
                                         })(
                                             <TextArea onChange={this.ExplanationChange} rows={3} />
@@ -345,40 +370,35 @@ class NewQuestion extends Component {
                                 <Col offset={2} span={4}>
                                     <Form.Item label="Weightage" hasFeedback>
                                         {getFieldDecorator('waitage', {
-                                            initialValue :this.props.trainer.QuestionFormData.marks,
                                             rules: [{ required: true, message: 'Please enter the marks' }],
                                         })(
-                                            <InputNumber min={1} max={2}  onChange={this.Markchange}/>
+                                            <InputNumber min={1} max={2}  />
                                         )}
                                     </Form.Item>
                                 </Col>
                             </Row>
                             <div style={{paddingTop:'20px'}}>
                                 {
-                                    this.props.trainer.QuestionFormData.options.map((option,i)=>{
+                                    this.state.questionDetails.options.map((option,i)=>{
                                         return(
                                             <Row key={i} className="">
                                                 <Col offset={1} span={13}>
-                                                    <Form.Item label={`option${i+1}`} hasFeedback>
-                                                        {getFieldDecorator(`option${i+1}`, {
-                                                            initialValue :this.props.trainer.QuestionFormData.options[i].body,
-                                                        })(
-                                                            <TextArea onChange={ (e)=>this.OptionTextChange(e,i)} rows={3} />
-                                                        )}
+                                                    <Form.Item label={`option${i+1}`}>
+                                                        <TextArea value={this.state.questionDetails.options[i].body} onChange={ (e)=>this.OptionTextChange(e,i)} rows={3} />
                                                     </Form.Item>
                                                 </Col>
                                                 <Col offset={2} span={6} style={{textAlign:'center'}}>
                                                     <Form.Item label={`Option${i+1} Image`}>
-                                                    <Upload {...QuestionImageprops} beforeUpload={this.upl} onRemove={(f)=>this.OptionImageonChange(null,i)} onSuccess={(f)=>this.OptionImageonChange(f,i)}>
-                                                        <Button>
-                                                            <Icon type="upload" /> Upload
-                                                        </Button>
-                                                    </Upload>
+                                                        <Upload {...QuestionImageprops} beforeUpload={this.upl} onRemove={(f)=>this.OptionImageonChange(null,i)} onSuccess={(f)=>this.OptionImageonChange(f,i)}>
+                                                            <Button>
+                                                                <Icon type="upload" /> Upload
+                                                            </Button>
+                                                        </Upload>
                                                     </Form.Item>
                                                 </Col>
                                                 <Col span={2} style={{padding : '55px 10px'}}>
                                                     <Form.Item>
-                                                        <Checkbox checked={this.props.trainer.QuestionFormData.options[i].isAnswer} onChange={(e)=>this.AnswerOptionSwitch(e,i)} ></Checkbox>
+                                                        <Checkbox checked={this.state.questionDetails.options[i].isAnswer} onChange={(e)=>this.AnswerOptionSwitch(e,i)} ></Checkbox>
                                                     </Form.Item>
                                                 </Col>
                                             </Row>                                                
@@ -388,7 +408,7 @@ class NewQuestion extends Component {
                             </div>
                             <Row>
                                 <Col span={12}>
-                                    { this.props.trainer.fifthoptioAddButtonVisible ? <Button type="primary" onClick={(e)=>this.addfifthOption(e)}>Add 5th option</Button> : null}
+                                    { this.state.fifthoptioAddButtonVisible ? <Button type="primary" onClick={(e)=>this.addfifthOption(e)}>Add 5th option</Button> : null}
                                 </Col>
                             </Row>
                             <Row>
@@ -420,8 +440,6 @@ const NewQuestionForm = Form.create({ name: 'newQuestion' })(NewQuestion);
 
 export default connect(mapStateToProps,{
     ChangeQuestionConfirmDirty,
-    ChangeQuestionFormData,
-    AddFifthOptionInQuestion,
     ChangeQuestionModalState,
     ChangeQuestionTableData
 })(NewQuestionForm);

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 .skeletor-wrapper{
     width:100%;
     height: 100%;
@@ -51,7 +53,7 @@
     height: 10000px;
 }
 .side-panel-in-exam-dashboard{
-    background: rgb(190,205,215);
+    background: rgb(65,170,200);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     position: fixed;
     width:20%;
@@ -63,9 +65,24 @@
 }
 .loggedin-trainee-logo{
     width:30%;
-    margin: 20px 35%;
+    margin: 20px 35% 10px 35%;
 }
 .loggedin-trainee-details-container{
     width:100%;
-    padding:0px 10px;
+    padding:0px 12px;
+    color:#fff;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+.clock-wrapper{
+    width:100%;
+    background: rgb(60,70,75);
+    text-align: center;
+    padding:15px 10px
+}
+.clock-container{
+    font-size: 45px;
+    font-family: Orbitron;
+    letter-spacing: 7px;
+    color: #17D4FE;
 }

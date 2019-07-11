@@ -1,5 +1,5 @@
-export const c = (d)=> dispatch =>{
+export const LocaltestDone = (d)=> dispatch =>{
     dispatch({
-       
+        type : 'TEST_DONE_LOCAL'
     })
 }

@@ -218,7 +218,7 @@ class NewQuestion extends Component {
                             data:{
                                 body:values.questionbody,
                                 options:opts,
-                                quesimg:this.state.questionimage,
+                                quesimg:this.state.questionDetails.questionimage,
                                 subject:values.subject,
                                 explanation:values.explanation,
                                 weightage:values.waitage,

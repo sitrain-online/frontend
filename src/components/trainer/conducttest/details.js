@@ -51,6 +51,7 @@ class TestDetails extends React.Component {
                     <Descriptions.Item span={1} label="Test Id">{this.props.conduct.id}</Descriptions.Item>
                     <Descriptions.Item span={3} label="Registration Link"><Input disabled={true} value={this.props.conduct.testRegisterLink} addonAfter={<CopyToClipboard text={this.props.conduct.testRegisterLink} onCopy={()=>message.success('Link Copied to clipboard')}><Icon type="copy"/></CopyToClipboard>}/></Descriptions.Item>
                     <Descriptions.Item span={1} label={this.props.conduct.basictestdetails.isRegistrationavailable?"Registration Open":"Registration Closed"}><Button onClick={()=>{this.changeRegistrationStatus(!this.props.conduct.basictestdetails.isRegistrationavailable)}} type={this.props.conduct.basictestdetails.isRegistrationavailable?"danger":"primary"}>{this.props.conduct.basictestdetails.isRegistrationavailable?"Stop Registration":"Open Registration"}</Button></Descriptions.Item>
+                    <Descriptions.Item span={1} label={this.props.conduct.basictestdetails.testbegins?"Test on Progress":"Test has not started yet"}><Button onClick={()=>{}} type={this.props.conduct.basictestdetails.testbegins?"danger":"primary"}>{this.props.conduct.basictestdetails.testbegins?"Stop Test":"Start Test"}</Button></Descriptions.Item>
                 </Descriptions>            
             </div>
         )

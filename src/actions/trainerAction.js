@@ -6,37 +6,6 @@ export const ChangeQuestionModalState = (d1)=> dispatch =>{
         dispatch({
             type : 'CHANGE_QUESTION_MODAL_STATE',
             payload1 : d1,
-            payload2 : {
-                subject : null,
-                questionbody : null,
-                questionimage:null,
-                options :[
-                    {
-                        image :null,
-                        body : null,
-                        isAnswer :false
-                    },
-                    {
-                        image :null,
-                        body : null,
-                        isAnswer :false
-                    },
-                    {
-                        image :null,
-                        body : null,
-                        isAnswer :false
-                    },
-                    {
-                        image :null,
-                        body : null,
-                        isAnswer :false
-                    }
-                ] ,
-                explanation:null,
-                marks:1     
-            },
-            adding:false,
-            submitDisabled:false
         })
     }
     

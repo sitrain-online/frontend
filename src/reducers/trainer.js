@@ -39,7 +39,6 @@ export default (state = initialState, action )=>{
             return {
                 ...state,
                 NewQuestionmodalOpened : action.payload1,
-                QuestionFormData : action.payload2
             }
         case 'CHANGE_QUESTION_FORM_CONFIRMDIRTY':
             return {

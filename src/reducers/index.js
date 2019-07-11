@@ -4,7 +4,8 @@ import adminAction from './admin';
 import userAction from './loggedinuser'
 import trainerAction from './trainer';
 import testAction from './test';
-import conductTest from './conductTest'
+import conductTest from './conductTest';
+import trainee from './trainee';
 
 export default combineReducers({
     drawer : openDrawer,
@@ -12,5 +13,6 @@ export default combineReducers({
     user : userAction,
     trainer : trainerAction,
     test : testAction,
-    conduct:conductTest
+    conduct:conductTest,
+    trainee:trainee
 })

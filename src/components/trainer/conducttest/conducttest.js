@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Input,Button, Typography,Descriptions,Badge, Select, Icon  } from 'antd';
+import { Input,Button, Typography,Tabs, Icon  } from 'antd';
 import './conducttes.css';
 import { changeConducttestId } from '../../../actions/conductTest';
 import TestDetails from './details';
 const { Title } = Typography;
+const { TabPane } = Tabs;
 
 
 class ConductTestS extends Component {
@@ -46,6 +47,14 @@ class ConductTestS extends Component {
                     </div>:
                     <div>
                         <TestDetails/>
+                        <Tabs defaultActiveKey="1" style={{marginTop:'20px'}}>
+                            <TabPane tab={<span><Icon type="user" />Registered Trainee</span>} key="1">
+
+                            </TabPane>
+                            <TabPane tab={<span><Icon type="question-circle" />Questions</span>} key="2">
+                                
+                            </TabPane>
+                        </Tabs>
                     </div>}
                 </div>
             )

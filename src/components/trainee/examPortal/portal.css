@@ -15,7 +15,7 @@
 .Test-portal-not-started-yet-inner{
     width:50%;
     min-height: 200px;
-    background: linear-gradient(to right,rgb(80,190,189),rgb(0,153,153),rgb(0,153,203));;
+    background: linear-gradient(to right,rgb(80,190,189),rgb(0,153,153),rgb(0,153,203));
     margin-left: 25%;
     position: absolute;
     top:50%;
@@ -85,4 +85,16 @@
     font-family: Orbitron;
     letter-spacing: 7px;
     color: #17D4FE;
+}
+.question-list-wrapper{
+    padding:20px;
+}
+.question-list-inner{
+    width: 100%;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.qb{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);   
 }

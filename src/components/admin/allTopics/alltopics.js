@@ -11,6 +11,7 @@ import './alltopics.css'
 import NewSubjectForm from '../newTopics/newtopics';
 
 
+
 class AllTopics extends Component {
 
   openModal = (id,mode)=>{

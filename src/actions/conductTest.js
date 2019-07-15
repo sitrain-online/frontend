@@ -22,6 +22,14 @@ export const changeTestRegisterStatus = (d)=> dispatch =>{
     })
 }
 
+export const changeTestStatus = (d)=> dispatch =>{
+    dispatch({
+       type : 'CHANGE_BEGIN_TEST_STATUS',
+       payload : d
+    })
+}
+
+
 export const updateCurrentTestBasicDetails = (d)=> dispatch=>{
     SecurePost({
         url:`${apis.GET_SINGLE_TEST_DETAILS_BASIC}`,
@@ -42,5 +50,22 @@ export const updateCurrentTestBasicDetails = (d)=> dispatch=>{
     }).catch((error)=>{
         console.log(error);
         return Alert('error','Error!','Unable to refresh test status');
+    })
+}
+
+
+
+export const updateCandidatesTest = (d)=> dispatch=>{
+    dispatch({
+        type:'CHANGE_CANDIDATES_OF_TEST',
+        payload:d
+    })
+}
+
+
+export const updateQuestiosnTest =(d)=>dispatch =>{
+    dispatch({
+        type:'CHANGE_QUESTIONS_OF_TEST',
+        payload:d
     })
 }

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Input,Button, Typography,Tabs, Icon  } from 'antd';
 import './conducttes.css';
-import { changeConducttestId } from '../../../actions/conductTest';
+import { changeConducttestId, updateCandidatesTest } from '../../../actions/conductTest';
 import TestDetails from './details';
+import Candidates from './candidates';
+import Questions from './questions';
 const { Title } = Typography;
 const { TabPane } = Tabs;
 
@@ -30,6 +32,8 @@ class ConductTestS extends Component {
         })
     }
 
+
+
     render() {
         if(this.state.needRedirect){
             return window.location.href=`/user/conducttest?testid=${this.state.localTestId}`
@@ -49,10 +53,10 @@ class ConductTestS extends Component {
                         <TestDetails/>
                         <Tabs defaultActiveKey="1" style={{marginTop:'20px'}}>
                             <TabPane tab={<span><Icon type="user" />Registered Trainee</span>} key="1">
-
+                                <Candidates />
                             </TabPane>
                             <TabPane tab={<span><Icon type="question-circle" />Questions</span>} key="2">
-                                
+                                <Questions />
                             </TabPane>
                         </Tabs>
                     </div>}
@@ -69,5 +73,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps,{
-    changeConducttestId
+    changeConducttestId,
+    updateCandidatesTest
 })(ConductTestS);

@@ -2,8 +2,11 @@ const initialState = {
     id : null,
     testRegisterLink:'',
     basictestdetails:{
-        isRegistrationavailable:null
-    }
+        isRegistrationavailable:null,
+        testbegins:false
+    },
+    registeredCandidates:[],
+    questionsOfTest:[]
 }
 export default (state = initialState, action )=>{
     switch(action.type){
@@ -29,6 +32,21 @@ export default (state = initialState, action )=>{
                     ...state.basictestdetails,
                     isRegistrationavailable:action.payload
                 }
+            }
+        case 'CHANGE_BEGIN_TEST_STATUS':
+            return{
+                ...state,
+                basictestdetails:action.payload
+            }
+        case 'CHANGE_CANDIDATES_OF_TEST':
+            return{
+                ...state,
+                registeredCandidates:action.payload
+            }
+        case 'CHANGE_QUESTIONS_OF_TEST':
+            return{
+                ...state,
+                questionsOfTest :action.payload
             }
         default:
             return state;

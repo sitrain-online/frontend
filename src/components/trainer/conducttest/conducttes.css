@@ -9,3 +9,9 @@
     background: linear-gradient(to right,rgb(80,190,189),rgb(0,153,153),rgb(0,153,203));
     text-align: center;
 }
+.candidate-list-header-container{
+    padding:0px 0px;
+}
+.reload-button{
+    margin-bottom: 20px;
+}

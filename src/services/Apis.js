@@ -21,7 +21,10 @@ const apis={
     REGISTER_TRAINEE_FOR_TEST:'/api/v1/trainee/enter',
     RESEND_TRAINER_REGISTRATION_LINK: '/api/v1/trainee/resend/testlink',
     GET_SINGLE_TEST_DETAILS_BASIC:'/api/v1/test/basic/details',
-    STOP_REGISTRATION :'/api/v1/trainer/registration/stop'
+    STOP_REGISTRATION :'/api/v1/trainer/registration/stop',
+    START_TEST_BY_TRAINER:'/api/v1/test/begin',
+    GET_TEST_CANDIDATES :'/api/v1/test/candidates',
+    GET_TEST_QUESTIONS :'/api/v1/test/questions'
 }
 
 

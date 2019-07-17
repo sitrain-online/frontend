@@ -24,7 +24,10 @@ const apis={
     STOP_REGISTRATION :'/api/v1/trainer/registration/stop',
     START_TEST_BY_TRAINER:'/api/v1/test/begin',
     GET_TEST_CANDIDATES :'/api/v1/test/candidates',
-    GET_TEST_QUESTIONS :'/api/v1/test/questions'
+    GET_TEST_QUESTIONS :'/api/v1/test/questions',
+    FETCH_TRAINEE_DETAILS:'/api/v1/trainee/details',
+    FETCH_TRAINEE_TEST_DETAILS:'/api/v1/trainee/flags',
+    PROCEED_TO_TEST:'/api/v1/trainee/answersheet'
 }
 
 

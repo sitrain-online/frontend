@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import './portal.css';
 import user_icon from './user.png'
 
-function Trainee() {
+function Trainee(props) {
     return (
         <div className="loggedin-trainee-container">
             <div className="loggedin-trainee-inner">
                 <img src={user_icon} className="loggedin-trainee-logo"/>
                 <div className="loggedin-trainee-details-container">
-                    <p>Kiran kumar das</p>
+                    <p>{props.trainee.traineeDetails.name}</p>
                 </div>
             </div>
         </div>

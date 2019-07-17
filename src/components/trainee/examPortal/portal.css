@@ -32,13 +32,18 @@
 .instaruction-page-wrapper{
     width: 100%;
     background: rgb(205,217,225);
-    position: absolute;
-    padding:20px;
-    min-height: 100%;
+    min-height:100vh;
+    padding:50px 5%;
 }
 .instruction-page-inner{
-    border:1px solid black;
     width:100%;
+    border:3px solid rgb(0,153,203);
+    border-radius: 5px;
+    padding:10px;
+}
+.proceed-to-test-button{
+    width:100%;
+    padding:20px 0px 40px 0px;
 }
 .exam-dashboard-wrapper{
     width: 100%;

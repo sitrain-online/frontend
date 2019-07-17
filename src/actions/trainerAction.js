@@ -105,7 +105,7 @@ export const ChangeTestSearchText = (d)=> dispatch =>{
 
 export const ChangeTestTableData = ()=> dispatch =>{
     dispatch({
-        type : 'CHANGE_TEST_TABLE_LOADING_STATUSS',
+        type : 'CHANGE_TEST_TABLE_LOADING_STATUS',
         payload1 : true,
         payload2:[]
     });

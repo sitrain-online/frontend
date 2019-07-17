@@ -8,8 +8,8 @@ class Clock extends Component {
     constructor(props){
         super(props);
         this.state={
-            localMinutes:60,
-            localSeconds:0
+            localMinutes:this.props.trainee.m_left,
+            localSeconds:this.props.trainee.s_left
         }
     }
     componentDidMount(){

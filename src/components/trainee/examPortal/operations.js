@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Badge, Icon,Button,Row,Col  } from 'antd';
 import './portal.css';
-import {ChangeQuestion} from '../../../actions/traineeAction';
+import {switchQuestion} from '../../../actions/traineeAction';
 
 class Operations extends Component {
     render() {
@@ -13,7 +13,7 @@ class Operations extends Component {
                         {this.props.trainee.answers.map((d,i)=>{
                             return(
                                 <Col key={i} span={6} style={{padding:'10px'}}>
-                                    <Mark qid={d.questionid}  type={d.mark} no={i+1}/>
+                                    <Mark qid={d.questionid} ans={d.isAnswered}  mark={d.isMarked} no={i}/>
                                 </Col>
                             )
                         })}
@@ -48,31 +48,37 @@ class Operations extends Component {
 
 
 function mark(props){
-    if(props.type==='answered'){
-        return(
-            <Button onClick={()=>props.ChangeQuestion(props.qid)} className="qb" style={{background:'#0B6623'}} type="primary">{props.no}</Button>
-        )
-    }
-    else if(props.type==='answered-marked'){
-        return(
-            <Badge className="qb" count={<Icon type="flag"  theme="filled" style={{ color: '#f5222d' }} />}>
-                <Button onClick={()=>props.ChangeQuestion(props.qid)} style={{background:'#0B6623',color:'#fff'}}>{props.no}</Button>
-            </Badge>  
-        )
-    }
-    else if(props.type==='not-answered-marked'){
-        return(
-            <Badge className="qb"  count={<Icon type="flag"  theme="filled" style={{ color: '#f5222d' }} />}>
-                <Button onClick={()=>props.ChangeQuestion(props.qid)}  style={{background:'#999999',color:'#fff'}}>{props.no}</Button>
-            </Badge>  
-        )
+    if(props.mark){
+        if(props.ans){
+            return(
+                <Badge className="qb" count={<Icon type="flag"  theme="filled" style={{ color: '#f5222d' }} />}>
+                    <Button onClick={()=>props.switchQuestion(props.no)} style={{background:'#0B6623',color:'#fff'}}>{props.no+1}</Button>
+                </Badge>  
+            )
+        }
+        else{
+            return(
+                <Badge className="qb" count={<Icon type="flag"  theme="filled" style={{ color: '#f5222d' }} />}>
+                    <Button onClick={()=>props.switchQuestion(props.no)} style={{background:'#999999',color:'#fff'}}>{props.no+1}</Button>
+                </Badge>  
+            )
+        }
+        
     }
     else{
-        return(
-            <Button onClick={()=>props.ChangeQuestion(props.qid)} className="qb" style={{background:'#999999',color:'#fff'}}>{props.no}</Button>
-        )
-    }
-    
+        if(props.ans){
+            return(
+                <Button onClick={()=>props.switchQuestion(props.no)} className="qb" style={{background:'#0B6623',color:'#fff'}}>{props.no+1}</Button>
+            )
+        }
+        else{
+            return(
+                <Button onClick={()=>props.switchQuestion(props.no)} className="qb" style={{background:'#999999',color:'#fff'}}>{props.no+1}</Button>
+            )
+        }
+        
+        
+    }    
 }
 
 
@@ -88,7 +94,7 @@ const mapStateToProps = state => ({
 
 
 let Mark=connect(mapStateToProps,{
-    ChangeQuestion
+    switchQuestion
 })(mark);
 
 export default connect(mapStateToProps,null)(Operations);

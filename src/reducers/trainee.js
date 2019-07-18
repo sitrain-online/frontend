@@ -16,73 +16,9 @@ const initialState = {
         emailid:"",
         contact:""
     },
-    questions:[
-        {
-
-        },
-        {
-
-        },
-        {
-
-        },
-        {
-
-        }
-    ],
-    answers:[
-        {
-            questionid:'1',
-            answers :[],
-            mark:'answered-marked'
-        },
-        {
-            questionid:'2',
-            answers :[],
-            mark:'answered'
-        },
-        {
-            questionid:'3',
-            answers :[],
-            mark:'not-answered'
-        },
-        {
-            questionid:'4',
-            answers :[],
-            mark:'answered-marked'
-        },
-        {
-            questionid:'5',
-            answers :[],
-            mark:'not-answered'
-        },
-        {
-            questionid:'6',
-            answers :[],
-            mark:'answered'
-        },
-        {
-            questionid:'7',
-            answers :[],
-            mark:'not-answered'
-        },
-        {
-            questionid:'8',
-            answers :[],
-            mark:'not-answered-marked'
-        }
-        ,
-        {
-            questionid:'9',
-            answers :[],
-            mark:'answered-marked'
-        },
-        {
-            questionid:'10',
-            answers :[],
-            mark:'not-answered-marked'
-        }
-    ]
+    activeQuestionIndex:0,
+    questions:[],
+    answers:[]
 }
 
 
@@ -123,12 +59,23 @@ export default (state = initialState, action )=>{
         case 'SWITCH_QUESTION':
             return {
                 ...state,
+                activeQuestionIndex:action.payload
             }
         case 'FETCH_LOGGED_IN_TRAINEE':
             return{
                 ...state,
                 initialloading2:false,
                 traineeDetails:action.payload
+            }
+        case 'UPDATE_TRAINEE_TEST_QUESTIONS':
+            return{
+                ...state,
+                questions:action.payload
+            }
+        case 'UPDATE_TRAINEE_TEST_ANSWERSHEET':
+            return{
+                ...state,
+                answers:action.payload
             }
         default:
             return state;

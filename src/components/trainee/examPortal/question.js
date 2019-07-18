@@ -1,12 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import './portal.css';
+import SingleQuestion from './singleQuestion';
+import { fetchTraineeTestQuestions,fetchTraineeTestAnswerSheet } from '../../../actions/traineeAction'
 
 class Question extends Component {
+
+    componentWillMount(){
+        this.props.fetchTraineeTestQuestions(this.props.trainee.testid);
+        this.props.fetchTraineeTestAnswerSheet(this.props.trainee.testid,this.props.trainee.traineeid)
+    }
     render() {
         return (
             <div className="question-holder">
-                    Question
+                <div className="single-question-container">
+                    {this.props.trainee.answers.length>0 && this.props.trainee.questions.length>0 ?
+                        <SingleQuestion key={this.props.trainee.activeQuestionIndex} />:null
+                    }
+                    
+                </div>
             </div>
         )
     }
@@ -20,4 +32,7 @@ const mapStateToProps = state => ({
 
 
 
-export default connect(mapStateToProps,null)(Question);
+export default connect(mapStateToProps,{
+    fetchTraineeTestQuestions,
+    fetchTraineeTestAnswerSheet
+})(Question);

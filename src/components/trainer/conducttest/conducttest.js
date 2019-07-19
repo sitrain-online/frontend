@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Input,Button, Typography,Tabs, Icon  } from 'antd';
 import './conducttes.css';
-import { changeConducttestId, updateCandidatesTest } from '../../../actions/conductTest';
+import { changeConducttestId, updateCandidatesTest,updateQuestiosnTest } from '../../../actions/conductTest';
 import TestDetails from './details';
 import Candidates from './candidates';
 import Questions from './questions';
@@ -56,7 +56,7 @@ class ConductTestS extends Component {
                                 <Candidates />
                             </TabPane>
                             <TabPane tab={<span><Icon type="question-circle" />Questions</span>} key="2">
-                                <Questions />
+                                <Questions id={this.props.conduct.id} questionsOfTest={this.props.conduct.questionsOfTest} updateQuestiosnTest={this.props.updateQuestiosnTest}  />
                             </TabPane>
                         </Tabs>
                     </div>}
@@ -74,5 +74,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps,{
     changeConducttestId,
-    updateCandidatesTest
+    updateCandidatesTest,
+    updateQuestiosnTest
 })(ConductTestS);

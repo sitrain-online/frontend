@@ -29,7 +29,9 @@ const apis={
     FETCH_TRAINEE_TEST_DETAILS:'/api/v1/trainee/flags',
     PROCEED_TO_TEST:'/api/v1/trainee/answersheet',
     FETCH_TRAINEE_TEST_QUESTION:'/api/v1/trainee/paper/questions',
-    FETCH_TRAINEE_TEST_ANSWERSHEET:'/api/v1/trainee/chosen/options'
+    FETCH_TRAINEE_TEST_ANSWERSHEET:'/api/v1/trainee/chosen/options',
+    UPDATE_ANSWERS:'/api/v1/trainee/update/answer',
+    END_TEST : '/api/v1/trainee/end/test'
 }
 
 

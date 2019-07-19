@@ -139,3 +139,9 @@ export const ChangeTestTableData = ()=> dispatch =>{
     })
 }
 
+export const updateQuestiosnActiveTest = (d)=>{
+    return{
+        type:'CHANGE_CURRENT_ACTIVE_TEST_QUESTION',
+        payload:d
+    }
+}

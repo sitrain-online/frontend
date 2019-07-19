@@ -63,9 +63,9 @@ export const updateCandidatesTest = (d)=> dispatch=>{
 }
 
 
-export const updateQuestiosnTest =(d)=>dispatch =>{
-    dispatch({
+export const updateQuestiosnTest =(d)=>{
+    return {
         type:'CHANGE_QUESTIONS_OF_TEST',
         payload:d
-    })
+    }
 }

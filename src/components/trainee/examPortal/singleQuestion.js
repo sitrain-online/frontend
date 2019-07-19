@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import Alert from '../../common/alert';
+import apis from '../../../services/Apis';
+import { SecurePost,Post } from '../../../services/axiosCall';
 import { Icon,Button,Row,Col,Radio,Checkbox  } from 'antd';
-import { switchQuestion,updateIsMarked } from '../../../actions/traineeAction';
+import { switchQuestion,updateIsMarked, fetchTestdata } from '../../../actions/traineeAction';
 import './portal.css';
 
 
@@ -53,14 +55,35 @@ class SingleQuestion extends React.Component{
     }
 
     SaveTocloud=()=>{
+        Post({
+            url:`${apis.UPDATE_ANSWERS}`,
+            data:{
+                testid : this.props.trainee.testid,
+                userid:this.props.trainee.traineeid,
+                qid:this.props.trainee.questions[this.props.trainee.activeQuestionIndex]._id,
+                newAnswer:this.state.answers
+            }
+        }).then((response)=>{
+            if(response.data.success){
+                console.log(response.data)
+                var t = [...this.props.trainee.answers];
+                t[this.props.trainee.activeQuestionIndex]={
+                    ...t[this.props.trainee.activeQuestionIndex],
+                    chosenOption:this.state.answers,
+                    isAnswered:true
+                }
+                this.props.updateIsMarked(t);
+            }
+            else{
+                this.props.fetchTestdata(this.props.trainee.testid,this.props.trainee.traineeid);
+                return Alert('error','Error!',response.data.message);
+                
+            }
+        }).catch((err)=>{
+            return Alert('error','Error!','Server Error');
+        })
         //save to cloud then
-        var t = [...this.props.trainee.answers];
-        t[this.props.trainee.activeQuestionIndex]={
-            ...t[this.props.trainee.activeQuestionIndex],
-            chosenOption:this.state.answers,
-            isAnswered:true
-        }
-        this.props.updateIsMarked(t); 
+         
     }
 
     previous=()=>{
@@ -168,7 +191,7 @@ class SingleQuestion extends React.Component{
                         
                         {this.props.trainee.questions[this.props.trainee.activeQuestionIndex].quesimg?
                             <div className="Single-question-body-image-container">
-                                <img src={this.props.trainee.questions[this.props.trainee.activeQuestionIndex].quesimg} className="Single-question-body-image"/>
+                                <img alt="Unable to load image" src={this.props.trainee.questions[this.props.trainee.activeQuestionIndex].quesimg} className="Single-question-body-image"/>
                             </div>:null
                         }
                     </div>
@@ -176,9 +199,9 @@ class SingleQuestion extends React.Component{
                         <Row>
                             {this.state.options.map((d,i)=>{
                                 return(
-                                    <Col span={12} key={i}>
+                                    <Col span={12} key={i} className="Single-option">
                                         <Row>
-                                            <Col span={2}>
+                                            <Col span={2} style={{textAlign:'center'}}>
                                             <Button style={{background:'rgb(120,135,145)',color:'#fff'}} shape="circle">{opts[i]}</Button>
                                                 <Checkbox checked={d.checked} onChange={(e)=>{this.onAnswerChange(i,e.target.checked,d._id)}} />
 
@@ -186,7 +209,7 @@ class SingleQuestion extends React.Component{
                                             <Col span={22} style={{padding:'10px'}}>
                                                 {d.optbody}
                                                 <div className="option-image-in-exam-panel-holder">
-                                                    {d.optimg?<img className="option-image-in-exam-panel" src={d.optimg} />:null}
+                                                    {d.optimg?<img className="option-image-in-exam-panel" src={d.optimg} alt="Unable to load image"/>:null}
                                                 </div>
                                             </Col>
                                         </Row>
@@ -238,5 +261,6 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps,{
     switchQuestion,
-    updateIsMarked
+    updateIsMarked,
+    fetchTestdata
 })(SingleQuestion);

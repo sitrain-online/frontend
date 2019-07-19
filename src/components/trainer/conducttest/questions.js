@@ -8,9 +8,9 @@ import {Typography,Button,Row,Col  } from 'antd';
 import './conducttes.css';
 
 
-const { Title } = Typography;
 
-class Questions extends Component {
+
+export default class Questions extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -29,7 +29,7 @@ class Questions extends Component {
         SecurePost({
             url:`${apis.GET_TEST_QUESTIONS}`,
             data:{
-                id:this.props.conduct.id
+                id:this.props.id
             }
         }).then((response)=>{
             console.log(response);
@@ -52,24 +52,48 @@ class Questions extends Component {
     }
 
     render() {
+        const aMap = ['A','B','C','D','E'];
         return (
             <div>
                 {
-                    this.props.conduct.questionsOfTest.map((d,i)=>{
+                    this.props.questionsOfTest.map((d,i)=>{
                         return(
-                            <div  key={i}>
+                            <div  key={i} style={{paddingBottom:'50px'}}>
                                 <Row>
                                     <Col span={1}>
-                                        <Button type="primary" shape="circle" size="small">{i+1}</Button>
+                                        <Button type="primary" shape="circle" >{i+1}</Button>
                                     </Col>
-                                    <Col span={d.quesimg?12:22}>
+                                    <Col span={d.quesimg?6:0}>
+                                        <img src={d.quesimg} style={{width:'100%'}}/>
+                                    </Col>
+                                    <Col span={d.quesimg?16:22} style={{padding:'10px'}}>
                                         <b>{d.body}</b>
-                                    </Col>
-                                    <Col span={d.quesimg?10:0}>
-                                        bye
                                     </Col>
                                     <Col span={1}>
                                         {d.weightage}
+                                    </Col>
+                                    <Col offset={1} span={23}>
+                                        <Row>
+                                            {d.options.map((dd,ii)=>{
+                                                return(
+                                                    <Col key={ii} span={12} style={{paddingBottom:'30px'}}>
+                                                        <Row>
+                                                            <Col span={1}>
+                                                            {
+                                                                dd.isAnswer?<Button className="green" shape="circle">{aMap[ii]}</Button>:<Button type="primary" shape="circle">{aMap[ii]}</Button>
+                                                            }
+                                                            </Col>
+                                                            <Col offset={1} span={dd.optimg?8:0}>
+                                                                <img src={dd.optimg} style={{width:'100%'}} />
+                                                            </Col>
+                                                            <Col offset={1} span={dd.optimg?12:21}>
+                                                                <p>{dd.optbody}</p>
+                                                            </Col>
+                                                        </Row>
+                                                    </Col>
+                                                )
+                                            })}
+                                        </Row>
                                     </Col>
                                 </Row> 
                             </div> 
@@ -83,10 +107,3 @@ class Questions extends Component {
 
 
 
-const mapStateToProps = state => ({
-    conduct : state.conduct
-});
-
-export default connect(mapStateToProps,{
-    updateQuestiosnTest
-})(Questions);

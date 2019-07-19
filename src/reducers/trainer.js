@@ -12,23 +12,7 @@ const initialState = {
     DataActiveTestDetails : {
         testDetailsId : null,
         testDetails :[],
-        testquestions :[
-            {
-                questionId : '1',
-                difficultIndex : 0.56,
-                NoOfCorrectAnswered :10 
-            },
-            {
-                questionId : '2',
-                difficultIndex : 0.52,
-                NoOfCorrectAnswered :10 
-            },
-            {
-                questionId : '3',
-                difficultIndex : 0.50,
-                NoOfCorrectAnswered :10 
-            },
-        ]
+        testquestions :[]
     }
 }
 
@@ -101,6 +85,14 @@ export default (state = initialState, action )=>{
                 ...state,
                 TestTableLoading : action.payload1,
                 TestTableData :action.payload2
+            }
+        case 'CHANGE_CURRENT_ACTIVE_TEST_QUESTION':
+            return{
+                ...state,
+                DataActiveTestDetails:{
+                    ...state.DataActiveTestDetails,
+                    testquestions:action.payload
+                }
             }
         default:
             return state;

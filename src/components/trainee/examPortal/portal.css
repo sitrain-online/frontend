@@ -131,6 +131,10 @@
 }
 .Question-single-option-panel{
     width:100%;
+    
+}
+.Single-option{
+    min-height: 200px;
 }
 .option-image-in-exam-panel-holder{
     width:100%;
@@ -138,4 +142,8 @@
 .option-image-in-exam-panel{
     width:60%;
     margin-left:20%
+}
+.End-test-container{
+    width:100%;
+    text-align: center;
 }

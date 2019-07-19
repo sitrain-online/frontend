@@ -66,6 +66,7 @@ function Tab1(props) {
                 <Descriptions.Item label="Subject">{props.details.subject.topic}</Descriptions.Item>
                 <Descriptions.Item label="Difficulty">{props.details.difficulty}</Descriptions.Item>
                 <Descriptions.Item label="No of Right Answers">{props.details.anscount}</Descriptions.Item>
+                <Descriptions.Item label="Weightage">{props.details.weightage}</Descriptions.Item>
                 <Descriptions.Item label="Created By">{props.details.createdBy.name}</Descriptions.Item>
                 <Descriptions.Item label="Created on">{moment(props.details.createdAt).format("DD/ MM/YYYY , hh:mm:ss")}</Descriptions.Item>
             </Descriptions>
@@ -94,7 +95,12 @@ function Tab2(props){
                     return(
                         <div key={i}>
                             <Row type="flex" justify="center" className="QuestionDetailsOptions">
-                                <Col span={2}><Button type="primary" shape="circle">{optn[i]}</Button></Col>
+                                <Col span={2}>
+                                    {
+                                        d.isAnswer?<Button className="green" shape="circle">{optn[i]}</Button>:<Button type="primary" shape="circle">{optn[i]}</Button>
+                                    }
+                                    
+                                </Col>
                                 {d.optimg?
                                     <Col span={6} style={{padding:'5px'}}>
                                         <img className="questionDetailsImage" src={d.optimg} />
@@ -107,7 +113,6 @@ function Tab2(props){
                                 :
                                     <Col span={20}>{d.optbody}</Col>
                                 }
-                                <Col offset={1} span={1}><Checkbox disabled={true} checked={d.isAnswer}/></Col>
                             </Row>
                            
                         </div>

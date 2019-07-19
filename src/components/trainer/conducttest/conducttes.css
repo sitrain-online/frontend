@@ -15,3 +15,7 @@
 .reload-button{
     margin-bottom: 20px;
 }
+.green{
+    background: rgb(16, 143, 16);
+    color: #fff
+}

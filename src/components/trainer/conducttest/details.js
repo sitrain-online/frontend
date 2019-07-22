@@ -66,6 +66,27 @@ class TestDetails extends React.Component {
         })
     }
 
+    endTestByTrainee = ()=>{
+        SecurePost({
+            url:`${apis.END_TEST_BY_TRAINER}`,
+            data:{
+                id:this.props.conduct.id
+            }
+        }).then((response)=>{
+            console.log(response);
+            if(response.data.success){
+                this.props.changeTestStatus(response.data.data);
+                Alert('success','Success!','test has begin');
+            }
+            else{
+                Alert('error','Error!',response.data.message)
+            }
+        }).catch((error)=>{
+            console.log(error);
+            Alert('error','Error!','Server Error')
+        }) 
+    }
+
 
     getCandidates = ()=>{
         SecurePost({
@@ -88,7 +109,7 @@ class TestDetails extends React.Component {
                     <Descriptions.Item span={1} label="Test Id">{this.props.conduct.id}</Descriptions.Item>
                     <Descriptions.Item span={3} label="Registration Link"><Input disabled={true} value={this.props.conduct.testRegisterLink} addonAfter={<CopyToClipboard text={this.props.conduct.testRegisterLink} onCopy={()=>message.success('Link Copied to clipboard')}><Icon type="copy"/></CopyToClipboard>}/></Descriptions.Item>
                     <Descriptions.Item span={1} label={this.props.conduct.basictestdetails.isRegistrationavailable?"Registration Open":"Registration Closed"}><Button disabled={this.props.conduct.basictestdetails.testbegins} onClick={()=>{this.changeRegistrationStatus(!this.props.conduct.basictestdetails.isRegistrationavailable)}} type={this.props.conduct.basictestdetails.isRegistrationavailable?"danger":"primary"}>{this.props.conduct.basictestdetails.isRegistrationavailable?"Stop Registration":"Open Registration"}</Button></Descriptions.Item>
-                    <Descriptions.Item span={1} label={this.props.conduct.basictestdetails.testbegins?"Test on Progress":"Test has not started yet"}><Button onClick={()=>{this.changeTestStatus()}} type={this.props.conduct.basictestdetails.testbegins?"danger":"primary"}>{this.props.conduct.basictestdetails.testbegins?"Stop Test":"Start Test"}</Button></Descriptions.Item>
+                    <Descriptions.Item span={3} label={this.props.conduct.basictestdetails.testbegins?"Test on Progress":"Test has not started yet"}><Button  disabled={this.props.conduct.basictestdetails.testbegins} onClick={()=>{this.changeTestStatus()}} type={"primary"}>Start Test</Button><Button  disabled={!this.props.conduct.basictestdetails.testbegins} onClick={()=>{this.endTestByTrainee()}} type={"danger"}>End Test</Button></Descriptions.Item>
                 </Descriptions>            
             </div>
         )

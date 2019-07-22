@@ -15,7 +15,7 @@ class Question extends Component {
             <div className="question-holder">
                 <div className="single-question-container">
                     {this.props.trainee.answers.length>0 && this.props.trainee.questions.length>0 ?
-                        <SingleQuestion key={this.props.trainee.activeQuestionIndex} />:null
+                        <SingleQuestion  key={this.props.trainee.activeQuestionIndex} />:null
                     }
                     
                 </div>

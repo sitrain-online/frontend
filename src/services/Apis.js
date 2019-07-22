@@ -31,7 +31,10 @@ const apis={
     FETCH_TRAINEE_TEST_QUESTION:'/api/v1/trainee/paper/questions',
     FETCH_TRAINEE_TEST_ANSWERSHEET:'/api/v1/trainee/chosen/options',
     UPDATE_ANSWERS:'/api/v1/trainee/update/answer',
-    END_TEST : '/api/v1/trainee/end/test'
+    END_TEST : '/api/v1/trainee/end/test',
+    FETCH_OWN_RESULT:'/api/v1/final/results',
+    FETCH_SINGLE_QUESTION_BY_TRAINEE:'/api/v1/trainee/get/question',
+    END_TEST_BY_TRAINER:'/api/v1/test/end'
 }
 
 

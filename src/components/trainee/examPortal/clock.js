@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import {LocaltestDone} from '../../../actions/traineeAction';
+import {LocaltestDone,fetchTestdata} from '../../../actions/traineeAction';
 import './portal.css';
+import apis from '../../../services/Apis';
+import { Post } from '../../../services/axiosCall';
+import Alert from '../../common/alert';
 
 class Clock extends Component {
 
@@ -16,6 +19,25 @@ class Clock extends Component {
         this.clockF(); 
     }
 
+    endTest =()=>{
+        Post({
+            url:`${apis.END_TEST}`,
+            data:{
+                testid: this.props.trainee.testid,
+                userid:this.props.trainee.traineeid
+            }
+        }).then((response)=>{
+            if(response.data.success){
+                this.props.fetchTestdata(this.props.trainee.testid,this.props.trainee.traineeid)
+            }
+            else{
+                return Alert('error','Error!',response.data.message);
+            }
+        }).catch((error)=>{
+            return Alert('error','Error!','Error');
+        })
+    }
+
 
     clockF = ()=>{
         let c = setInterval(()=>{
@@ -24,7 +46,7 @@ class Clock extends Component {
             let s = this.state.localSeconds;
             if(l==0 && s==1){
                 clearInterval(c);
-                this.props.LocaltestDone();
+                this.endTest();
             }
             else{
                 if(s==0){
@@ -61,5 +83,5 @@ const mapStateToProps = state => ({
 
 
 export default connect(mapStateToProps,{
-    LocaltestDone
+    LocaltestDone,fetchTestdata
 })(Clock);

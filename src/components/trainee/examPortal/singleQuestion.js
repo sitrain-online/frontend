@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import Alert from '../../common/alert';
 import apis from '../../../services/Apis';
-import { SecurePost,Post } from '../../../services/axiosCall';
+import { Post } from '../../../services/axiosCall';
 import { Icon,Button,Row,Col,Radio,Checkbox  } from 'antd';
 import { switchQuestion,updateIsMarked, fetchTestdata } from '../../../actions/traineeAction';
 import './portal.css';
@@ -33,8 +33,8 @@ class SingleQuestion extends React.Component{
         this.setState((PState,Pprops)=>{
             let t=0;
             var s = PState.options.map((d,i)=>{
-                for(var i=0;i<PState.answers.length;i++){
-                    if(PState.answers[i]===d._id){
+                for(var ii=0;ii<PState.answers.length;ii++){
+                    if(PState.answers[ii]===d._id){
                         t+=1;
                         return({
                             ...d,

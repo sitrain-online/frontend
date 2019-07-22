@@ -142,7 +142,7 @@ class TraineeRegisterForm extends Component {
                                             }],
                                         })(<Input addonBefore={prefixSelector} min={10} max={10} />)}
                                     </Form.Item>
-                                    <Form.Item label="organisation" hasFeedback>
+                                    <Form.Item label="Organisation" hasFeedback>
                                         {getFieldDecorator('organisation', {
                                             rules: [{ 
                                                     required: true, 

@@ -2,8 +2,10 @@ const initialState = {
     id : null,
     testRegisterLink:'',
     basictestdetails:{
-        isRegistrationavailable:null,
-        testbegins:false
+        isRegistrationavailable:false,
+        testbegins:false,
+        testconducted:false,
+        isResultgenerated:false
     },
     registeredCandidates:[],
     questionsOfTest:[]

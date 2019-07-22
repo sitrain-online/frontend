@@ -50,15 +50,7 @@ class ConductTestS extends Component {
                         </div>
                     </div>:
                     <div>
-                        <TestDetails/>
-                        <Tabs defaultActiveKey="1" style={{marginTop:'20px'}}>
-                            <TabPane tab={<span><Icon type="user" />Registered Trainee</span>} key="1">
-                                <Candidates />
-                            </TabPane>
-                            <TabPane tab={<span><Icon type="question-circle" />Questions</span>} key="2">
-                                <Questions id={this.props.conduct.id} questionsOfTest={this.props.conduct.questionsOfTest} updateQuestiosnTest={this.props.updateQuestiosnTest}  />
-                            </TabPane>
-                        </Tabs>
+                        <CC key={this.props.conduct.basictestdetails.testconducted} />
                     </div>}
                 </div>
             )
@@ -67,10 +59,55 @@ class ConductTestS extends Component {
 }
 
 
+
+
+class C extends Component {
+    constructor(props){
+        super(props);
+    }
+    render() {
+        console.log(this.props.conduct.basictestdetails.testconducted);
+        if(this.props.conduct.basictestdetails.testconducted){
+            return(
+                <div className="reasendmail-container-register">
+                    <Title level={4}>The Test has ended! Go to all tests to check the results</Title>    
+                </div>
+            )
+        }
+        else{
+            return (
+                <div>
+                    <TestDetails/>
+                    <Tabs defaultActiveKey="1" style={{marginTop:'20px'}}>
+                        <TabPane tab={<span><Icon type="user" />Registered Trainee</span>} key="1">
+                            <Candidates />
+                        </TabPane>
+                        <TabPane tab={<span><Icon type="question-circle" />Questions</span>} key="2">
+                            <Questions id={this.props.conduct.id} questionsOfTest={this.props.conduct.questionsOfTest} updateQuestiosnTest={this.props.updateQuestiosnTest}  />
+                        </TabPane>
+                    </Tabs>
+                </div>
+            )
+        }
+        
+    }
+}
+
+
+
+
 const mapStateToProps = state => ({
     trainer : state.trainer,
     conduct : state.conduct
 });
+
+
+let CC=connect(mapStateToProps,{
+    changeConducttestId,
+    updateCandidatesTest,
+    updateQuestiosnTest
+})(C);
+
 
 export default connect(mapStateToProps,{
     changeConducttestId,

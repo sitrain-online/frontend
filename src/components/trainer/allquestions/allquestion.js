@@ -190,7 +190,7 @@ class AllQuestions extends Component {
                   icon={<Icon type="delete" style={{ color: 'red' }} />}
                 >
                   <Button type="danger" shape="circle" icon="delete" />
-                </Popconfirm>,
+                </Popconfirm>
             </span>
           ),
         },
@@ -234,7 +234,7 @@ class AllQuestions extends Component {
                 pagination={{ pageSize: 5 }}
                 loading={this.props.trainer.QuestionTableLoading}
                 rowKey="_id" 
-              />;
+              />
               <Modal
                 visible={this.props.trainer.NewQuestionmodalOpened}
                 title="New Question"

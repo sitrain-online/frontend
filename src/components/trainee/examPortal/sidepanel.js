@@ -21,6 +21,7 @@ class Sidepanel extends React.Component {
             }
         }).then((response)=>{
             if(response.data.success){
+                
                 this.props.fetchTestdata(this.props.trainee.testid,this.props.trainee.traineeid)
             }
             else{
@@ -30,6 +31,8 @@ class Sidepanel extends React.Component {
             return Alert('error','Error!','Error');
         })
     }
+
+
 
     render(){
         return (
@@ -44,7 +47,7 @@ class Sidepanel extends React.Component {
                         okText="Yes"
                         cancelText="No"
                     >
-                        <Button icon="warning" type="danger">End Test</Button>
+                        <Button type="danger">End Test</Button>
                     </Popconfirm>
                 </div>
                 

@@ -211,4 +211,10 @@ export const updateIsMarked = (d1)=>{
     }
 }
 
+export const FeedbackStatus = (s)=>{
+    return{
+        type:'SET_HAS_GIVEN_FEEDBACK',
+        payload:s
+    }
+}
 

@@ -70,7 +70,7 @@ class C extends Component {
         if(this.props.conduct.basictestdetails.testconducted){
             return(
                 <div className="reasendmail-container-register">
-                    <Title level={4}>The Test has ended! Go to all tests to check the results</Title>    
+                    <Title style={{color:'#fff'}} level={4}>The Test has ended! Go to all tests to check the results</Title>    
                 </div>
             )
         }

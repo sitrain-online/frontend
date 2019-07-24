@@ -55,7 +55,7 @@ class TestDetails extends React.Component {
             console.log(response);
             if(response.data.success){
                 this.props.changeTestStatus(response.data.data);
-                Alert('success','Success!','test has begin');
+                Alert('success','Success!','Test has begin');
             }
             else{
                 Alert('error','Error!',response.data.message)
@@ -76,7 +76,7 @@ class TestDetails extends React.Component {
             console.log(response);
             if(response.data.success){
                 this.props.changeTestStatus(response.data.data);
-                Alert('success','Success!','test has ended');
+                Alert('success','Success!','Test has ended');
             }
             else{
                 Alert('error','Error!',response.data.message)

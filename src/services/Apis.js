@@ -17,7 +17,7 @@ const apis={
     FILE_UPLOAD:'/api/v1/upload',
     CREATE_TEST : '/api/v1/test/create',
     GET_ALL_TESTS:'/api/v1/test/details/all',
-    GET_SINGLE_TEST:'/api/v1/test/details',
+    GET_SINGLE_TEST:'/api/v1/test/trainer/details',
     REGISTER_TRAINEE_FOR_TEST:'/api/v1/trainee/enter',
     RESEND_TRAINER_REGISTRATION_LINK: '/api/v1/trainee/resend/testlink',
     GET_SINGLE_TEST_DETAILS_BASIC:'/api/v1/test/basic/details',
@@ -34,7 +34,12 @@ const apis={
     END_TEST : '/api/v1/trainee/end/test',
     FETCH_OWN_RESULT:'/api/v1/final/results',
     FETCH_SINGLE_QUESTION_BY_TRAINEE:'/api/v1/trainee/get/question',
-    END_TEST_BY_TRAINER:'/api/v1/test/end'
+    END_TEST_BY_TRAINER:'/api/v1/test/end',
+    FEEDBACK_STATUS_CHECK:'/api/v1/trainee/feedback/status',
+    GIVE_FEEDBACK:'/api/v1/trainee/feedback',
+    GET_STATS:'/api/v1/test/candidates/details',
+    GET_EXCEL:'/api/v1/trainer/result/download',
+    MAX_MARKS_FETCH:'/api/v1/test/max/marks'
 }
 
 

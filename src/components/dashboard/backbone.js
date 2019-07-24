@@ -150,11 +150,6 @@ class Dashboard extends React.Component{
                             />
                         <ul className="user-options-list">
                             <li>
-                                <Badge count={1} size="large" className="user-image-container">
-                                    <Avatar size="default" shape="circle" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style={{ backgroundColor: '#fff'}}/>
-                                </Badge>
-                            </li>
-                            <li>
                                 <Tooltip placement="bottom" title="Log Out">
                                     <Button type="primary" size="large" shape="circle" onClick={this.logOut} className="logout-button">
                                         <Icon type="logout" />

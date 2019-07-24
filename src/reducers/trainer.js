@@ -11,7 +11,6 @@ const initialState = {
     TestTableData:[],
     DataActiveTestDetails : {
         testDetailsId : null,
-        testDetails :[],
         testquestions :[]
     }
 }

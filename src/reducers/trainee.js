@@ -18,12 +18,18 @@ const initialState = {
     },
     activeQuestionIndex:0,
     questions:[],
-    answers:[]
+    answers:[],
+    hasGivenFeedBack:false
 }
 
 
 export default (state = initialState, action )=>{
     switch(action.type){
+        case 'SET_HAS_GIVEN_FEEDBACK':
+            return{
+                ...state,
+                hasGivenFeedBack:action.payload
+            }
         case 'SET_TRAINEE_TEST_DETAILS':
             return{
                 ...state,

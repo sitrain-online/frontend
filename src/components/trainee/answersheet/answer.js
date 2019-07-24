@@ -6,6 +6,8 @@ import { Post } from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
 import Alert from '../../common/alert';
 import { Typography } from 'antd';
+import Feedback from './feedback';
+import { FeedbackStatus } from '../../../actions/traineeAction'
 
 const { Title } = Typography;
 
@@ -40,7 +42,14 @@ class Answer extends React.Component{
                 id:testid
             }
         });
-        Promise.all([p1,p2]).then(d=>{
+        let p3 = Post({
+            url:`${apis.FEEDBACK_STATUS_CHECK}`,
+            data:{
+                userid:traineeid,
+                testid:testid
+            }
+        })
+        Promise.all([p1,p2,p3]).then(d=>{
             console.log(d);
             this.setState({
                 loading:false
@@ -58,6 +67,10 @@ class Answer extends React.Component{
                     data:r,
                     TotalScore:d[0].data.result.score
                 })
+                if(d[2].data.success){
+                    this.props.FeedbackStatus(d[2].data.status);
+                }
+
             }
             else{
                 Alert('error','Error!',`${d[0].data.success ? "":d[0].data.message} and ${d[1].data.success ? "":d[1].data.message}`)
@@ -177,6 +190,7 @@ class Answer extends React.Component{
                         dataSource={this.state.data} 
                         pagination={false}
                     />
+                    {this.props.trainee.hasGivenFeedBack?null:<Feedback/>}
                     <Modal
                         destroyOnClose={true}
                         width="70%"
@@ -195,6 +209,12 @@ class Answer extends React.Component{
     }
     
 }
+
+
+
+
+
+
 
 
 class SingleQuestionDetails extends React.Component{
@@ -306,4 +326,6 @@ const mapStateToProps = state => ({
     trainee : state.trainee
 });
 
-export default connect(mapStateToProps,null)(Answer);
+export default connect(mapStateToProps,{
+    FeedbackStatus
+})(Answer);

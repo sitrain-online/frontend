@@ -19,7 +19,7 @@ import {
     ChangeQuestionTableData,
     ChangeQuestionModalState
 } from '../../../actions/trainerAction';
-import { SecurePost, Get } from '../../../services/axiosCall';
+import { SecurePost } from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
 import Alert from '../../../components/common/alert';
 import auth from '../../../services/AuthServices';

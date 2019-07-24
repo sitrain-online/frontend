@@ -54,7 +54,7 @@ class BasicTestFormO extends Component {
                                 <Input placeholder="Test Title" />
                             )}
                         </Form.Item>
-                        <Form.Item label="Sebjects"  hasFeedback>
+                        <Form.Item label="Subjects"  hasFeedback>
                             {getFieldDecorator('subjects', {
                                 initialValue : this.props.test.newtestFormData.testSubject,
                                 rules: [{ required: true, message: 'Please select a test type' }],

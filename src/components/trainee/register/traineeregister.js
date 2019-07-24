@@ -179,7 +179,7 @@ class TraineeRegisterForm extends Component {
                         </Form>
                     </div>:
                     <div className="reasendmail-container-register">
-                        <Title level={4}>An email containing your test link has been sent to {this.state.user.emailid}</Title>
+                        <Title style={{color:'#fff'}} level={4}>An email containing your test link has been sent to {this.state.user.emailid}</Title>
                         <Button type="primary" onClick={this.resendMail}>Resend Mail</Button>
                     </div>}
                 </div>  

@@ -7,7 +7,8 @@ import {
     ChangeTestTableData,
     ChangeTestDetailsModalState
 } from '../../../actions/trainerAction';
-import './alltest.css'
+import './alltest.css';
+import moment from 'moment';
 
 import TestDetails from '../testdetails/testdetails';
 
@@ -94,14 +95,12 @@ class AllTests extends Component {
           title: 'Name',
           dataIndex: 'title',
           key: 'title',
-          width: '20%',
           ...this.getColumnSearchProps('title'),
         },
         {
           title: 'Type',
           dataIndex: 'type',
           key: 'type',
-          width: '20%',
           ...this.getColumnSearchProps('type'),
         },
         {
@@ -118,6 +117,17 @@ class AllTests extends Component {
                   </Tag>
                 );
               })}
+            </span>
+          )
+        },
+        {
+          title: 'Created on',
+          dataIndex: 'createdAt',
+          key: 'createdAt',
+          ...this.getColumnSearchProps('createdAt'),
+          render: tags => (
+            <span>
+              {moment(tags).format("DD/ MM/YYYY")}
             </span>
           )
         },

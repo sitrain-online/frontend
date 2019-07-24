@@ -16,16 +16,16 @@ function SelectQuestion(props){
                 <TabPane tab="Questions-Random" key="1">
                     <GeneraterandomQuestion mode="random"/>
                 </TabPane>
-                <TabPane tab="Questions-Difficulty" key="2">
-                    Coming soon!
-                </TabPane>
-                <TabPane tab="Questions-Manually" key="3">
+                <TabPane tab="Questions-Manually" key="2">
                     <GeneraterandomQuestion mode="manual" />
                 </TabPane>
             </Tabs>
-            <Button type="primary" onClick={()=>props.changeStep(2)}>
-                Next
-            </Button>
+            <div style={{width:'100%',padding:'10px'}}>
+                <Button style={{float:'right'}} type="primary" onClick={()=>props.changeStep(2)}>
+                    Next
+                </Button>
+            </div>
+            
         </div>
     )  
 }

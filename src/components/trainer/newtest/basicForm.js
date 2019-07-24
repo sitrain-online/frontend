@@ -11,17 +11,17 @@ class BasicTestFormO extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-          if (!err) {
-              console.log(values)
-            this.props.changeBasicNewTestDetails({
-                testType:values.type,
-                testTitle: values.title,
-                testDuration : values.duration,
-                OrganisationName:values.organisation,
-                testSubject:values.subjects
-            })
-            this.props.changeStep(1);
-          }
+            if (!err) {
+                console.log(values)
+                this.props.changeBasicNewTestDetails({
+                    testType:values.type,
+                    testTitle: values.title,
+                    testDuration : values.duration,
+                    OrganisationName:values.organisation,
+                    testSubject:values.subjects
+                })
+                this.props.changeStep(1);
+            }
         });
     };
 
@@ -74,7 +74,7 @@ class BasicTestFormO extends Component {
                                 </Select>
                             )}
                         </Form.Item>
-                        <Form.Item label="Test Duration (in minutes)" hasFeedback>
+                        <Form.Item label="Test Duration ( Min. test duration-60m )" hasFeedback>
                             {getFieldDecorator('duration', {
                                 initialValue : this.props.test.newtestFormData.testDuration,
                                 rules: [{ required: true, message: 'Please give test duration' }],

@@ -10,7 +10,7 @@ export const ADMIN_PERMISSIONS=[
         link : '/user/listtrainers'
     },
     {
-        display : 'All Subjects',
+        display : 'All Courses',
         icon : 'book',
         link : '/user/listsubjects' 
     }

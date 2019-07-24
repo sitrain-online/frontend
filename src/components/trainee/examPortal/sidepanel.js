@@ -47,7 +47,7 @@ class Sidepanel extends React.Component {
                         okText="Yes"
                         cancelText="No"
                     >
-                        <Button type="danger">End Test</Button>
+                        <Button type="default">End Test</Button>
                     </Popconfirm>
                 </div>
                 

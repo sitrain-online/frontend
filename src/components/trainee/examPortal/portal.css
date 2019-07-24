@@ -55,7 +55,7 @@
 
 .side-panel-in-exam-dashboard{
     /*background: rgb(65,170,200);*/
-    background: rgb(120,135,145);
+    background: #009999;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     position: fixed;
     width:20%;
@@ -78,15 +78,15 @@
 }
 .clock-wrapper{
     width:100%;
-    background: rgb(60,70,75);
+    background: rgb(255, 255, 255);
     text-align: center;
     padding:15px 10px
 }
 .clock-container{
-    font-size: 45px;
+    font-size: 35px;
     font-family: Orbitron;
     letter-spacing: 7px;
-    color: #17D4FE;
+    color: rgb(0, 0, 0);
 }
 .question-list-wrapper{
     padding:20px;
@@ -102,14 +102,14 @@
 }
 .question-holder{
     width: 80%;
-    background: rgb(205,217,225);
+    background: rgb(205, 217, 225);
     position: absolute;
     min-height: 100%;
     padding:10px;
 }
 .single-question-container{
     width:100%;
-    background: rgb(155,175,190);
+    background: rgb(255, 255, 255);
     border-radius: 5px;
     padding:30px; 
     height:1000px;  

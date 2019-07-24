@@ -53,9 +53,12 @@ class FinalQuestionView extends React.Component {
                     {this.props.test.newtestFormData.testQuestions.map((d,i)=>{
                         return <Q key={i+1} _id={d} no={i+1}/>
                     })}
-                    <Button type="primary" onClick={this.createtest}>
-                        Create Test
-                    </Button>
+                    <div style={{width:'100%',padding:'10px'}}>
+                        <Button style={{float:'right'}} type="primary" onClick={this.createtest}>
+                            Create Test
+                        </Button>
+                    </div>
+                    
                 </div>
             )
         }

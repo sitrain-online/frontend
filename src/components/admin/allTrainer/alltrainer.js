@@ -143,7 +143,7 @@ class AllTrainer extends Component {
           dataIndex: '_id',
           render: (key) => (
             <span>
-              <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Edit Details')}/>
+              <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Save Changes')}/>
                 <Divider type="vertical" />
                 <Popconfirm
                   title="Are you sure？"
@@ -153,7 +153,7 @@ class AllTrainer extends Component {
                   icon={<Icon type="delete" style={{ color: 'red' }} />}
                 >
                   <Button type="danger" shape="circle" icon="delete" />
-                </Popconfirm>,
+                </Popconfirm>
               
             </span>
           ),
@@ -178,7 +178,7 @@ class AllTrainer extends Component {
               />;
               <Modal
                 visible={this.props.admin.TrainermodalOpened}
-                title={this.props.admin.Trainermode}
+                title={false}
                 onOk={this.handleOk}
                 onCancel={this.closeModal}
                 style={{top :'20px',padding:'0px',backgroundColor:'rgb(155,175,190)'}}

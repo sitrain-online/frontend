@@ -102,7 +102,7 @@ class AllTopics extends Component {
           dataIndex: '_id',
           render: (key) => (
             <span>
-              <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Edit Topic')}/>
+              <Button type="primary" shape="circle" icon="edit" onClick={()=>this.openModal(key,'Save Changes')}/>
             </span>
           ),
         },
@@ -126,7 +126,7 @@ class AllTopics extends Component {
               />;
               <Modal
                 visible={this.props.admin.SubjectmodalOpened}
-                title={this.props.admin.Subjectmode}
+                title={false}
                 onOk={this.handleOk}
                 onCancel={this.closeModal}
                 style={{top :'20px',padding:'0px',backgroundColor:'rgb(155,175,190)'}}

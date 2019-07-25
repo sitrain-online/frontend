@@ -164,15 +164,7 @@ class AllQuestions extends Component {
           key: 'createdBy.name',
           width: '15%'
         },
-        {
-          title: 'Difficulty Index',
-          dataIndex: 'difficulty',
-          key: 'difficulty',
-          width: '5%',
-          ...this.getColumnSearchProps('difficulty'),
-          sorter: (a, b) => a.difficulty - b.difficulty,
-          defaultSortOrder: 'descend'
-        },
+        
         {
           title: 'Action',
           key: '_id',

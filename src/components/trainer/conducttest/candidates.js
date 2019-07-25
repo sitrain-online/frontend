@@ -18,7 +18,8 @@ class Candidates extends Component {
         super(props);
         this.state={
             loading:false,
-            searchText: ''
+            searchText: '',
+            mainlink:''
         }
     }
 
@@ -87,7 +88,13 @@ class Candidates extends Component {
 
 
     componentDidMount(){
-        this.refreshUserList(); 
+      var link = window.location.href.split('/').splice(0,3);
+      var mainlink="";
+      link.forEach((d,i)=>{
+          mainlink=mainlink+d+"/"
+      });
+      this.setState({mainlink});
+      this.refreshUserList(); 
     }
 
 
@@ -145,7 +152,7 @@ class Candidates extends Component {
                 key: '_id',
                 dataIndex: '_id',
                 render: id => (
-                    <Input disabled={true} value={`${apis.BASE_LOCAL_URL}/trainee/taketest?testid=${this.props.conduct.id}&traineeid=${id}`} addonAfter={<CopyToClipboard text={`${apis.BASE_LOCAL_URL}/trainee/taketest?testid=${this.props.conduct.id}&traineeid=${id}`} onCopy={()=>message.success('Link Copied to clipboard')}><Icon type="copy"/></CopyToClipboard>}/>
+                  <Input disabled={true} value={`${this.state.mainlink}trainee/taketest?testid=${this.props.conduct.id}&traineeid=${id}`} addonAfter={<CopyToClipboard text={`${this.state.mainlink}trainee/taketest?testid=${this.props.conduct.id}&traineeid=${id}`} onCopy={()=>message.success('Link Copied to clipboard')}><Icon type="copy"/></CopyToClipboard>}/>
                 ),
             }
         ];

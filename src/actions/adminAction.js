@@ -3,7 +3,7 @@ import Alert from '../components/common/alert';
 import { SecureGet } from '../services/axiosCall';
 
 export const ChangeTrainerModalState = (d1,d2,d3)=> dispatch =>{
-    if(d3==='Edit Details'){
+    if(d3==='Save Changes'){
         SecureGet({
             url : `${apis.GET_SINGLE_TRAINER_DETAILS}/${d2}`
         }).then((response)=>{
@@ -13,7 +13,7 @@ export const ChangeTrainerModalState = (d1,d2,d3)=> dispatch =>{
                     type : 'CHANGE_TRAINER_MODAL_STATE',
                     payload1 : true,
                     payload2 : d2,
-                    payload3 : 'Edit Details',
+                    payload3 : 'Save Changes',
                     payload4: {
                         ...response.data.data[0],
                         contact :response.data.data[0].contact.slice(3),
@@ -98,7 +98,7 @@ export const ChangeTrainerTableData = ()=> dispatch =>{
 }
 
 export const ChangeSubjectModalState = (d1,d2,d3)=> dispatch =>{
-    if(d3==='Edit Topic'){
+    if(d3==='Save Changes'){
         SecureGet({
             url : `${apis.GET_SINGLE_SUBJECT_DETAILS}/${d2}`
         }).then((response)=>{
@@ -107,7 +107,7 @@ export const ChangeSubjectModalState = (d1,d2,d3)=> dispatch =>{
                     type : 'CHANGE_SUBJECT_MODAL_STATE',
                     payload1 : true,
                     payload2 : d2,
-                    payload3 : 'Edit Details',
+                    payload3 : 'Save Changes',
                     payload4: response.data.data[0]
                 })
             }

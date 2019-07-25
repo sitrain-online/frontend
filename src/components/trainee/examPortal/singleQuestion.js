@@ -175,23 +175,23 @@ class SingleQuestion extends React.Component{
                 <div className="Question-single-container">
                     <Row>
                         <Col span={2}>
-                            <Button style={{background:'rgb(120,135,145)',color:'#fff'}} shape="circle">{this.props.trainee.activeQuestionIndex+1}</Button>
+                            <Button style={{background:'#009999',color:'#fff'}} shape="circle">{this.props.trainee.activeQuestionIndex+1}</Button>
                         </Col>
                         <Col span={8} offset={14}>
                             <Radio.Group  style={{float:'right'}}>
-                                <Radio.Button style={{background:'rgb(120,135,145)',color:'#fff'}}>{this.props.trainee.questions[this.props.trainee.activeQuestionIndex].anscount===1?"Single answer type":"Multiple answer type"}</Radio.Button>
-                                <Radio.Button style={{background:'rgb(120,135,145)',color:'#fff'}}>Marks : {this.props.trainee.questions[this.props.trainee.activeQuestionIndex].weightage}</Radio.Button>
+                                <Radio.Button style={{background:'#009999',color:'#fff'}}>{this.props.trainee.questions[this.props.trainee.activeQuestionIndex].anscount===1?"Single answer type":"Multiple answer type"}</Radio.Button>
+                                <Radio.Button style={{background:'#009999',color:'#fff'}}>Marks : {this.props.trainee.questions[this.props.trainee.activeQuestionIndex].weightage}</Radio.Button>
                             </Radio.Group>
                         </Col>
                     </Row>
                     <div className="Question-single-body-holder">
                         <div>
-                            <h3 style={{color:'#fff',fontFamily:"'Montserrat', sans-serif"}}>{this.props.trainee.questions[this.props.trainee.activeQuestionIndex].body}</h3>
+                            <h3 style={{fontFamily:"'Montserrat', sans-serif"}}>{this.props.trainee.questions[this.props.trainee.activeQuestionIndex].body}</h3>
                         </div>
                         
                         {this.props.trainee.questions[this.props.trainee.activeQuestionIndex].quesimg?
                             <div className="Single-question-body-image-container">
-                                <img alt="Unable to load image" src={this.props.trainee.questions[this.props.trainee.activeQuestionIndex].quesimg} className="Single-question-body-image"/>
+                                <img alt="Unable to load image" src={this.props.trainee.questions[this.props.trainee.activeQuestionIndex].quesimg} className="Single-question-body-image" alt="question image"/>
                             </div>:null
                         }
                     </div>
@@ -202,12 +202,11 @@ class SingleQuestion extends React.Component{
                                     <Col span={12} key={i} className="Single-option">
                                         <Row>
                                             <Col span={2} style={{textAlign:'center'}}>
-                                            <Button style={{background:'rgb(120,135,145)',color:'#fff'}} shape="circle">{opts[i]}</Button>
+                                                <Button style={{background:'#009999',color:'#fff'}} shape="circle">{opts[i]}</Button>
                                                 <Checkbox checked={d.checked} onChange={(e)=>{this.onAnswerChange(i,e.target.checked,d._id)}} />
-
                                             </Col>
                                             <Col span={22} style={{padding:'10px'}}>
-                                                {d.optbody}
+                                                <h3 style={{fontFamily:"'Montserrat', sans-serif"}}>{d.optbody}</h3>
                                                 <div className="option-image-in-exam-panel-holder">
                                                     {d.optimg?<img className="option-image-in-exam-panel" src={d.optimg} alt="Unable to load image"/>:null}
                                                 </div>
@@ -224,7 +223,7 @@ class SingleQuestion extends React.Component{
                         {this.props.trainee.activeQuestionIndex===0?
                             null
                             :
-                            <Button type="primary" onClick={this.previous}>
+                            <Button style={{background:'#009999',color:'#fff'}} onClick={this.previous}>
                                 <Icon type="left" />
                                 Previous
                             </Button>
@@ -236,13 +235,13 @@ class SingleQuestion extends React.Component{
                         {this.props.trainee.activeQuestionIndex===this.props.trainee.questions.length-1?
                             null
                             :
-                            <Button type="primary" onClick={this.next}>
+                            <Button style={{background:'#009999',color:'#fff'}} onClick={this.next}>
                                 {this.state.AnswerSelected?"Save & Next": "Next"}
                                 <Icon type="right" />
                             </Button>
                         }
                         {this.props.trainee.activeQuestionIndex===this.props.trainee.questions.length-1 && this.state.AnswerSelected?
-                            <Button type="primary" onClick={()=>{this.SaveTocloud()}}>
+                            <Button style={{background:'#009999',color:'#fff'}} onClick={()=>{this.SaveTocloud()}}>
                                 Save
                                 <Icon type="right" />
                             </Button>:null

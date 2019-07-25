@@ -5,6 +5,8 @@ import { Get, Post} from './axiosCall';
 class AuthService{
     constructor(){
         this.token=null;
+        console.log(apis.BASE);
+        console.log(apis.BASE_LOCAL_URL);
     }
     
     retriveToken = ()=>{

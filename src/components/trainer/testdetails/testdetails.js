@@ -11,6 +11,7 @@ import  Alert  from '../../common/alert';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Stats from './stats';
 import Trainee from './trainee';
+import FeedBacks from './feedbacks'
 const { TabPane } = Tabs;
 
 
@@ -24,7 +25,8 @@ class TestDetails extends Component {
             file:null,
             loading:true,
             maxMarks:0,
-            mainlink:''
+            mainlink:'',
+            feedbacks:[]
         }
         
     }
@@ -64,16 +66,22 @@ class TestDetails extends Component {
                 testid:this.state.id
             }
         })
-        
-        Promise.all([p1,p2,p3,p4]).then((response)=>{
+        var p5=SecurePost({
+            url:apis.GET_FEEDBACKS,
+            data:{
+                testid:this.state.id
+            }
+        })
+        Promise.all([p1,p2,p3,p4,p5]).then((response)=>{
             console.log(response)
-            if(response[0].data.success && response[1].data.success && response[2].data.success && response[3].data.success){
+            if(response[0].data.success && response[1].data.success && response[2].data.success && response[3].data.success&& response[4].data.success){
                 this.setState({
                     testdetails:response[0].data.data,
                     stats:response[1].data.data,
                     file:response[2].data.file,
                     maxMarks:response[3].data.data,
-                    loading:false
+                    loading:false,
+                    feedbacks:response[4].data.data
                 })
             }
             else{
@@ -132,6 +140,11 @@ class TestDetails extends Component {
                         {testdetails.testconducted?
                             <TabPane tab={ <span><Icon type="pie-chart" />Statistics</span> } key="4">
                                 <Stats id={this.state.id} stats={this.state.stats} file={this.state.file} maxmMarks={this.state.maxMarks}/>
+                            </TabPane>
+                        :null}
+                        {testdetails.testconducted?
+                            <TabPane tab={ <span><Icon type="message" />Feedbacks</span> } key="5">
+                               <FeedBacks feedbacks={this.state.feedbacks}/>
                             </TabPane>
                         :null}
                     </Tabs>

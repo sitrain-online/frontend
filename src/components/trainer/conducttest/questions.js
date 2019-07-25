@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import {updateQuestiosnTest } from '../../../actions/conductTest';
-import { connect } from 'react-redux';
 import apis from '../../../services/Apis';
 import { SecurePost } from '../../../services/axiosCall';
 import Alert from '../../common/alert';
-import {Typography,Button,Row,Col  } from 'antd';
+import {Button,Row,Col  } from 'antd';
 import './conducttes.css';
 
 
@@ -64,7 +62,7 @@ export default class Questions extends Component {
                                         <Button type="primary" shape="circle" >{i+1}</Button>
                                     </Col>
                                     <Col span={d.quesimg?6:0}>
-                                        <img src={d.quesimg} style={{width:'100%'}}/>
+                                        <img alt="unable to load" src={d.quesimg} style={{width:'100%'}}/>
                                     </Col>
                                     <Col span={d.quesimg?16:22} style={{padding:'10px'}}>
                                         <b>{d.body}</b>
@@ -84,7 +82,7 @@ export default class Questions extends Component {
                                                             }
                                                             </Col>
                                                             <Col offset={1} span={dd.optimg?8:0}>
-                                                                <img src={dd.optimg} style={{width:'100%'}} />
+                                                                <img alt="unable to load" src={dd.optimg} style={{width:'100%'}} />
                                                             </Col>
                                                             <Col offset={1} span={dd.optimg?12:21}>
                                                                 <p>{dd.optbody}</p>

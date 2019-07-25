@@ -1,6 +1,6 @@
 import React from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import { Input,Button, Typography,Descriptions, Icon,message   } from 'antd';
+import { Input,Button,Descriptions, Icon,message   } from 'antd';
 import {changeTestRegisterLink,updateCurrentTestBasicDetails,changeTestRegisterStatus,changeTestStatus,updateCandidatesTest} from '../../../actions/conductTest';
 import { connect } from 'react-redux';
 import { SecurePost } from '../../../services/axiosCall';
@@ -8,9 +8,6 @@ import apis from '../../../services/Apis';
 import Alert from '../../common/alert';
 
 class TestDetails extends React.Component {
-    constructor(props){
-        super(props);
-    }
 
     componentDidMount(){
         var link = window.location.href.split('/').splice(0,3);

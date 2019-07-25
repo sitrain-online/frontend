@@ -2,11 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Form, InputNumber , Input, Button,Select  } from 'antd';
 import { changeStep,changeBasicNewTestDetails } from '../../../actions/testAction';
+import { SecurePost } from '../../../services/axiosCall';
 import './newtest.css';
+import apis from '../../../services/Apis'
 const { Option } = Select;
 
 
 class BasicTestFormO extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            checkingName:""
+        }
+    }
 
     handleSubmit = e => {
         e.preventDefault();
@@ -23,6 +31,51 @@ class BasicTestFormO extends Component {
                 this.props.changeStep(1);
             }
         });
+    };
+
+    validateTestName = (rule, value, callback) => {
+        if(value.length>=5){
+            this.setState({
+                checkingName:"validating"
+            })
+            SecurePost({
+                url:apis.CHECK_TEST_NAME,
+                data:{
+                    testname:value
+                }
+            }).then((data)=>{
+                console.log(data);
+                if(data.data.success){
+                    if(data.data.can_use){
+                        this.setState({
+                            checkingName:"success"
+                        })
+                        callback();
+                    }
+                    else{
+                        this.setState({
+                            checkingName:"error"
+                        })
+                        callback('Another test exist with same name.');
+                    }
+                }
+                else{
+                    this.setState({
+                        checkingName:"success"
+                    })
+                    callback()
+                }
+            }).catch((ee)=>{
+                console.log(ee);
+                this.setState({
+                    checkingName:"success"
+                })
+                callback()
+            })
+        }
+        else{
+            callback();
+        }        
     };
 
 
@@ -45,10 +98,14 @@ class BasicTestFormO extends Component {
                                 </Select>
                             )}
                         </Form.Item>
-                        <Form.Item label="Test Title"  hasFeedback>
+                        <Form.Item label="Test Title"  hasFeedback validateStatus={this.state.checkingName}>
                             {getFieldDecorator('title', {
                                 initialValue : this.props.test.newtestFormData.testTitle,
-                                rules: [{ required: true, message: 'Please give the test title' }],
+                                rules: [
+                                    { required: true, message: 'Please give the test title' },
+                                    { min:5, message: 'Title should be atleast 5 character long' },
+                                    { validator: this.validateTestName }
+                                ],
                                 
                             })(
                                 <Input placeholder="Test Title" />

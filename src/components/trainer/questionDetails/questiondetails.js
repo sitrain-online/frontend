@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Skeleton,Row, Col, Icon, Tabs,Descriptions,Button,Checkbox,Divider    } from 'antd';
+import { Skeleton,Row, Col, Icon, Tabs,Descriptions,Button    } from 'antd';
 import './questiondetails.css';
 import apis from '../../../services/Apis';
 import { SecureGet } from '../../../services/axiosCall';
@@ -86,7 +86,7 @@ function Tab2(props){
             </div>
             {Optiondata.quesimg?
                 <div className="questionDetailsImageContainer">
-                    <img className="questionDetailsImage" src={Optiondata.quesimg} />  
+                    <img alt="unable to load" className="questionDetailsImage" src={Optiondata.quesimg} />  
                 </div>
                 : null
             }
@@ -103,7 +103,7 @@ function Tab2(props){
                                 </Col>
                                 {d.optimg?
                                     <Col span={6} style={{padding:'5px'}}>
-                                        <img className="questionDetailsImage" src={d.optimg} />
+                                        <img alt="unable to load" className="questionDetailsImage" src={d.optimg} />
                                     </Col>
                                 :
                                     null

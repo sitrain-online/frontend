@@ -62,9 +62,6 @@ class ConductTestS extends Component {
 
 
 class C extends Component {
-    constructor(props){
-        super(props);
-    }
     render() {
         console.log(this.props.conduct.basictestdetails.testconducted);
         if(this.props.conduct.basictestdetails.testconducted){

@@ -108,8 +108,8 @@ export default class Stats extends Component {
             datasets:[{
                 label: 'Pass/Fail',
                 data: this.state.passData,
-                backgroundColor:[this.state.bgColor1[0],this.state.bgColor1[1]],
-                borderColor:[this.state.borcolor1[0],this.state.borcolor1[1]],
+                backgroundColor:[bgcolor[0],bgcolor[1]],
+                borderColor:[bordercolor[0],bordercolor[1]],
                 borderWidth: 1
             }]
         }
@@ -118,8 +118,8 @@ export default class Stats extends Component {
             datasets:[{
                 label: 'Percentage wise category',
                 data: this.state.statdata,
-                backgroundColor:[this.state.bgColor1[0],this.state.bgColor1[1],this.state.bgColor1[2],this.state.bgColor1[3],this.state.bgColor1[4],this.state.bgColor1[5]],
-                borderColor:[this.state.borcolor1[0],this.state.borcolor1[1],this.state.borcolor1[2],this.state.borcolor1[3],this.state.borcolor1[4],this.state.borcolor1[5]],
+                backgroundColor:[bgcolor[0],bgcolor[1],bgcolor[2],bgcolor[3],bgcolor[4],bgcolor[5]],
+                borderColor:[bordercolor[0],bordercolor[1],bordercolor[2],bordercolor[3],bordercolor[4],bordercolor[5]],
                 borderWidth: 1
             }]
         }
@@ -149,7 +149,7 @@ export default class Stats extends Component {
                 <div style={{marginTop:'10px'}}>
                     <Card >
                         <Row>
-                            <Col span="12">
+                            <Col span={12}>
                                 <div style={{padding:'10px 10px 0px 10px'}}>
                                     <b>Pass/Fail.</b>
                                 </div>
@@ -157,7 +157,7 @@ export default class Stats extends Component {
                                     <Doughnut data={DoughNutData1} />
                                 </div>
                             </Col>
-                            <Col span="12">
+                            <Col span={12}>
                                 <div style={{padding:'10px 10px 0px 10px'}}>
                                     <b>Percentage wise category.</b>
                                 </div>

@@ -148,12 +148,12 @@ class SingleQuestion extends React.Component{
             }
         }
         else{
-            var op1 = [...this.state.options];
+            op1 = [...this.state.options];
             op1[d1]={
                 ...op1[d1],
                 checked:false
             }
-            var op2 = [...this.state.answers]
+            op2 = [...this.state.answers]
             var index=op2.indexOf(d3);
             op2.splice(index, 1)
             this.setState((PState,Pprops)=>{
@@ -191,7 +191,7 @@ class SingleQuestion extends React.Component{
                         
                         {this.props.trainee.questions[this.props.trainee.activeQuestionIndex].quesimg?
                             <div className="Single-question-body-image-container">
-                                <img alt="Unable to load image" src={this.props.trainee.questions[this.props.trainee.activeQuestionIndex].quesimg} className="Single-question-body-image" alt="question image"/>
+                                <img alt="Unable to load" src={this.props.trainee.questions[this.props.trainee.activeQuestionIndex].quesimg} className="Single-question-body-image"/>
                             </div>:null
                         }
                     </div>
@@ -208,7 +208,7 @@ class SingleQuestion extends React.Component{
                                             <Col span={22} style={{padding:'10px'}}>
                                                 <h3 style={{fontFamily:"'Montserrat', sans-serif"}}>{d.optbody}</h3>
                                                 <div className="option-image-in-exam-panel-holder">
-                                                    {d.optimg?<img className="option-image-in-exam-panel" src={d.optimg} alt="Unable to load image"/>:null}
+                                                    {d.optimg?<img alt="Unable to load" className="option-image-in-exam-panel" src={d.optimg}/>:null}
                                                 </div>
                                             </Col>
                                         </Row>

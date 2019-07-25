@@ -204,7 +204,7 @@ class SingleQuestionDetails extends React.Component{
                         </div>
                         {Optiondata.quesimg?
                             <div className="questionDetailsImageContainer">
-                                <img className="questionDetailsImage" src={Optiondata.quesimg} />  
+                                <img alt="Question" className="questionDetailsImage" src={Optiondata.quesimg} />  
                             </div>
                             : null
                         }
@@ -221,7 +221,7 @@ class SingleQuestionDetails extends React.Component{
                                             </Col>
                                             {d.optimg?
                                                 <Col span={6} style={{padding:'5px'}}>
-                                                    <img className="questionDetailsImage" src={d.optimg} />
+                                                    <img alt="options" className="questionDetailsImage" src={d.optimg} />
                                                 </Col>
                                             :
                                                 null

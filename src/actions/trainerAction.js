@@ -1,6 +1,6 @@
 import apis from '../services/Apis';
 import Alert from '../components/common/alert';
-import { SecurePost,SecureGet } from '../services/axiosCall';
+import { SecurePost } from '../services/axiosCall';
 
 export const ChangeQuestionModalState = (d1)=> dispatch =>{
         dispatch({

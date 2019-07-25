@@ -91,7 +91,7 @@ function QuestionView(props) {
                 <div style={{padding:'5px 20px'}}>
                     <br/>
                     {obj[0].body}
-                    {obj[0].quesimg? <img src={obj[0].quesimg}/> : null}
+                    {obj[0].quesimg? <img alt="Question" src={obj[0].quesimg} /> : null}
                 </div>
             </div>
             <Row>
@@ -99,7 +99,7 @@ function QuestionView(props) {
                     return(
                         <Col key={i} span={12} style={{padding:'5px 20px'}}>
                             <b>{oo[i]} ) </b> {d.optbody}
-                            {d.optimg? <img src={d.optimg}/> : null}
+                            {d.optimg? <img alt="Option" src={d.optimg} /> : null}
                         </Col>
                     )
                 })}

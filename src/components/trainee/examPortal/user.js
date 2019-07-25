@@ -7,7 +7,7 @@ function Trainee(props) {
     return (
         <div className="loggedin-trainee-container">
             <div className="loggedin-trainee-inner">
-                <img src={user_icon} className="loggedin-trainee-logo"/>
+                <img alt="User Icon" src={user_icon} className="loggedin-trainee-logo"/>
                 <div className="loggedin-trainee-details-container">
                     <p>{props.trainee.traineeDetails.name}</p>
                 </div>

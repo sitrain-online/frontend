@@ -23,7 +23,8 @@ class TestDetails extends Component {
             stats:null,
             file:null,
             loading:true,
-            maxMarks:0
+            maxMarks:0,
+            mainlink:''
         }
         
     }
@@ -32,6 +33,12 @@ class TestDetails extends Component {
         console.log(key)
     }
     componentDidMount(){
+        var link = window.location.href.split('/').splice(0,3);
+        var mainlink="";
+        link.forEach((d,i)=>{
+            mainlink=mainlink+d+"/"
+        });
+        this.setState({mainlink});
         var p1 = SecurePost({
             url:`${apis.GET_SINGLE_TEST}`,
             data:{
@@ -95,7 +102,7 @@ class TestDetails extends Component {
                         <TabPane tab={ <span><Icon type="home" />Details</span> } key="1">
                             <Descriptions bordered title="" border size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
                                 <Descriptions.Item label="Test Id">{this.props.trainer.DataActiveTestDetails.testDetailsId}</Descriptions.Item>
-                                <Descriptions.Item label="Test Link"><Input disabled={true} value={`${apis.BASE_LOCAL_URL}/user/conducttest?testid=${id}`} addonAfter={<CopyToClipboard text={`${apis.BASE_LOCAL_URL}/user/conducttest?testid=${id}`} onCopy={()=>message.success('Link Copied to clipboard')}><Icon type="copy"/></CopyToClipboard>}/></Descriptions.Item>
+                                <Descriptions.Item label="Test Link"><Input disabled={true} value={`${this.state.mainlink}user/conducttest?testid=${id}`} addonAfter={<CopyToClipboard text={`${this.state.mainlink}user/conducttest?testid=${id}`} onCopy={()=>message.success('Link Copied to clipboard')}><Icon type="copy"/></CopyToClipboard>}/></Descriptions.Item>
                                 <Descriptions.Item label="Test Name">{testdetails.title}</Descriptions.Item>
                                 <Descriptions.Item label="Test Type">{testdetails.type}</Descriptions.Item>
                                 <Descriptions.Item label="Subject">

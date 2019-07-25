@@ -1,113 +1,71 @@
 import React from 'react';
 import './welcome.css';
 import { Row, Col } from 'antd';
-
-import { Steps,Button} from 'antd';
-
-const { Step } = Steps;
-const steps = [
-    {
-      title: 'Welcome Admin',
-      content: <AdminAfterLogin />
-                
-    },
-    {
-      title: 'All Trainers',
-      content: <Alltrainers /> 
-    },
-    {
-      title: 'All Subjects',
-      content: <Allsubjects />
-    },
-  ];
-
-  export default class welcome extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        current: 0,
-      };
-    }
-  
-    next() {
-      const current = this.state.current + 1;
-      this.setState({ current });
-    }
-  
-    prev() {
-      const current = this.state.current - 1;
-      this.setState({ current });
-    }
-  
-    render() {
-      const { current } = this.state;
-      return (
-        <div>
-            <Row>
-                <Col span = {4}>
-                    <div className="steps-current-instruction">
-                        <Steps current={current} direction="vertical">
-                            {steps.map(item => (
-                            <Step key={item.title} title={item.title} />
-                            ))}
-                        </Steps>
-                    </div>    
-                </Col>
-                <Col span = {20}>
-                    <div className="steps-content">{steps[current].content}</div>
-                </Col>
-            </Row>
-          
-          
-          <div className="steps-action">
-            {current < steps.length - 1 && (
-              <Button type="primary" onClick={() => this.next()}>
-                Next
-              </Button>
-            )}
-            {current > 0 && (
-              <Button style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-                Previous
-              </Button>
-            )}
-          </div>
-        </div>
-      );
-    }
-  }
+import { Button } from 'antd';
 
 
-  function AdminAfterLogin(){
-      return (
-          <div>
-              <b>Hello Admin!</b>
-              <br/>
-              For instructions on how to operate this page
-              <br/>
-              <b> Click "Next" </b>
 
-          </div>
-      )
-  }
-  function Alltrainers(){
-      return (
-          <div>
-              <b> Add Trainer </b> - Click on "Add New" button to add new trainer.
-              <br/>
-              <b> Edit Trainer's Profile </b> - Click on "Pen-Paper" icon to edit trainers' details.  
-              <br/>
-              <b>Delete Trainers' Account</b> - Click on "Bin" icon to delete trainer's account.
+export default function welcome() {  
+  return (
+    <div>
+        <h2><b>Admin Instructions</b></h2>
+        <h3>1. All Trainers</h3>
+        <h4>   List of existing trainers.</h4>
+        <ul>
+          <li>Add New - Create new trainer account.</li>
+          <li>Action - <br/> <p style={{marginBottom:'2px'}}><Button size = 'small' type="primary" shape="circle" icon="edit" /> Edit trainer details.</p><Button size = 'small' type="primary" shape="circle" icon="delete" /> Delete trainer account.</li>
+        </ul>
+        <h3>2. All Courses</h3>
+        <h4>   List of existing courses.</h4>
+        <ul>
+          <li>Add New - Create new course </li>
+          <li>Action - <br/><Button size = 'small' type="primary" shape="circle" icon="edit" /> Edit course name.</li>
+        </ul>
+        <br/>
+        <h2><b>Trainer Instructions</b></h2>
+        <h3>1. All Questions</h3>
+        <h4>   List of existing questions.</h4>
+        <ul>
+          <li>Add New - Create new question.</li>
+          <li>Action - <br/> <p style={{marginBottom:'2px'}}><Button size = 'small' type="primary" shape="circle" icon="info" />  Question details & body.</p><Button size = 'small' type="primary" shape="circle" icon="delete" /> Delete question.</li>
+        </ul>
+        <h3>2. All Tests</h3>
+        <h4>   List of existing tests</h4>
+        <ul>
+          <li>Action - <Button size = 'small' type="primary" shape="circle" icon="info" /> <ul>
+            <li>Test Details</li>
+            <li>Test Questions</li>
+            <li>Trainees - List of Registered Candidates</li>
+            <li>Statistics - <ul>
+              <li>Download excel sheet of results</li>
+              <li>Graphical representation of results</li>
+              </ul></li>
+            </ul></li>
+        </ul>
+        <h3>3. New Tests</h3>
+        <ul>
+          <li>Create new test</li>
+          <ol>
+            <li>Enter basic test details</li>
+            <li>Select Questions</li><ul>
+              <li>Questions - Random > Enter number of questions to be selected automatically and click Generate Test Paper. Click Next to proceed.</li>
+              <li>Questions - Manually > Select Questions manually . Click Next to proceed.</li>
+            </ul>
+          </ol>
+          <li>Basic test info</li>
+          <ul>
+            <li>Registration link - The link for Registration of trainee for the test.</li>
+            <li>Stop Registration - Click to disable Registration Link.</li>
+            <li>Reload - Click to get the list of registered candidates.</li>
+            <li>Start Test - Click to begin test.</li>
+            <li>End Test - Click to end test.</li>
+          </ul>
+          <p><b>NOTE-</b>A link for this test has been sent to the email id of registered trainees. Click on the link to take test.</p>
+        </ul>
 
-          </div>
-      )
-  }
-  function Allsubjects(){
-      return(
-          <div>
-              <b> Add Subject </b> - Click on "Add New" button to add new subject.
-              <br/>
-              <b> Edit Subject's Name </b> - Click on "Pen-Paper" icon to rename subject.
-          </div>
-      )
-  }
+    </div>
+  );  
+}
+
+
    
